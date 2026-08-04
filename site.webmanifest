@@ -1,0 +1,12 @@
+{
+  "name": "TAKEFRAME — Take Graphics Live",
+  "short_name": "TAKEFRAME",
+  "description": "Software-defined sports broadcast graphics for laptop and tablet operators, built for modern IP, remote and cloud-assisted production.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#061B40",
+  "theme_color": "#061B40",
+  "lang": "en",
+  "categories": ["sports", "business", "productivity", "video"]
+}
