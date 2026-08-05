@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Football player in motion</title>
+  <desc id="desc">A stylized blue football player controlling a ball, designed for the TAKEFRAME hero section.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00c8ff" stop-opacity=".28"/><stop offset="1" stop-color="#0062ff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="kit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12baff"/><stop offset="1" stop-color="#0755d8"/></linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9956f"/><stop offset="1" stop-color="#9d583d"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <ellipse cx="320" cy="555" rx="210" ry="36" fill="#00152f" opacity=".68"/>
+  <circle cx="350" cy="270" r="220" fill="url(#bg)"/>
+  <g filter="url(#glow)" opacity=".75" stroke="#00c8ff" stroke-width="7" fill="none">
+    <path d="M75 470c120-45 205-67 322-64"/><path d="M102 505c111-23 219-31 348-16"/><path d="M160 150l92 57M478 120l-72 72"/>
+  </g>
+  <g transform="translate(36 18) rotate(-5 300 300)">
+    <circle cx="314" cy="105" r="48" fill="url(#skin)"/>
+    <path d="M278 93c10-43 72-56 97-18-18-5-37-2-54 8-16 10-28 18-43 10Z" fill="#2b1712"/>
+    <path d="M279 151c58-21 117 18 123 79l-20 145-153-9 1-119c3-48 21-82 49-96Z" fill="url(#kit)"/>
+    <path d="M238 202 131 273l22 35 115-54Z" fill="url(#skin)"/>
+    <path d="M381 196 492 268l-22 37-109-58Z" fill="url(#skin)"/>
+    <path d="M251 354 181 516l55 22 91-151Z" fill="url(#skin)"/>
+    <path d="M354 368 443 503l-49 31-112-135Z" fill="url(#skin)"/>
+    <path d="M174 506c21-5 52 6 71 25l-20 27-87-12c-7-18 7-34 36-40Z" fill="#f4f7fb"/>
+    <path d="M423 493c17-5 48 6 66 24l-15 30-87-9c-9-17 4-37 36-45Z" fill="#f4f7fb"/>
+    <path d="M245 184h133l-11 41H254Z" fill="#f3f7fb" opacity=".9"/>
+    <text x="311" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#061b40">TAKEFRAME</text>
+    <path d="M275 239h67v98h-67Z" fill="#f4f7fb" opacity=".13"/>
+    <text x="309" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="78" font-weight="800" fill="#f4f7fb">10</text>
+    <path d="M236 350h146l-18 63h-119Z" fill="#061b40"/>
+    <path d="M258 408h43l-45 132h-50Z" fill="#0755d8"/><path d="M326 408h40l68 112-41 28Z" fill="#0755d8"/>
+  </g>
+  <g transform="translate(390 455)">
+    <circle r="55" fill="#f4f7fb" stroke="#061b40" stroke-width="8"/>
+    <path d="M0-23 22-7 14 20-14 20-22-7Z" fill="#061b40"/>
+    <g fill="#061b40"><path d="M0-50 17-31 0-23-17-31Z"/><path d="M45-16 31 7 22-7 28-27Z"/><path d="M28 40 14 20 31 7 49 18Z"/><path d="M-28 40-49 18-31 7-14 20Z"/><path d="M-45-16-28-27-22-7-31 7Z"/></g>
+  </g>
+</svg>
