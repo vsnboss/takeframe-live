@@ -14,6 +14,13 @@
   <link rel="stylesheet" href="/brand.css" />
   <link rel="stylesheet" href="/homepage-v3.css" />
   <link rel="stylesheet" href="/hero-player.css" />
+  <style>
+    .tf-hero::after{right:36%!important;top:68px!important;width:min(470px,34vw)!important;z-index:4!important;opacity:1!important;filter:drop-shadow(0 34px 70px rgba(0,0,0,.55)) drop-shadow(0 0 34px rgba(0,152,255,.24))!important}
+    .tf-hero-copy{position:relative;z-index:5!important}.tf-onboard{position:relative;z-index:3!important}
+    @media(max-width:1320px){.tf-hero{padding-top:145px!important}.tf-hero::after{left:50%!important;right:auto!important;top:0!important;transform:translateX(-50%)!important;width:min(400px,48vw)!important;z-index:2!important}.tf-hero-copy,.tf-onboard{z-index:3!important}}
+    @media(max-width:900px){.tf-hero{padding-top:190px!important}.tf-hero::after{width:min(360px,72vw)!important;top:8px!important}}
+    @media(max-width:620px){.tf-hero{padding-top:170px!important}.tf-hero::after{width:min(310px,82vw)!important;top:5px!important}}
+  </style>
 </head>
 <body class="tf-body">
   <svg class="tf-sprite" aria-hidden="true">
