@@ -4,107 +4,241 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="TAKEFRAME LIVE is a modern football broadcast graphics platform for browser, IP, NDI-class and cloud-assisted production." />
-  <meta name="theme-color" content="#010610" />
+  <meta name="theme-color" content="#020710" />
   <title>TAKEFRAME LIVE — Football Broadcast Graphics</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="site.css" />
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="TAKEFRAME LIVE home"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-    <nav id="main-nav" class="main-nav" aria-label="Primary navigation">
-      <a href="#product">Product</a><a href="#graphics">Graphics</a><a href="#workflow">Workflow</a><a href="#technology">Technology</a><a href="#teams">For teams</a>
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="TAKEFRAME LIVE home">
+      <img src="assets/takeframe-logo.png" alt="TAKEFRAME LIVE" />
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+      <a href="#product">Product <span>⌄</span></a>
+      <a href="#solutions">Solutions <span>⌄</span></a>
+      <a href="#graphics">Graphics <span>⌄</span></a>
+      <a href="#workflow">Workflow <span>⌄</span></a>
+      <a href="#pricing">Pricing</a>
+      <a href="#resources">Resources <span>⌄</span></a>
     </nav>
-    <div class="header-actions"><a class="button button-ghost" href="#contact">Sign in</a><a class="button button-primary" href="#contact">Book a demo</a></div>
+    <div class="top-actions">
+      <button class="button button-outline" type="button" data-open-demo>Sign in</button>
+      <button class="button button-primary" type="button" data-open-demo>Book a demo</button>
+    </div>
   </header>
 
   <main id="top">
-    <section class="hero shell">
-      <div class="hero-grid-lines" aria-hidden="true"></div>
+    <section class="hero" id="product">
+      <div class="hero-scanlines" aria-hidden="true"></div>
       <div class="hero-copy reveal">
-        <div class="status-row"><span class="live-pill"><i></i>Live production ready</span><span class="tech-pill">IP-first · Cloud-first · NDI-first</span></div>
-        <h1>Football<br>broadcast<br><em>graphics.</em></h1>
-        <p>The modern graphics platform for today’s football broadcasts. Build the match, verify the data, operate from a laptop or tablet, and publish live through modern networked workflows.</p>
+        <div class="status-row">
+          <span class="status-chip"><i></i> Live production ready</span>
+          <span class="status-chip muted">IP-first. Cloud-first. NDI-first.</span>
+        </div>
+        <h1>Football<br />broadcast<br /><em>graphics</em></h1>
+        <p class="hero-lead">The modern graphics platform built for today’s football broadcasts.</p>
+
         <div class="hero-benefits">
-          <article><span class="icon">☁</span><b>Cloud native</b><small>Scalable, secure, always available.</small></article>
-          <article><span class="icon">⌘</span><b>IP &amp; NDI delivery</b><small>Modern network production first.</small></article>
-          <article><span class="icon">ϟ</span><b>Instant playout</b><small>Preview, take and update in seconds.</small></article>
+          <article>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 35h22a8 8 0 0 0 0-16 13 13 0 0 0-25-2A9 9 0 0 0 14 35Z"/><path d="M19 22h10"/></svg>
+            <b>Cloud native</b><span>Scalable. Secure.<br />Always on.</span>
+          </article>
+          <article>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="5"/><path d="M24 5v7M24 36v7M5 24h7M36 24h7M10.5 10.5l5 5M32.5 32.5l5 5M37.5 10.5l-5 5M15.5 32.5l-5 5"/></svg>
+            <b>IP &amp; NDI delivery</b><span>Native NDI.<br />Any IP workflow.</span>
+          </article>
+          <article>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M27 3 12 27h11l-2 18 15-26H25Z"/></svg>
+            <b>Instant playout</b><span>Graphics live<br />in seconds.</span>
+          </article>
         </div>
-        <div class="hero-actions"><a class="button button-primary button-large" href="#contact">Book a demo</a><a class="button button-ghost button-large" href="#graphics">Explore features</a></div>
+
+        <div class="hero-actions">
+          <button class="button button-primary button-large" type="button" data-open-demo>Book a demo <span>→</span></button>
+          <a class="button button-outline button-large" href="#graphics">Explore features <span>›</span></a>
+        </div>
       </div>
 
-      <div class="hero-stage reveal delay-1">
-        <div class="player-glow"></div>
-        <img class="hero-player" src="/hero-player.webp" alt="Football player featured in a TAKEFRAME broadcast design" />
-        <div class="broadcast-panel">
-          <div class="panel-top"><img src="/takeframe-logo-live.png" alt="" /><span class="on-air">Live</span><small>20:47:19</small></div>
-          <div class="score-panel"><span>TFC</span><strong>2</strong><i>:</i><strong>1</strong><span>RIV</span><small>68:24</small></div>
-          <div class="data-row">
-            <div><label>Player stats</label><b>7 M. Johnson</b><small>4 shots · 87% pass accuracy</small></div>
-            <div><label>Output</label><b>Programme</b><small>IP stream active</small></div>
+      <div class="hero-player-wrap reveal delay-1" aria-hidden="true">
+        <div class="blue-smoke"></div>
+        <img class="hero-player" src="assets/hero-player.png" alt="" />
+      </div>
+
+      <div class="production-console reveal delay-2" aria-label="Interactive TAKEFRAME production interface preview">
+        <div class="console-window">
+          <div class="console-header">
+            <img src="assets/takeframe-logo.png" alt="TAKEFRAME LIVE" />
+            <div class="console-metrics"><span>CPU 18%</span><span>NET 45 Mbps</span><span>◎</span></div>
           </div>
-          <div class="preview-row"><span></span><span></span><span></span></div>
-          <div class="panel-tabs"><span>Graphics</span><span>Data</span><span>Playout</span><span>NDI output</span></div>
+
+          <div class="console-toolbar">
+            <span class="console-live">Live</span>
+            <span>20:47:19</span>
+            <span>62 FPS</span>
+            <span>GPU 18%</span>
+            <span class="console-onair">On air</span>
+          </div>
+
+          <div class="console-grid">
+            <div class="score-module">
+              <div class="club-mark red">T</div>
+              <div class="score-main"><strong>2 - 1</strong><span>TFC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68:24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RIV</span></div>
+              <div class="club-mark blue">R</div>
+            </div>
+            <div class="stadium-preview">
+              <div class="stadium-field"></div>
+              <span>PROGRAMME</span>
+            </div>
+            <div class="player-stats">
+              <small>Player stats</small>
+              <div class="player-row"><span class="avatar">7</span><b>M. Johnson</b><i>›</i></div>
+              <dl><div><dt>Shots</dt><dd>4</dd></div><div><dt>Passes to target</dt><dd>2</dd></div><div><dt>Touches</dt><dd>37</dd></div><div><dt>Pass accuracy</dt><dd>87%</dd></div><div><dt>Distance</dt><dd>9.8 km</dd></div></dl>
+            </div>
+            <div class="preview-stack">
+              <button type="button" aria-label="Select preview one"><span class="mini-pitch"></span></button>
+              <button type="button" aria-label="Select preview two"><span class="mini-pitch alt"></span></button>
+              <button type="button" aria-label="Select preview three"><span class="mini-bars"></span></button>
+            </div>
+          </div>
+
+          <div class="console-controls">
+            <button class="active" type="button">Graphics</button><button type="button">Data</button><button type="button">Playout</button><button type="button">NDI output</button>
+          </div>
         </div>
-        <div class="ndi-badge">NDI</div>
-        <div class="motion-lines"><i></i><i></i><i></i></div>
+        <div class="ndi-orb"><span>NDI</span></div>
+      </div>
+
+      <div class="hero-beams" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="score-ticker" aria-label="Live football score ticker">
+      <span class="ticker-live">Live</span>
+      <div class="ticker-window"><div class="ticker-track">
+        <span>Premier League</span><b>MCI&nbsp; 2 - 1 &nbsp;ARS</b><em>67:32</em>
+        <span>La Liga</span><b>RMA&nbsp; 1 - 0 &nbsp;BAR</b><em>55:18</em>
+        <span>Serie A</span><b>INT&nbsp; 0 - 0 &nbsp;JUV</b><em>33:10</em>
+        <span>Bundesliga</span><b>BAY&nbsp; 3 - 0 &nbsp;BVB</b><em>45:00</em>
+        <span>Premier League</span><b>MCI&nbsp; 2 - 1 &nbsp;ARS</b><em>67:32</em>
+        <span>La Liga</span><b>RMA&nbsp; 1 - 0 &nbsp;BAR</b><em>55:18</em>
+      </div></div>
+    </section>
+
+    <section id="solutions" class="feature-section shell">
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="30" rx="3"/><path d="M6 16h36M14 12h1M19 12h1"/></svg>
+          <h2>Browser<br />based</h2><p>No installs. Build, operate, and playout from any modern browser.</p><a href="#workflow">→</a>
+        </article>
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><path d="m24 5 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/><path d="m37 29 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/><path d="M8 35 35 8"/></svg>
+          <h2>Automated<br />match setup</h2><p>Auto-detect teams, players, kits and logos from trusted data sources.</p><a href="#workflow">→</a>
+        </article>
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><path d="M13 36h24a8 8 0 0 0 0-16 13 13 0 0 0-25-2A9 9 0 0 0 13 36Z"/></svg>
+          <h2>Cloud &amp; IP<br />delivery</h2><p>Distribute graphics anywhere via NDI, SRT, RTMP or Cloud.</p><a href="#workflow">→</a>
+        </article>
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><rect x="5" y="9" width="28" height="22" rx="2"/><rect x="31" y="18" width="12" height="21" rx="2"/><path d="M13 39h12M19 31v8"/></svg>
+          <h2>Operate<br />anywhere</h2><p>Full control on laptop or tablet, in-stadium or remotely.</p><a href="#workflow">→</a>
+        </article>
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><ellipse cx="24" cy="10" rx="15" ry="6"/><path d="M9 10v10c0 3 7 6 15 6s15-3 15-6V10M9 20v10c0 3 7 6 15 6s15-3 15-6V20M9 30v8c0 3 7 6 15 6s15-3 15-6v-8"/></svg>
+          <h2>Data<br />integration</h2><p>Live stats, lineups, fixtures and more. Always accurate, always live.</p><a href="#workflow">→</a>
+        </article>
+        <article class="feature-card reveal">
+          <svg viewBox="0 0 48 48"><path d="M27 3 12 27h11l-2 18 15-26H25Z"/></svg>
+          <h2>Instant<br />playout</h2><p>One-click to air. Reliable, fast and built for live.</p><a href="#workflow">→</a>
+        </article>
       </div>
     </section>
 
-    <section class="ticker"><b>Live</b><div class="ticker-track"><span>Premier League</span><strong>MCI 2–1 ARS</strong><em>67:32</em><span>La Liga</span><strong>RMA 1–0 BAR</strong><em>55:18</em><span>Serie A</span><strong>INT 0–0 JUV</strong><em>33:10</em><span>Bundesliga</span><strong>BAY 3–0 BVB</strong><em>45:00</em></div></section>
-
-    <section id="product" class="feature-grid shell">
-      <article class="feature-card reveal"><span>01</span><div class="feature-icon">▣</div><h3>Browser based</h3><p>Build, operate and publish from any modern browser without dedicated graphics hardware.</p></article>
-      <article class="feature-card reveal"><span>02</span><div class="feature-icon">✣</div><h3>Automated match setup</h3><p>Import teams, players, kits and logos from trusted sources and existing files.</p></article>
-      <article class="feature-card reveal"><span>03</span><div class="feature-icon">☁</div><h3>Cloud &amp; IP delivery</h3><p>Distribute graphics through NDI-class, SRT, RTMP and cloud-assisted workflows.</p></article>
-      <article class="feature-card reveal"><span>04</span><div class="feature-icon">▤</div><h3>Operate anywhere</h3><p>Control the show from laptop or tablet, in-stadium or remotely.</p></article>
-      <article class="feature-card reveal"><span>05</span><div class="feature-icon">◉</div><h3>Data integration</h3><p>Connect live statistics, line-ups, fixtures and external match feeds.</p></article>
-      <article class="feature-card reveal"><span>06</span><div class="feature-icon">ϟ</div><h3>Instant playout</h3><p>Preview and take approved graphics with fast, explicit live control.</p></article>
-    </section>
-
-    <section id="graphics" class="section shell">
-      <div class="section-heading reveal"><span>Graphics system</span><h2>Powerful graphics.<br><em>Made for football.</em></h2><p>One visual language across the complete match journey.</p></div>
-      <div class="graphics-grid">
-        <article class="graphic-card reveal"><div class="graphic-preview pitch"><div class="formation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><h3>Line-up graphic</h3><p>Team formations and player lists.</p></article>
-        <article class="graphic-card reveal"><div class="graphic-preview"><div class="scorebug-demo"><span>MCI</span><b>2</b><b>1</b><span>ARS</span><small>67:32 · LIVE</small></div></div><h3>Score bug</h3><p>Dynamic and data-driven scoring.</p></article>
-        <article class="graphic-card reveal"><div class="graphic-preview"><div class="lower-third-demo"><strong>7</strong><div><b>Mason Johnson</b><small>Midfielder</small></div></div></div><h3>Player lower third</h3><p>Identity, events and statistics.</p></article>
-        <article class="graphic-card reveal"><div class="graphic-preview"><div class="stats-demo"><b>Match stats</b><span>Possession <i>58%</i><i>42%</i></span><span>Shots <i>12</i><i>6</i></span><span>On target <i>5</i><i>2</i></span></div></div><h3>Match statistics</h3><p>Live numbers that tell the story.</p></article>
-        <article class="graphic-card reveal goal-card"><div class="graphic-preview goal-preview"><strong>GOAL!</strong><small>Mason Johnson · 68'</small></div><h3>Social clip card</h3><p>Publishable match moments.</p></article>
+    <section id="graphics" class="graphics-section shell">
+      <h2 class="section-title reveal">Powerful <em>graphics.</em> Made for football.</h2>
+      <div class="graphics-carousel" data-carousel>
+        <button class="carousel-arrow prev" type="button" aria-label="Previous graphics example">‹</button>
+        <div class="graphics-track">
+          <article class="graphics-card reveal">
+            <div class="card-visual lineup-visual"><span class="formation-label">Starting XI</span><div class="field-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <h3>Lineup graphic</h3><p>Team formations and player lists</p>
+          </article>
+          <article class="graphics-card reveal">
+            <div class="card-visual score-visual"><div class="demo-score"><span>MCI</span><strong>2 - 1</strong><span>ARS</span><small>67:32 <b>Live</b></small></div></div>
+            <h3>Score bug</h3><p>Dynamic &amp; data-driven score bugs</p>
+          </article>
+          <article class="graphics-card reveal">
+            <div class="card-visual player-visual"><img src="assets/hero-player.png" alt="" /><div class="player-lower"><strong>7</strong><span>Mason Johnson<small>Midfielder</small></span></div></div>
+            <h3>Player lower third</h3><p>Highlight players in style</p>
+          </article>
+          <article class="graphics-card reveal">
+            <div class="card-visual stats-visual"><div class="stats-table"><b>Match stats</b><span><i>58%</i> Possession <i>42%</i></span><span><i>12</i> Shots <i>6</i></span><span><i>5</i> Shots on target <i>2</i></span><span><i>4</i> Corners <i>1</i></span><span><i>7</i> Fouls <i>8</i></span></div></div>
+            <h3>Match stats</h3><p>Live stats that tell the story</p>
+          </article>
+          <article class="graphics-card reveal">
+            <div class="card-visual social-visual"><img src="assets/hero-player.png" alt="" /><strong>Goal!</strong><span>Mason Johnson <b>68'</b></span></div>
+            <h3>Social clip card</h3><p>Engage fans everywhere</p>
+          </article>
+        </div>
+        <button class="carousel-arrow next" type="button" aria-label="Next graphics example">›</button>
       </div>
     </section>
 
-    <section id="workflow" class="section shell workflow-section">
-      <div class="section-heading reveal"><span>Modern production</span><h2>Built for modern<br><em>broadcast workflows.</em></h2></div>
+    <section id="workflow" class="workflow-section shell">
+      <h2 class="section-title reveal">Built for <em>modern</em> broadcast workflows</h2>
+      <div class="workflow-line" aria-hidden="true"></div>
       <div class="workflow-grid">
-        <article class="reveal"><b>01</b><h3>Ingest sources</h3><p>Links, team sheets, photos, data feeds and existing files.</p></article>
-        <article class="reveal"><b>02</b><h3>Identify teams &amp; players</h3><p>Map clubs, players, kits, competition and branding.</p></article>
-        <article class="reveal"><b>03</b><h3>Verify match data</h3><p>Resolve conflicts before anything reaches air.</p></article>
-        <article class="reveal"><b>04</b><h3>Publish graphics</h3><p>Populate the approved package instantly.</p></article>
-        <article class="reveal"><b>05</b><h3>Operate anywhere</h3><p>Use a laptop or tablet with one clear live state.</p></article>
-        <article class="reveal"><b>06</b><h3>Distribute IP / NDI / cloud</h3><p>Deliver to modern production environments and platforms.</p></article>
+        <article class="workflow-card reveal"><span class="step">1</span><div class="workflow-icon">▣</div><h3>Ingest<br />sources</h3><p>Connect cameras, replays, data feeds and more.</p></article>
+        <article class="workflow-card reveal"><span class="step">2</span><div class="workflow-icon">◉</div><h3>Identify<br />teams &amp; players</h3><p>AI &amp; data mapping detects teams, players, kits and logos.</p></article>
+        <article class="workflow-card reveal"><span class="step">3</span><div class="workflow-icon">◇</div><h3>Verify<br />match data</h3><p>Confirm lineups, stats and branding before going live.</p></article>
+        <article class="workflow-card reveal"><span class="step">4</span><div class="workflow-icon">▤</div><h3>Publish<br />graphics</h3><p>Build and publish graphics instantly from the cloud.</p></article>
+        <article class="workflow-card reveal"><span class="step">5</span><div class="workflow-icon">▰</div><h3>Operate<br />anywhere</h3><p>Control your show from laptop or tablet, anywhere.</p></article>
+        <article class="workflow-card reveal"><span class="step">6</span><div class="workflow-icon">◎</div><h3>Distribute<br />IP / NDI / Cloud</h3><p>Deliver to any platform via NDI, SRT, RTMP or Cloud.</p></article>
       </div>
     </section>
 
-    <section id="technology" class="section shell technology-section">
-      <div class="technology-copy reveal"><span>Software-defined by design</span><h2>Built for the production models replacing legacy hardware.</h2><p>TAKEFRAME separates the operator surface, graphics engine, data model and delivery layer. The result is a platform that can evolve across devices, locations and leagues without rebuilding the entire system.</p></div>
-      <div class="technology-grid"><article class="reveal"><b>Browser engine</b><span>Fast iteration and device flexibility.</span></article><article class="reveal"><b>IP-first output</b><span>Network delivery before physical infrastructure.</span></article><article class="reveal"><b>Remote operation</b><span>Operators and data can work from different locations.</span></article><article class="reveal"><b>Open integration</b><span>APIs and external sources extend the platform.</span></article></div>
+    <section id="pricing" class="cta-section shell reveal">
+      <div class="cta-copy">
+        <h2>Ready to take your<br />football broadcast<br />to the <em>next level?</em></h2>
+        <p>Join broadcasters worldwide who trust <b>TAKEFRAME LIVE</b> to deliver graphics that perform under pressure.</p>
+      </div>
+      <ul class="cta-list">
+        <li>Live demo tailored to your workflow</li>
+        <li>See it in action with your own data</li>
+        <li>Scalable for any league or production</li>
+        <li><button class="button button-primary button-large" type="button" data-open-demo>Book a demo today <span>→</span></button></li>
+      </ul>
+      <div class="cta-stadium" aria-hidden="true"><div class="floodlights"></div><div class="camera"></div><strong>Live</strong></div>
     </section>
 
-    <section id="teams" class="section shell">
-      <div class="section-heading reveal"><span>Who it is for</span><h2>One platform.<br><em>Many football productions.</em></h2></div>
-      <div class="audience-grid"><article class="reveal"><b>Clubs</b><p>Upgrade matchday graphics without building an OB graphics department.</p></article><article class="reveal"><b>Leagues</b><p>Standardise brand quality across every fixture and venue.</p></article><article class="reveal"><b>Broadcasters</b><p>Add flexible football graphics to modern remote and IP workflows.</p></article><article class="reveal"><b>Production teams</b><p>Launch more matches with fewer manual setup steps.</p></article></div>
-    </section>
-
-    <section id="contact" class="cta shell reveal">
-      <div><span>Take graphics live.</span><h2>Ready to take your football broadcast to the next level?</h2><p>See TAKEFRAME with your own workflow, data and graphics requirements.</p><a class="button button-primary button-large" href="mailto:office@vsn.hr?subject=TAKEFRAME%20Demo">Book a demo today</a></div>
-      <div class="cta-visual"><div class="stadium-lights"></div><strong>LIVE</strong></div>
+    <section id="resources" class="trust-strip shell">
+      <div><b>Trusted by broadcasters.<br />Powered by technology.</b></div>
+      <div><span>◈</span><b>IP-first</b><small>Built for modern networks</small></div>
+      <div><span>☁</span><b>Cloud-first</b><small>Scalable. Secure. Global.</small></div>
+      <div><span>◉</span><b>NDI-first</b><small>Native NDI. Seamless.</small></div>
     </section>
   </main>
 
-  <footer class="site-footer"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /><p>A VSN product · office@vsn.hr</p><span>© 2026 VSN. All rights reserved.</span></footer>
-  <script src="/site.js"></script>
+  <dialog class="demo-modal" id="demo-modal">
+    <form method="dialog" class="demo-card" id="demo-form">
+      <button class="modal-close" type="submit" value="cancel" aria-label="Close">×</button>
+      <span class="modal-kicker">TAKE GRAPHICS LIVE.</span>
+      <h2>Book your TAKEFRAME demo</h2>
+      <p>Tell us about your production. The form opens a prepared email to <b>office@vsn.hr</b>.</p>
+      <label>Name<input name="name" required autocomplete="name" /></label>
+      <label>Company<input name="company" required autocomplete="organization" /></label>
+      <label>Email<input name="email" required type="email" autocomplete="email" /></label>
+      <label>Production type<select name="type"><option>Club production</option><option>League</option><option>Broadcaster</option><option>Production company</option><option>Other</option></select></label>
+      <label>What would you like to see?<textarea name="message" rows="4"></textarea></label>
+      <button class="button button-primary button-large" type="submit" value="default">Prepare demo request</button>
+    </form>
+  </dialog>
+
+  <script src="site.js"></script>
 </body>
 </html>

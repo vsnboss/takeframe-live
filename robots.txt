@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://takeframe.live/sitemap.xml
-Host: https://takeframe.live
