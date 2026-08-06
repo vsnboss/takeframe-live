@@ -1,107 +1,110 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="TAKEFRAME is a modern football broadcast graphics platform built for browser, IP, NDI, remote and cloud-assisted production." />
-  <meta name="theme-color" content="#020712" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="TAKEFRAME LIVE is a modern football broadcast graphics platform for browser, IP, NDI-class and cloud-assisted production." />
+  <meta name="theme-color" content="#010610" />
   <title>TAKEFRAME LIVE — Football Broadcast Graphics</title>
-  <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/concept.css" />
+  <link rel="stylesheet" href="/site.css" />
 </head>
 <body>
-  <header class="nav-shell">
-    <a class="logo" href="#top"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /></a>
-    <button class="menu" aria-controls="nav" aria-expanded="false">Menu</button>
-    <nav id="nav"><a href="#platform">Product</a><a href="#graphics">Graphics</a><a href="#workflow">Workflow</a><a href="#technology">Technology</a><a href="#teams">For teams</a></nav>
-    <div class="nav-actions"><a class="ghost" href="#contact">Sign in</a><a class="primary" href="#contact">Book a demo</a></div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="TAKEFRAME LIVE home"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav id="main-nav" class="main-nav" aria-label="Primary navigation">
+      <a href="#product">Product</a><a href="#graphics">Graphics</a><a href="#workflow">Workflow</a><a href="#technology">Technology</a><a href="#teams">For teams</a>
+    </nav>
+    <div class="header-actions"><a class="button button-ghost" href="#contact">Sign in</a><a class="button button-primary" href="#contact">Book a demo</a></div>
   </header>
 
   <main id="top">
-    <section class="hero section-grid">
+    <section class="hero shell">
+      <div class="hero-grid-lines" aria-hidden="true"></div>
       <div class="hero-copy reveal">
-        <div class="eyebrow"><i></i> Live production ready <span>IP-first · Cloud-first · NDI-first</span></div>
+        <div class="status-row"><span class="live-pill"><i></i>Live production ready</span><span class="tech-pill">IP-first · Cloud-first · NDI-first</span></div>
         <h1>Football<br>broadcast<br><em>graphics.</em></h1>
-        <p>The modern graphics platform for football broadcasts. Build the match, verify the data, operate from a laptop or tablet and publish live through modern networked workflows.</p>
-        <div class="hero-points">
-          <article><b>Cloud native</b><span>Shared data and remote collaboration.</span></article>
-          <article><b>IP & NDI delivery</b><span>Designed for modern network production.</span></article>
-          <article><b>Instant playout</b><span>Preview, take and update in seconds.</span></article>
+        <p>The modern graphics platform for today’s football broadcasts. Build the match, verify the data, operate from a laptop or tablet, and publish live through modern networked workflows.</p>
+        <div class="hero-benefits">
+          <article><span class="icon">☁</span><b>Cloud native</b><small>Scalable, secure, always available.</small></article>
+          <article><span class="icon">⌘</span><b>IP &amp; NDI delivery</b><small>Modern network production first.</small></article>
+          <article><span class="icon">ϟ</span><b>Instant playout</b><small>Preview, take and update in seconds.</small></article>
         </div>
-        <div class="hero-actions"><a class="primary large" href="#contact">Book a demo</a><a class="ghost large" href="#graphics">Explore features</a></div>
+        <div class="hero-actions"><a class="button button-primary button-large" href="#contact">Book a demo</a><a class="button button-ghost button-large" href="#graphics">Explore features</a></div>
       </div>
 
-      <div class="hero-visual reveal delay">
-        <div class="aura"></div>
-        <img class="player" src="/hero-player.webp" alt="Football player featured in a TAKEFRAME broadcast design" />
-        <div class="console-card">
-          <div class="console-top"><img src="/takeframe-logo-live.png" alt="" /><span class="live-dot">Live</span><small>20:47:19</small></div>
-          <div class="score"><span class="crest">TFC</span><strong>2</strong><i>:</i><strong>1</strong><span class="crest">RIV</span><small>68:24</small></div>
-          <div class="console-grid"><div><span>Player stats</span><b>7 M. Johnson</b><small>4 shots · 87% pass accuracy</small></div><div><span>Output</span><b>Programme</b><small>IP stream active</small></div></div>
-          <div class="mini-panels"><i></i><i></i><i></i></div>
-          <div class="console-tabs"><span>Graphics</span><span>Data</span><span>Playout</span><span>NDI output</span></div>
+      <div class="hero-stage reveal delay-1">
+        <div class="player-glow"></div>
+        <img class="hero-player" src="/hero-player.webp" alt="Football player featured in a TAKEFRAME broadcast design" />
+        <div class="broadcast-panel">
+          <div class="panel-top"><img src="/takeframe-logo-live.png" alt="" /><span class="on-air">Live</span><small>20:47:19</small></div>
+          <div class="score-panel"><span>TFC</span><strong>2</strong><i>:</i><strong>1</strong><span>RIV</span><small>68:24</small></div>
+          <div class="data-row">
+            <div><label>Player stats</label><b>7 M. Johnson</b><small>4 shots · 87% pass accuracy</small></div>
+            <div><label>Output</label><b>Programme</b><small>IP stream active</small></div>
+          </div>
+          <div class="preview-row"><span></span><span></span><span></span></div>
+          <div class="panel-tabs"><span>Graphics</span><span>Data</span><span>Playout</span><span>NDI output</span></div>
         </div>
-        <div class="ndi-orbit">NDI</div>
+        <div class="ndi-badge">NDI</div>
+        <div class="motion-lines"><i></i><i></i><i></i></div>
       </div>
-      <div class="hero-lines" aria-hidden="true"><i></i><i></i><i></i></div>
     </section>
 
-    <section class="ticker"><span class="live-badge">Live</span><div class="ticker-track"><span>Premier League</span><b>MCI 2–1 ARS</b><small>67:32</small><span>La Liga</span><b>RMA 1–0 BAR</b><small>55:18</small><span>Serie A</span><b>INT 0–0 JUV</b><small>33:10</small><span>Bundesliga</span><b>BAY 3–0 BVB</b><small>45:00</small></div></section>
+    <section class="ticker"><b>Live</b><div class="ticker-track"><span>Premier League</span><strong>MCI 2–1 ARS</strong><em>67:32</em><span>La Liga</span><strong>RMA 1–0 BAR</strong><em>55:18</em><span>Serie A</span><strong>INT 0–0 JUV</strong><em>33:10</em><span>Bundesliga</span><strong>BAY 3–0 BVB</strong><em>45:00</em></div></section>
 
-    <section id="platform" class="feature-grid content-width">
-      <article class="feature reveal"><span>01</span><h3>Browser based</h3><p>Build, operate and publish from a modern browser without dedicated graphics hardware.</p></article>
-      <article class="feature reveal"><span>02</span><h3>Automated match setup</h3><p>Import teams, players, logos and match data from trusted sources.</p></article>
-      <article class="feature reveal"><span>03</span><h3>Cloud & IP delivery</h3><p>Move graphics through NDI-class, SRT, RTMP and cloud-assisted workflows.</p></article>
-      <article class="feature reveal"><span>04</span><h3>Operate anywhere</h3><p>Control the show from laptop or tablet, in-stadium or remotely.</p></article>
-      <article class="feature reveal"><span>05</span><h3>Data integration</h3><p>Connect live stats, line-ups, fixtures and external match feeds.</p></article>
-      <article class="feature reveal"><span>06</span><h3>Instant playout</h3><p>Preview and take approved graphics with fast, explicit live control.</p></article>
+    <section id="product" class="feature-grid shell">
+      <article class="feature-card reveal"><span>01</span><div class="feature-icon">▣</div><h3>Browser based</h3><p>Build, operate and publish from any modern browser without dedicated graphics hardware.</p></article>
+      <article class="feature-card reveal"><span>02</span><div class="feature-icon">✣</div><h3>Automated match setup</h3><p>Import teams, players, kits and logos from trusted sources and existing files.</p></article>
+      <article class="feature-card reveal"><span>03</span><div class="feature-icon">☁</div><h3>Cloud &amp; IP delivery</h3><p>Distribute graphics through NDI-class, SRT, RTMP and cloud-assisted workflows.</p></article>
+      <article class="feature-card reveal"><span>04</span><div class="feature-icon">▤</div><h3>Operate anywhere</h3><p>Control the show from laptop or tablet, in-stadium or remotely.</p></article>
+      <article class="feature-card reveal"><span>05</span><div class="feature-icon">◉</div><h3>Data integration</h3><p>Connect live statistics, line-ups, fixtures and external match feeds.</p></article>
+      <article class="feature-card reveal"><span>06</span><div class="feature-icon">ϟ</div><h3>Instant playout</h3><p>Preview and take approved graphics with fast, explicit live control.</p></article>
     </section>
 
-    <section id="graphics" class="content-width gallery-section">
+    <section id="graphics" class="section shell">
       <div class="section-heading reveal"><span>Graphics system</span><h2>Powerful graphics.<br><em>Made for football.</em></h2><p>One visual language across the complete match journey.</p></div>
-      <div class="gallery">
-        <article class="graphic-card lineup reveal"><div class="pitch"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><b>Line-up graphic</b><span>Formations and starting XI</span></article>
-        <article class="graphic-card reveal"><div class="score-demo"><span>MCI</span><b>2</b><b>1</b><span>ARS</span><small>67:32 · LIVE</small></div><b>Score bug</b><span>Dynamic, data-driven scoring</span></article>
-        <article class="graphic-card reveal"><div class="lower-third"><strong>7</strong><div><b>Mason Johnson</b><small>Midfielder</small></div></div><b>Player lower third</b><span>Identity, events and stats</span></article>
-        <article class="graphic-card reveal"><div class="stats-demo"><b>Match stats</b><span>Possession <i>58%</i><i>42%</i></span><span>Shots <i>12</i><i>6</i></span><span>On target <i>5</i><i>2</i></span></div><b>Match statistics</b><span>Live numbers that tell the story</span></article>
-        <article class="graphic-card goal-card reveal"><strong>GOAL!</strong><small>Mason Johnson · 68'</small><b>Social clip card</b><span>Publishable match moments</span></article>
+      <div class="graphics-grid">
+        <article class="graphic-card reveal"><div class="graphic-preview pitch"><div class="formation"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><h3>Line-up graphic</h3><p>Team formations and player lists.</p></article>
+        <article class="graphic-card reveal"><div class="graphic-preview"><div class="scorebug-demo"><span>MCI</span><b>2</b><b>1</b><span>ARS</span><small>67:32 · LIVE</small></div></div><h3>Score bug</h3><p>Dynamic and data-driven scoring.</p></article>
+        <article class="graphic-card reveal"><div class="graphic-preview"><div class="lower-third-demo"><strong>7</strong><div><b>Mason Johnson</b><small>Midfielder</small></div></div></div><h3>Player lower third</h3><p>Identity, events and statistics.</p></article>
+        <article class="graphic-card reveal"><div class="graphic-preview"><div class="stats-demo"><b>Match stats</b><span>Possession <i>58%</i><i>42%</i></span><span>Shots <i>12</i><i>6</i></span><span>On target <i>5</i><i>2</i></span></div></div><h3>Match statistics</h3><p>Live numbers that tell the story.</p></article>
+        <article class="graphic-card reveal goal-card"><div class="graphic-preview goal-preview"><strong>GOAL!</strong><small>Mason Johnson · 68'</small></div><h3>Social clip card</h3><p>Publishable match moments.</p></article>
       </div>
     </section>
 
-    <section id="workflow" class="workflow content-width">
-      <div class="section-heading reveal"><span>Modern production</span><h2>From source to live<br><em>in one connected workflow.</em></h2></div>
-      <div class="steps">
+    <section id="workflow" class="section shell workflow-section">
+      <div class="section-heading reveal"><span>Modern production</span><h2>Built for modern<br><em>broadcast workflows.</em></h2></div>
+      <div class="workflow-grid">
         <article class="reveal"><b>01</b><h3>Ingest sources</h3><p>Links, team sheets, photos, data feeds and existing files.</p></article>
-        <article class="reveal"><b>02</b><h3>Identify teams</h3><p>Map clubs, players, kits and competition details.</p></article>
+        <article class="reveal"><b>02</b><h3>Identify teams &amp; players</h3><p>Map clubs, players, kits, competition and branding.</p></article>
         <article class="reveal"><b>03</b><h3>Verify match data</h3><p>Resolve conflicts before anything reaches air.</p></article>
         <article class="reveal"><b>04</b><h3>Publish graphics</h3><p>Populate the approved package instantly.</p></article>
-        <article class="reveal"><b>05</b><h3>Operate anywhere</h3><p>Use a laptop or tablet with a clear live state.</p></article>
-        <article class="reveal"><b>06</b><h3>Distribute over IP</h3><p>Deliver through browser, NDI-class and cloud workflows.</p></article>
+        <article class="reveal"><b>05</b><h3>Operate anywhere</h3><p>Use a laptop or tablet with one clear live state.</p></article>
+        <article class="reveal"><b>06</b><h3>Distribute IP / NDI / cloud</h3><p>Deliver to modern production environments and platforms.</p></article>
       </div>
     </section>
 
-    <section id="technology" class="tech content-width">
-      <div class="tech-copy reveal"><span>Software-defined by design</span><h2>Built for the production models replacing legacy hardware.</h2><p>TAKEFRAME separates the operator surface, graphics engine, data model and delivery layer. The result is a platform that can evolve across devices, locations and leagues without rebuilding the entire system.</p></div>
-      <div class="tech-cards">
-        <article class="reveal"><b>Browser engine</b><span>Fast iteration and device flexibility.</span></article>
-        <article class="reveal"><b>IP-first output</b><span>Network delivery before physical infrastructure.</span></article>
-        <article class="reveal"><b>Remote operation</b><span>Operators and data can work from different locations.</span></article>
-        <article class="reveal"><b>Open integration</b><span>APIs and external sources extend the platform.</span></article>
-      </div>
+    <section id="technology" class="section shell technology-section">
+      <div class="technology-copy reveal"><span>Software-defined by design</span><h2>Built for the production models replacing legacy hardware.</h2><p>TAKEFRAME separates the operator surface, graphics engine, data model and delivery layer. The result is a platform that can evolve across devices, locations and leagues without rebuilding the entire system.</p></div>
+      <div class="technology-grid"><article class="reveal"><b>Browser engine</b><span>Fast iteration and device flexibility.</span></article><article class="reveal"><b>IP-first output</b><span>Network delivery before physical infrastructure.</span></article><article class="reveal"><b>Remote operation</b><span>Operators and data can work from different locations.</span></article><article class="reveal"><b>Open integration</b><span>APIs and external sources extend the platform.</span></article></div>
     </section>
 
-    <section id="teams" class="audience content-width">
+    <section id="teams" class="section shell">
       <div class="section-heading reveal"><span>Who it is for</span><h2>One platform.<br><em>Many football productions.</em></h2></div>
       <div class="audience-grid"><article class="reveal"><b>Clubs</b><p>Upgrade matchday graphics without building an OB graphics department.</p></article><article class="reveal"><b>Leagues</b><p>Standardise brand quality across every fixture and venue.</p></article><article class="reveal"><b>Broadcasters</b><p>Add flexible football graphics to modern remote and IP workflows.</p></article><article class="reveal"><b>Production teams</b><p>Launch more matches with fewer manual setup steps.</p></article></div>
     </section>
 
-    <section id="contact" class="cta content-width reveal"><div><span>TAKE GRAPHICS LIVE.</span><h2>Ready to take your football broadcast to the next level?</h2><p>See TAKEFRAME with your own workflow, data and graphics requirements.</p><a class="primary large" href="mailto:office@vsn.hr?subject=TAKEFRAME%20Demo">Book a demo today</a></div><div class="cta-live">LIVE</div></section>
+    <section id="contact" class="cta shell reveal">
+      <div><span>Take graphics live.</span><h2>Ready to take your football broadcast to the next level?</h2><p>See TAKEFRAME with your own workflow, data and graphics requirements.</p><a class="button button-primary button-large" href="mailto:office@vsn.hr?subject=TAKEFRAME%20Demo">Book a demo today</a></div>
+      <div class="cta-visual"><div class="stadium-lights"></div><strong>LIVE</strong></div>
+    </section>
   </main>
 
-  <footer><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /><p>A VSN product · office@vsn.hr</p><span>© 2026 VSN. All rights reserved.</span></footer>
-  <script src="/concept.js"></script>
+  <footer class="site-footer"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /><p>A VSN product · office@vsn.hr</p><span>© 2026 VSN. All rights reserved.</span></footer>
+  <script src="/site.js"></script>
 </body>
 </html>
