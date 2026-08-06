@@ -1,0 +1,63 @@
+name: Install TAKEFRAME website package
+
+on:
+  push:
+    paths:
+      - ".github/workflows/install-takeframe-site.yml"
+      - "TAKEFRAME_PROPER_INTERACTIVE_WEBSITE.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract clean website package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP="TAKEFRAME_PROPER_INTERACTIVE_WEBSITE.zip"
+          TEMP=".takeframe-package"
+          PACKAGE="$TEMP/TAKEFRAME_PROPER_SITE"
+
+          test -f "$ZIP"
+          rm -rf "$TEMP"
+          mkdir -p "$TEMP"
+          unzip -q -o "$ZIP" -d "$TEMP"
+          test -f "$PACKAGE/index.html"
+          test -f "$PACKAGE/site.css"
+          test -f "$PACKAGE/site.js"
+          test -f "$PACKAGE/vercel.json"
+          test -d "$PACKAGE/assets"
+
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name '.github' \
+            ! -name "$TEMP" \
+            ! -name "$ZIP" \
+            -exec rm -rf {} +
+
+          cp -a "$PACKAGE"/. ./
+          rm -rf "$TEMP" "$ZIP"
+
+      - name: Commit installed website
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Install proper interactive TAKEFRAME website"
+          git push origin HEAD:main
