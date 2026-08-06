@@ -250,15 +250,21 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
 
 .hero-player-wrap {
   position: relative;
-  align-self: end;
+  align-self: stretch;
   display: flex;
+  align-items: flex-end;
   justify-content: center;
   z-index: 4;
+  overflow: visible;
+  margin-left: -8%;
+  margin-right: -18%;
 }
 .hero-player {
-  width: min(650px, 110%);
-  margin-left: -12px;
-  filter: drop-shadow(0 0 22px rgba(0, 163, 255, 0.28)) drop-shadow(0 30px 40px rgba(0,0,0,.46));
+  width: min(820px, 170%);
+  max-width: none;
+  margin-left: 0;
+  transform: translateX(4%);
+  filter: drop-shadow(0 0 28px rgba(0, 163, 255, 0.34)) drop-shadow(0 34px 46px rgba(0,0,0,.5));
 }
 .hero-player-wrap::before {
   content: '';
@@ -695,7 +701,8 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
 
 @media (max-width: 1440px) {
   .hero-layout { grid-template-columns: 1fr 0.8fr 1.02fr; min-height: 780px; }
-  .hero-player { width: min(560px, 110%); }
+  .hero-player-wrap { margin-left: -14%; margin-right: -24%; }
+  .hero-player { width: min(760px, 180%); transform: translateX(6%); }
   .hero-console { width: 100%; }
   .feature-grid, .workflow-grid { grid-template-columns: repeat(3, 1fr); }
   .graphics-track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -710,13 +717,13 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
     gap: 20px;
   }
   .hero-copy { padding-top: 10px; }
-  .hero-player-wrap { order: 2; }
+  .hero-player-wrap { order: 2; margin: 0; align-self: end; }
   .hero-console-wrap {
     order: 3;
     margin-right: 0;
     padding-top: 0;
   }
-  .hero-player { width: min(480px, 82vw); margin: 0 auto; }
+  .hero-player { width: min(620px, 94vw); max-width: 100%; margin: 0 auto; transform: none; }
   .ndi-orb { width: 92px; height: 92px; font-size: 28px; }
   .beam { display: none; }
   .hero-mini-features { max-width: none; }
