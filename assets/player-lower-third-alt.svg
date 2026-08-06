@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 780" role="img" aria-labelledby="title desc">
+  <title id="title">Luca Marin player lower third</title>
+  <desc id="desc">Original football broadcast artwork with a blue and white player and lower third.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#020713"/><stop offset=".55" stop-color="#071b36"/><stop offset="1" stop-color="#020611"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="32%" r="55%"><stop stop-color="#168fff" stop-opacity=".45"/><stop offset="1" stop-color="#07111f" stop-opacity="0"/></radialGradient>
+    <linearGradient id="kit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d4ca4"/><stop offset="1" stop-color="#021a45"/></linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#06101f" stop-opacity=".97"/><stop offset="1" stop-color="#0a1d35" stop-opacity=".95"/></linearGradient>
+    <filter id="blueGlow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="720" height="780" rx="28" fill="url(#bg)"/>
+  <rect x="2" y="2" width="716" height="776" rx="26" fill="none" stroke="#1aa8ff" stroke-opacity=".7" stroke-width="3"/>
+  <ellipse cx="360" cy="290" rx="305" ry="250" fill="url(#glow)"/>
+  <g opacity=".7" stroke="#5bc7ff" stroke-width="5" filter="url(#blueGlow)">
+    <path d="M68 210C184 146 536 146 652 210" fill="none"/>
+    <path d="M84 224C205 180 515 180 636 224" fill="none" opacity=".5"/>
+  </g>
+  <g fill="#b8ddff" opacity=".9">
+    <circle cx="120" cy="184" r="8"/><circle cx="158" cy="168" r="7"/><circle cx="198" cy="157" r="6"/>
+    <circle cx="600" cy="184" r="8"/><circle cx="562" cy="168" r="7"/><circle cx="522" cy="157" r="6"/>
+  </g>
+  <g transform="translate(197 82)">
+    <path d="M80 210c12-58 45-96 83-96s71 38 83 96l36 172H44z" fill="url(#kit)" stroke="#36b7ff" stroke-width="3"/>
+    <path d="M140 122h46l22 270h-90z" fill="#f2f5fa" opacity=".95"/>
+    <path d="M112 121l-47 74 28 18 44-59zM214 121l47 74-28 18-44-59z" fill="#0a397e"/>
+    <ellipse cx="163" cy="79" rx="57" ry="66" fill="#e9b88c"/>
+    <path d="M108 69c4-49 29-72 59-72 38 0 61 28 58 71-14-20-31-31-53-33-18 13-39 19-64 20z" fill="#c68a4b"/>
+    <path d="M119 72c14-4 27-10 39-18 19 4 36 12 53 27-2 38-17 61-48 61-30 0-45-23-44-70z" fill="#edbd91"/>
+    <path d="M134 83h16M177 83h16" stroke="#263447" stroke-width="5" stroke-linecap="round"/>
+    <path d="M151 113c8 5 17 5 25 0" stroke="#8d4e3e" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <text x="163" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="94" font-weight="800" fill="#eef6ff" opacity=".9">10</text>
+  </g>
+  <g transform="translate(52 515)">
+    <rect width="616" height="150" rx="22" fill="url(#panel)" stroke="#21b9ff" stroke-width="3"/>
+    <rect width="148" height="150" rx="22" fill="#0878dd" opacity=".95"/>
+    <text x="74" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="84" font-weight="900" fill="white">10</text>
+    <path d="M174 34v82" stroke="#22c8ff" stroke-width="3"/>
+    <text x="208" y="78" font-family="Arial, sans-serif" font-size="46" font-weight="900" fill="white" letter-spacing="2">LUCA MARIN</text>
+    <text x="210" y="116" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#27baff" letter-spacing="4">MIDFIELDER</text>
+  </g>
+  <g opacity=".3" stroke="#1fb8ff"><path d="M30 706h660"/><path d="M30 724h520"/><path d="M170 742h520"/></g>
+</svg>
