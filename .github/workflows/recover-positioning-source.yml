@@ -1,0 +1,74 @@
+name: Recover TAKEFRAME positioning source
+
+on:
+  push:
+    branches:
+      - agent/website-positioning-v1
+    paths:
+      - ".github/workflows/recover-positioning-source.yml"
+      - "takeframe-positioning-source.zip.b64"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out positioning branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/website-positioning-v1
+          fetch-depth: 0
+
+      - name: Recover maintainable source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f takeframe-positioning-source.zip.b64
+          base64 -d takeframe-positioning-source.zip.b64 > /tmp/takeframe-positioning-source.zip
+          unzip -q -o /tmp/takeframe-positioning-source.zip -d /tmp/takeframe-positioning-source
+
+          test -f /tmp/takeframe-positioning-source/index.html
+          test -f /tmp/takeframe-positioning-source/styles.css
+          test -f /tmp/takeframe-positioning-source/script.js
+          test -f /tmp/takeframe-positioning-source/operator-gear/index.html
+          test -f /tmp/takeframe-positioning-source/pilot/index.html
+          test -f /tmp/takeframe-positioning-source/privacy/index.html
+          test -f /tmp/takeframe-positioning-source/vercel.json
+
+          rm -f POSITIONING_TEST.txt
+          cp -a /tmp/takeframe-positioning-source/. ./
+          rm -f takeframe-positioning-source.zip.b64
+          rm -f .github/workflows/recover-positioning-source.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+
+      - name: Verify recovered Git tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git status --short
+          git diff --stat
+          git diff --name-status
+          test ! -e POSITIONING_TEST.txt
+          grep -q "GIVE US THE MATCH" index.html
+          grep -q "Football broadcast operations" index.html
+          grep -q "NORDIC1" index.html
+          grep -q "Paid match pilot" index.html
+          test -f operator-gear/index.html
+          test -f pilot/index.html
+          test -f privacy/index.html
+          ! grep -RniE "Cloud-first|NDI-first|trusted by broadcasters|join broadcasters worldwide|Sign in" -- index.html operator-gear/index.html pilot/index.html privacy/index.html script.js
+
+      - name: Commit corrective implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(site): rebuild Takeframe around broadcast operations"
+          git push origin HEAD:agent/website-positioning-v1
