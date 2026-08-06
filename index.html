@@ -3,141 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="TAKEFRAME automates sports match onboarding and prepares verified, graphics-ready live production workspaces from links, files, images and data feeds." />
-  <meta name="theme-color" content="#020b19" />
-  <title>TAKEFRAME — Automated Match Onboarding</title>
+  <meta name="description" content="TAKEFRAME is a modern football broadcast graphics platform built for browser, IP, NDI, remote and cloud-assisted production." />
+  <meta name="theme-color" content="#020712" />
+  <title>TAKEFRAME LIVE — Football Broadcast Graphics</title>
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/brand.css" />
-  <link rel="stylesheet" href="/homepage-v3.css" />
-  <link rel="stylesheet" href="/hero-player.css" />
-  <style>
-    .tf-hero::after{right:36%!important;top:68px!important;width:min(470px,34vw)!important;z-index:4!important;opacity:1!important;filter:drop-shadow(0 34px 70px rgba(0,0,0,.55)) drop-shadow(0 0 34px rgba(0,152,255,.24))!important}
-    .tf-hero-copy{position:relative;z-index:5!important}.tf-onboard{position:relative;z-index:3!important}
-    @media(max-width:1320px){.tf-hero{padding-top:145px!important}.tf-hero::after{left:50%!important;right:auto!important;top:0!important;transform:translateX(-50%)!important;width:min(400px,48vw)!important;z-index:2!important}.tf-hero-copy,.tf-onboard{z-index:3!important}}
-    @media(max-width:900px){.tf-hero{padding-top:190px!important}.tf-hero::after{width:min(360px,72vw)!important;top:8px!important}}
-    @media(max-width:620px){.tf-hero{padding-top:170px!important}.tf-hero::after{width:min(310px,82vw)!important;top:5px!important}}
-  </style>
+  <link rel="stylesheet" href="/concept.css" />
 </head>
-<body class="tf-body">
-  <svg class="tf-sprite" aria-hidden="true">
-    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="20" r="2"/><path d="M10.6 5.5 6.5 10M13.4 5.5l4.1 4.5M6.8 13.5l3.8 4.7M17.2 13.5l-3.8 4.7M7 12h10"/></symbol>
-    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4.5A3.5 3.5 0 0 0 5.8 9 3 3 0 0 0 6 15a3.5 3.5 0 0 0 3 4.5M15 4.5A3.5 3.5 0 0 1 18.2 9a3 3 0 0 1-.2 6 3.5 3.5 0 0 1-3 4.5M9 4.5v15M15 4.5v15M9 8h2M13 12h2M9 16h2"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6l7-3Z"/><path d="m8.8 12 2.1 2.1 4.6-4.6"/></symbol>
-    <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M9 9l2 2 4-4"/></symbol>
-    <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4M8.5 16.5 6 19a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0M15.5 7.5 18 5a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0"/></symbol>
-    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5M9 12h6M9 16h6"/></symbol>
-    <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18M15 9v12M9 15h12"/></symbol>
-    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 22c.7-5 3.5-7 8-7s7.3 2 8 7"/></symbol>
-    <symbol id="i-crest" viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.6 8.3-8 10-4.4-1.7-8-5-8-10V6z"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/></symbol>
-    <symbol id="i-text" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h7M7 16h9"/></symbol>
-    <symbol id="i-data" viewBox="0 0 24 24"><path d="M4 12h3l2-5 4 10 2-5h5"/><circle cx="12" cy="12" r="9"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
-  </svg>
-
-  <header class="tf-header">
-    <a class="tf-logo" href="#top" aria-label="TAKEFRAME home"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /></a>
-    <button class="tf-menu" type="button" aria-expanded="false" aria-controls="tf-nav">MENU</button>
-    <nav id="tf-nav" class="tf-nav" aria-label="Primary navigation">
-      <a href="#product">Product</a><a href="#workflow">Workflows</a><a href="#graphics">Graphics</a><a href="#technology">Technology</a><a href="#audiences">For teams</a><a href="#company">Company</a>
-    </nav>
-    <div class="tf-header-actions"><a class="tf-signin" href="#access">Sign in</a><a class="tf-demo" href="#access">Request demo</a></div>
+<body>
+  <header class="nav-shell">
+    <a class="logo" href="#top"><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /></a>
+    <button class="menu" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav id="nav"><a href="#platform">Product</a><a href="#graphics">Graphics</a><a href="#workflow">Workflow</a><a href="#technology">Technology</a><a href="#teams">For teams</a></nav>
+    <div class="nav-actions"><a class="ghost" href="#contact">Sign in</a><a class="primary" href="#contact">Book a demo</a></div>
   </header>
 
   <main id="top">
-    <section class="tf-hero tf-shell">
-      <div class="tf-energy" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="tf-hero-copy">
-        <div class="tf-kicker">Broadcast graphics system</div>
-        <h1>ONBOARD MATCH.<br><em>GIVE US ANYTHING YOU HAVE.</em></h1>
-        <p>Paste links. Drop team sheets. Upload folders, screenshots, spreadsheets and player photos. <strong>TAKEFRAME builds the match for you</strong>—then prepares every approved graphic for live operation.</p>
-
-        <div class="tf-benefits">
-          <article><div class="tf-icon cyan"><svg><use href="#i-network"/></svg></div><h3>Multiple sources</h3><span>The more you provide, the stronger the match model.</span></article>
-          <article><div class="tf-icon blue"><svg><use href="#i-brain"/></svg></div><h3>AI extraction</h3><span>We read, recognize and structure every useful detail.</span></article>
-          <article><div class="tf-icon green"><svg><use href="#i-shield"/></svg></div><h3>Verified truth</h3><span>Conflicts are surfaced. You approve what goes live.</span></article>
-          <article><div class="tf-icon purple"><svg><use href="#i-screen"/></svg></div><h3>Graphics ready</h3><span>Approved data instantly populates the full package.</span></article>
+    <section class="hero section-grid">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><i></i> Live production ready <span>IP-first · Cloud-first · NDI-first</span></div>
+        <h1>Football<br>broadcast<br><em>graphics.</em></h1>
+        <p>The modern graphics platform for football broadcasts. Build the match, verify the data, operate from a laptop or tablet and publish live through modern networked workflows.</p>
+        <div class="hero-points">
+          <article><b>Cloud native</b><span>Shared data and remote collaboration.</span></article>
+          <article><b>IP & NDI delivery</b><span>Designed for modern network production.</span></article>
+          <article><b>Instant playout</b><span>Preview, take and update in seconds.</span></article>
         </div>
-
-        <div class="tf-hero-actions"><a class="tf-primary" href="#access">Start a match <small>See it in action</small></a><a class="tf-secondary" href="#workflow"><svg><use href="#i-play"/></svg>Watch workflow <small>How it works</small></a><span class="tf-security"><svg><use href="#i-lock"/></svg>Your sources stay private and under operator control.</span></div>
+        <div class="hero-actions"><a class="primary large" href="#contact">Book a demo</a><a class="ghost large" href="#graphics">Explore features</a></div>
       </div>
 
-      <div class="tf-onboard" aria-label="TAKEFRAME automated match onboarding interface">
-        <div class="tf-onboard-top"><h2>Onboard match</h2><div><span class="tf-state">Identified</span><b>FENERBAHÇE vs SK STURM GRAZ</b><em>✎</em></div></div>
-        <div class="tf-onboard-body">
-          <div class="tf-source-panel">
-            <h4><span>◈</span> Add match sources</h4>
-            <div class="tf-dropzone">
-              <div class="tf-drop-icons"><span class="cyan"><svg><use href="#i-link"/></svg></span><span class="red"><svg><use href="#i-doc"/></svg></span><span class="purple"><svg><use href="#i-user"/></svg></span><span class="green"><svg><use href="#i-sheet"/></svg></span><span class="blue"><svg><use href="#i-text"/></svg></span></div>
-              <strong>Drop files, folders or images here</strong><small>or</small><b>Paste one or more match links</b>
-              <div class="tf-url"><svg><use href="#i-link"/></svg><span>https://...</span></div><a href="#access">+ Add another source</a>
-            </div>
-          </div>
-          <div class="tf-processing">
-            <h4>Processing</h4>
-            <ol><li class="done">Identifying match</li><li class="done">Finding competition</li><li class="done">Matching clubs</li><li class="done">Reading team sheets</li><li class="done">Building squads</li><li class="done">Detecting line-ups</li><li class="active">Detecting formations</li><li>Finding player photos</li><li>Finding club crests</li><li>Comparing sources</li><li>Preparing graphics</li></ol>
-          </div>
+      <div class="hero-visual reveal delay">
+        <div class="aura"></div>
+        <img class="player" src="/hero-player.webp" alt="Football player featured in a TAKEFRAME broadcast design" />
+        <div class="console-card">
+          <div class="console-top"><img src="/takeframe-logo-live.png" alt="" /><span class="live-dot">Live</span><small>20:47:19</small></div>
+          <div class="score"><span class="crest">TFC</span><strong>2</strong><i>:</i><strong>1</strong><span class="crest">RIV</span><small>68:24</small></div>
+          <div class="console-grid"><div><span>Player stats</span><b>7 M. Johnson</b><small>4 shots · 87% pass accuracy</small></div><div><span>Output</span><b>Programme</b><small>IP stream active</small></div></div>
+          <div class="mini-panels"><i></i><i></i><i></i></div>
+          <div class="console-tabs"><span>Graphics</span><span>Data</span><span>Playout</span><span>NDI output</span></div>
         </div>
-        <div class="tf-stats"><article><span>Sources added</span><b>5</b></article><article><span>Players found</span><b class="green-t">40 <i>/ 44</i></b></article><article><span>Portraits found</span><b class="amber-t">31 <i>/ 44</i></b></article><article><span>Assets found</span><b class="cyan-t">8 <i>/ 10</i></b></article><article class="confidence"><span>Confidence</span><b>92%</b></article></div>
-        <div class="tf-review"><div><span>!</span><p><b>2 items need review</b><small>Formation conflict · 2 player names</small></p></div><div><button>Review now</button><button class="blue-btn">Open match</button></div></div>
+        <div class="ndi-orbit">NDI</div>
+      </div>
+      <div class="hero-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+    </section>
+
+    <section class="ticker"><span class="live-badge">Live</span><div class="ticker-track"><span>Premier League</span><b>MCI 2–1 ARS</b><small>67:32</small><span>La Liga</span><b>RMA 1–0 BAR</b><small>55:18</small><span>Serie A</span><b>INT 0–0 JUV</b><small>33:10</small><span>Bundesliga</span><b>BAY 3–0 BVB</b><small>45:00</small></div></section>
+
+    <section id="platform" class="feature-grid content-width">
+      <article class="feature reveal"><span>01</span><h3>Browser based</h3><p>Build, operate and publish from a modern browser without dedicated graphics hardware.</p></article>
+      <article class="feature reveal"><span>02</span><h3>Automated match setup</h3><p>Import teams, players, logos and match data from trusted sources.</p></article>
+      <article class="feature reveal"><span>03</span><h3>Cloud & IP delivery</h3><p>Move graphics through NDI-class, SRT, RTMP and cloud-assisted workflows.</p></article>
+      <article class="feature reveal"><span>04</span><h3>Operate anywhere</h3><p>Control the show from laptop or tablet, in-stadium or remotely.</p></article>
+      <article class="feature reveal"><span>05</span><h3>Data integration</h3><p>Connect live stats, line-ups, fixtures and external match feeds.</p></article>
+      <article class="feature reveal"><span>06</span><h3>Instant playout</h3><p>Preview and take approved graphics with fast, explicit live control.</p></article>
+    </section>
+
+    <section id="graphics" class="content-width gallery-section">
+      <div class="section-heading reveal"><span>Graphics system</span><h2>Powerful graphics.<br><em>Made for football.</em></h2><p>One visual language across the complete match journey.</p></div>
+      <div class="gallery">
+        <article class="graphic-card lineup reveal"><div class="pitch"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><b>Line-up graphic</b><span>Formations and starting XI</span></article>
+        <article class="graphic-card reveal"><div class="score-demo"><span>MCI</span><b>2</b><b>1</b><span>ARS</span><small>67:32 · LIVE</small></div><b>Score bug</b><span>Dynamic, data-driven scoring</span></article>
+        <article class="graphic-card reveal"><div class="lower-third"><strong>7</strong><div><b>Mason Johnson</b><small>Midfielder</small></div></div><b>Player lower third</b><span>Identity, events and stats</span></article>
+        <article class="graphic-card reveal"><div class="stats-demo"><b>Match stats</b><span>Possession <i>58%</i><i>42%</i></span><span>Shots <i>12</i><i>6</i></span><span>On target <i>5</i><i>2</i></span></div><b>Match statistics</b><span>Live numbers that tell the story</span></article>
+        <article class="graphic-card goal-card reveal"><strong>GOAL!</strong><small>Mason Johnson · 68'</small><b>Social clip card</b><span>Publishable match moments</span></article>
       </div>
     </section>
 
-    <section class="tf-source-band tf-shell">
-      <div class="tf-band-title">Bring <em>any source.</em> We’ll handle the rest.</div>
-      <div class="tf-source-list">
-        <article><div class="tf-source-icon"><svg><use href="#i-link"/></svg></div><b>Match links</b><span>Official sites, stats pages, betting and live score links.</span></article>
-        <article><div class="tf-source-icon red"><svg><use href="#i-doc"/></svg></div><b>Team sheets</b><span>PDFs, photos, scans and screenshots.</span></article>
-        <article><div class="tf-source-icon green"><svg><use href="#i-sheet"/></svg></div><b>Spreadsheets</b><span>Excel, CSV and structured JSON files.</span></article>
-        <article><div class="tf-source-icon purple"><svg><use href="#i-user"/></svg></div><b>Player photos</b><span>Drag-and-drop folders or individual portraits.</span></article>
-        <article><div class="tf-source-icon amber"><svg><use href="#i-crest"/></svg></div><b>Club assets</b><span>Crests, kits, logos and brand material.</span></article>
-        <article><div class="tf-source-icon blue"><svg><use href="#i-text"/></svg></div><b>Paste text</b><span>Copy any useful information directly.</span></article>
-        <article><div class="tf-source-icon green"><svg><use href="#i-data"/></svg></div><b>Data feeds</b><span>APIs and real-time statistics sources.</span></article>
+    <section id="workflow" class="workflow content-width">
+      <div class="section-heading reveal"><span>Modern production</span><h2>From source to live<br><em>in one connected workflow.</em></h2></div>
+      <div class="steps">
+        <article class="reveal"><b>01</b><h3>Ingest sources</h3><p>Links, team sheets, photos, data feeds and existing files.</p></article>
+        <article class="reveal"><b>02</b><h3>Identify teams</h3><p>Map clubs, players, kits and competition details.</p></article>
+        <article class="reveal"><b>03</b><h3>Verify match data</h3><p>Resolve conflicts before anything reaches air.</p></article>
+        <article class="reveal"><b>04</b><h3>Publish graphics</h3><p>Populate the approved package instantly.</p></article>
+        <article class="reveal"><b>05</b><h3>Operate anywhere</h3><p>Use a laptop or tablet with a clear live state.</p></article>
+        <article class="reveal"><b>06</b><h3>Distribute over IP</h3><p>Deliver through browser, NDI-class and cloud workflows.</p></article>
       </div>
     </section>
 
-    <section id="workflow" class="tf-workflow tf-shell">
-      <div class="tf-workflow-main"><h2>From chaos to broadcast-ready in <em>6 steps.</em></h2><div class="tf-flow">
-        <article><span><svg><use href="#i-link"/></svg></span><b>Collect</b><small>You provide any sources.</small></article>
-        <article><span><svg><use href="#i-doc"/></svg></span><b>Extract</b><small>We read, OCR and structure everything.</small></article>
-        <article><span><svg><use href="#i-network"/></svg></span><b>Match</b><small>Teams, players and assets are identified.</small></article>
-        <article><span><svg><use href="#i-data"/></svg></span><b>Reconcile</b><small>Sources are compared and conflicts surfaced.</small></article>
-        <article><span><svg><use href="#i-shield"/></svg></span><b>Validate</b><small>You review and approve the truth.</small></article>
-        <article><span><svg><use href="#i-screen"/></svg></span><b>Prepare</b><small>Every graphic becomes production-ready.</small></article>
-      </div></div>
-      <aside class="tf-better"><h3>We automate the prep.<br><em>You control the broadcast.</em></h3><div class="tf-better-grid"><span><b>Less copying</b>Stop retyping the same names into multiple templates.</span><span><b>Fewer mistakes</b>Conflicts are visible before they become on-air errors.</span><span><b>Faster setup</b>Turn mixed source material into a usable match workspace.</span><span><b>More output</b>Run more matches without growing the preparation burden.</span></div><p>Built for broadcasters, federations, clubs, streaming teams and rights holders.</p></aside>
+    <section id="technology" class="tech content-width">
+      <div class="tech-copy reveal"><span>Software-defined by design</span><h2>Built for the production models replacing legacy hardware.</h2><p>TAKEFRAME separates the operator surface, graphics engine, data model and delivery layer. The result is a platform that can evolve across devices, locations and leagues without rebuilding the entire system.</p></div>
+      <div class="tech-cards">
+        <article class="reveal"><b>Browser engine</b><span>Fast iteration and device flexibility.</span></article>
+        <article class="reveal"><b>IP-first output</b><span>Network delivery before physical infrastructure.</span></article>
+        <article class="reveal"><b>Remote operation</b><span>Operators and data can work from different locations.</span></article>
+        <article class="reveal"><b>Open integration</b><span>APIs and external sources extend the platform.</span></article>
+      </div>
     </section>
 
-    <section id="product" class="tf-section tf-shell tf-product">
-      <div class="tf-section-copy"><span>01 / Product</span><h2>Not another overlay.<br><em>An automated match operations system.</em></h2><p>TAKEFRAME connects match intake, source intelligence, human validation, asset preparation and live graphics control. The system does the repetitive work so the operator can focus on timing, editorial judgment and the show.</p></div>
-      <div class="tf-metrics"><article><b>ONE</b><span>match workspace instead of scattered files</span></article><article><b>VISIBLE</b><span>confidence, conflicts and missing assets</span></article><article><b>READY</b><span>graphics populated from approved truth</span></article><article><b>REUSABLE</b><span>assets and match objects across packages</span></article></div>
+    <section id="teams" class="audience content-width">
+      <div class="section-heading reveal"><span>Who it is for</span><h2>One platform.<br><em>Many football productions.</em></h2></div>
+      <div class="audience-grid"><article class="reveal"><b>Clubs</b><p>Upgrade matchday graphics without building an OB graphics department.</p></article><article class="reveal"><b>Leagues</b><p>Standardise brand quality across every fixture and venue.</p></article><article class="reveal"><b>Broadcasters</b><p>Add flexible football graphics to modern remote and IP workflows.</p></article><article class="reveal"><b>Production teams</b><p>Launch more matches with fewer manual setup steps.</p></article></div>
     </section>
 
-    <section id="graphics" class="tf-section tf-shell tf-graphics"><div class="tf-section-head"><div><span>02 / Graphics</span><h2>Every match moment.<br><em>One visual system.</em></h2></div><p>Split Pulse is the first TAKEFRAME football package, built around the same approved match model so presentation, score, events, line-ups and results remain synchronized.</p></div><div class="tf-graphic-grid">
-      <article class="wide"><label>Match presentation</label><div class="tf-versus"><span>HOME</span><b>VS</b><span>AWAY</span><small>LIVE FROM THE STADIUM</small></div></article>
-      <article><label>Scorebug + clock</label><div class="tf-score"><span>HOM</span><b>2</b><b>1</b><span>AWY</span><em>78:45</em></div></article>
-      <article><label>Goal identity</label><div class="tf-goal"><small>GOAL</small><b>09</b><span>PLAYER NAME</span></div></article>
-      <article><label>Formation</label><div class="tf-pitch">●　●　●<br>　●　●　●<br>●　●　●<br>　　●</div></article>
-      <article><label>Player identity</label><div class="tf-player"><b>10</b><span>PLAYER NAME<small>FORWARD</small></span></div></article>
-      <article class="wide"><label>Results · tables · post-match</label><div class="tf-table"><p><b>01</b><span>TEAM ALPHA</span><strong>72</strong></p><p><b>02</b><span>TEAM BRAVO</span><strong>68</strong></p><p><b>03</b><span>TEAM CHARLIE</span><strong>64</strong></p></div></article>
-    </div></section>
-
-    <section id="technology" class="tf-section tf-shell tf-technology"><div class="tf-section-copy"><span>03 / Technology</span><h2>Software-defined.<br><em>IP-first. Operator-native.</em></h2><p>TAKEFRAME is being built for laptops and tablets, modern network delivery, browser-based control, remote teams and cloud-assisted services. Not around legacy hardware as the centre of the product.</p></div><div class="tf-tech-grid"><article><b>Browser control</b><span>Operate through a consistent interface across modern devices.</span></article><article><b>IP delivery</b><span>Network output and NDI-class workflows are the product direction.</span></article><article><b>Local resilience</b><span>Keep live operation working even when remote services are unavailable.</span></article><article><b>Open data layer</b><span>Connect APIs and external sources without rebuilding the operator workflow.</span></article></div></section>
-
-    <section id="audiences" class="tf-section tf-shell tf-audiences"><div class="tf-section-head"><div><span>04 / Built for teams that need more output</span><h2>Do more matches.<br><em>With less preparation drag.</em></h2></div><p>The goal is simple: make professional graphics easier to prepare, easier to operate and easier to scale.</p></div><div class="tf-audience-grid"><article><b>Broadcasters</b><span>Standardize graphics setup across competitions and production teams.</span></article><article><b>Streaming teams</b><span>Deliver stronger shows from compact laptop and tablet workflows.</span></article><article><b>Federations</b><span>Turn club submissions and match documents into consistent output.</span></article><article><b>Clubs & leagues</b><span>Reuse verified team data and assets across every match package.</span></article></div></section>
-
-    <section id="access" class="tf-cta tf-shell"><div><span>Early access</span><h2>Your match prep should not be harder than the broadcast.</h2><p>Show us the links, files and manual steps your team handles today. We will show you how TAKEFRAME can turn them into one automated, verified graphics workflow.</p><a href="mailto:office@vsn.hr?subject=TAKEFRAME%20Demo%20Request">Request a demo</a></div></section>
+    <section id="contact" class="cta content-width reveal"><div><span>TAKE GRAPHICS LIVE.</span><h2>Ready to take your football broadcast to the next level?</h2><p>See TAKEFRAME with your own workflow, data and graphics requirements.</p><a class="primary large" href="mailto:office@vsn.hr?subject=TAKEFRAME%20Demo">Book a demo today</a></div><div class="cta-live">LIVE</div></section>
   </main>
 
-  <footer id="company" class="tf-footer"><div><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /><span>A VSN PRODUCT</span></div><p>TAKE GRAPHICS LIVE.</p><small>© 2026 VSN. All rights reserved.</small></footer>
-
-  <script>
-    const menu=document.querySelector('.tf-menu');const nav=document.querySelector('.tf-nav');
-    menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});
-  </script>
+  <footer><img src="/takeframe-logo-live.png" alt="TAKEFRAME LIVE" /><p>A VSN product · office@vsn.hr</p><span>© 2026 VSN. All rights reserved.</span></footer>
+  <script src="/concept.js"></script>
 </body>
 </html>
