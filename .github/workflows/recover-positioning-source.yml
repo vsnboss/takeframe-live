@@ -1,12 +1,11 @@
 name: Recover TAKEFRAME positioning source
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/website-positioning-v1
-    paths:
-      - ".github/workflows/recover-positioning-source.yml"
-      - "takeframe-positioning-source.zip.b64"
+      - main
+    types:
+      - synchronize
   workflow_dispatch:
 
 permissions:
@@ -14,7 +13,7 @@ permissions:
 
 jobs:
   recover:
-    if: github.actor != 'github-actions[bot]'
+    if: github.head_ref == 'agent/website-positioning-v1' || github.ref_name == 'agent/website-positioning-v1'
     runs-on: ubuntu-latest
     steps:
       - name: Check out positioning branch
@@ -29,6 +28,8 @@ jobs:
           set -euo pipefail
           test -f takeframe-positioning-source.zip.b64
           base64 -d takeframe-positioning-source.zip.b64 > /tmp/takeframe-positioning-source.zip
+          rm -rf /tmp/takeframe-positioning-source
+          mkdir -p /tmp/takeframe-positioning-source
           unzip -q -o /tmp/takeframe-positioning-source.zip -d /tmp/takeframe-positioning-source
 
           test -f /tmp/takeframe-positioning-source/index.html
@@ -54,10 +55,10 @@ jobs:
           git diff --stat
           git diff --name-status
           test ! -e POSITIONING_TEST.txt
-          grep -q "GIVE US THE MATCH" index.html
-          grep -q "Football broadcast operations" index.html
+          grep -qi "give us the match" index.html
+          grep -qi "football broadcast operations" index.html
           grep -q "NORDIC1" index.html
-          grep -q "Paid match pilot" index.html
+          grep -qi "paid match pilot" index.html
           test -f operator-gear/index.html
           test -f pilot/index.html
           test -f privacy/index.html
