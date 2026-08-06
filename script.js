@@ -19,7 +19,7 @@ const menuButton=document.querySelector('.menu-toggle');const nav=document.query
     figure.setAttribute('aria-hidden','true');
     const player=document.createElement('img');
     player.className='hero-player-image';
-    player.src='/assets/hero-player.png';
+    player.src='https://raw.githubusercontent.com/vsnboss/takeframe-live/22313895a35ed38ae00c4e4cadb1a08a1f7b169e/assets/hero-player.png';
     player.alt='';
     player.width=2048;
     player.height=2048;
