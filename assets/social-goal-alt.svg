@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 780" role="img" aria-labelledby="title desc">
+  <title id="title">Rafael Costa goal social card</title>
+  <desc id="desc">Original red and black football goal celebration artwork.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050812"/><stop offset=".48" stop-color="#250909"/><stop offset="1" stop-color="#070914"/></linearGradient>
+    <radialGradient id="fire" cx="70%" cy="36%" r="60%"><stop stop-color="#ff4a12" stop-opacity=".75"/><stop offset=".5" stop-color="#b8170c" stop-opacity=".25"/><stop offset="1" stop-color="#070914" stop-opacity="0"/></radialGradient>
+    <linearGradient id="kit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111318"/><stop offset=".45" stop-color="#98170f"/><stop offset=".58" stop-color="#131419"/><stop offset="1" stop-color="#5b0b08"/></linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#100807" stop-opacity=".97"/><stop offset="1" stop-color="#28100b" stop-opacity=".94"/></linearGradient>
+    <filter id="redGlow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="720" height="780" rx="28" fill="url(#bg)"/>
+  <rect x="2" y="2" width="716" height="776" rx="26" fill="none" stroke="#179eea" stroke-opacity=".65" stroke-width="3"/>
+  <ellipse cx="500" cy="290" rx="330" ry="285" fill="url(#fire)"/>
+  <g fill="#ff5a23" opacity=".85" filter="url(#redGlow)">
+    <circle cx="86" cy="120" r="5"/><circle cx="146" cy="80" r="4"/><circle cx="640" cy="106" r="5"/><circle cx="590" cy="63" r="3"/>
+    <path d="M90 320l12-26 8 31zM615 260l14-31 8 36zM175 202l8-22 8 26z"/>
+  </g>
+  <text x="52" y="185" font-family="Arial Black,Arial,sans-serif" font-size="118" font-weight="900" font-style="italic" fill="#fff7ef" transform="rotate(-4 52 185)">GOAL!</text>
+  <path d="M48 212c170-36 286-40 380-30" stroke="#ff3c16" stroke-width="14" opacity=".8"/>
+  <g transform="translate(332 124)">
+    <path d="M54 218c16-75 58-118 107-118 48 0 91 43 107 118l53 259H0z" fill="url(#kit)" stroke="#ff5a28" stroke-opacity=".6" stroke-width="3"/>
+    <path d="M45 208l235 160M20 285l247 158" stroke="#d52a18" stroke-width="38" opacity=".8"/>
+    <ellipse cx="161" cy="73" rx="58" ry="67" fill="#c88661"/>
+    <path d="M105 66c2-48 24-72 60-72 36 0 60 25 58 70-17-22-37-31-59-32-18 13-37 18-59 18z" fill="#211916"/>
+    <path d="M118 70c14-5 29-13 45-24 22 4 40 14 53 31-4 35-21 56-54 56-29 0-43-22-44-63z" fill="#ca8964"/>
+    <path d="M134 79h14M178 79h14" stroke="#271812" stroke-width="5" stroke-linecap="round"/>
+    <path d="M140 105c14 12 29 12 43 0" stroke="#612b22" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M105 225l-77-80-23 25 82 98" fill="#b87555"/>
+    <path d="M242 236l70-84 25 23-72 100" fill="#b87555"/>
+    <text x="161" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="86" font-weight="900" fill="#f34a27">9</text>
+  </g>
+  <g transform="translate(54 548)">
+    <rect width="612" height="132" rx="22" fill="url(#panel)" stroke="#ff4c22" stroke-width="2"/>
+    <text x="42" y="64" font-family="Arial, sans-serif" font-size="42" font-weight="900" fill="white">RAFAEL COSTA</text>
+    <path d="M416 28v76" stroke="#ff4b20" stroke-width="3"/>
+    <text x="456" y="83" font-family="Arial, sans-serif" font-size="54" font-weight="900" fill="white">68'</text>
+  </g>
+  <g opacity=".45" fill="#ff6b37"><circle cx="78" cy="418" r="3"/><circle cx="126" cy="450" r="4"/><circle cx="190" cy="396" r="3"/><circle cx="630" cy="438" r="4"/><circle cx="585" cy="472" r="3"/></g>
+</svg>
