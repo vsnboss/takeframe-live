@@ -55,3 +55,66 @@ form?.addEventListener('submit',e=>{
   window.location.href=`mailto:office@vsn.hr?subject=${subject}&body=${body}`;
   setTimeout(()=>{submitting=false},1500);
 });
+
+(()=>{
+  const output=document.querySelector('.section.output');
+  const opinionated=output?.querySelector('.opinionated');
+  if(!output||!opinionated||output.querySelector('.omt-ecosystem'))return;
+
+  if(!document.querySelector('style[data-omt-ecosystem]')){
+    const style=document.createElement('style');
+    style.dataset.omtEcosystem='true';
+    style.textContent=`
+      .omt-ecosystem{margin-top:38px;padding:26px;border:1px solid rgba(112,153,203,.25);border-radius:16px;background:linear-gradient(180deg,rgba(8,21,36,.92),rgba(5,12,22,.94));overflow:hidden}
+      .omt-ecosystem-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}
+      .omt-ecosystem-head .eyebrow{margin-bottom:7px}
+      .omt-ecosystem-head h3{margin:0;font:900 clamp(28px,2.7vw,48px) Squadra,Impact,sans-serif;line-height:.94;text-transform:uppercase;letter-spacing:.02em}
+      .omt-ecosystem-head p:last-child{max-width:560px;margin:0;color:#a8bad2;font-size:13px;line-height:1.55;text-align:right}
+      .omt-logo-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+      .omt-brand{min-height:98px;padding:16px;display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid rgba(112,153,203,.2);border-radius:11px;background:#04101d;transition:transform .2s,border-color .2s,background .2s}
+      .omt-brand:hover{transform:translateY(-2px);border-color:rgba(0,200,255,.48);background:#061624}
+      .omt-brand img{display:block;max-width:150px;max-height:46px;width:auto;height:auto;object-fit:contain}
+      .omt-brand img.omt-symbol{width:44px;height:44px}
+      .omt-brand span{font:900 18px Squadra,Impact,sans-serif;letter-spacing:.045em;text-transform:uppercase;color:#eef5ff}
+      .omt-brand--text span{font-size:clamp(16px,1.25vw,22px);text-align:center}
+      .omt-ecosystem-foot{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-top:16px;padding-top:15px;border-top:1px solid rgba(112,153,203,.16);color:#7f93ac;font-size:10px;line-height:1.5;text-transform:uppercase;letter-spacing:.05em}
+      .omt-ecosystem-foot a{color:#a9c9e8;font-weight:900}
+      @media(max-width:900px){.omt-ecosystem-head{display:block}.omt-ecosystem-head p:last-child{margin-top:10px;text-align:left}.omt-logo-row{grid-template-columns:repeat(2,1fr)}}
+      @media(max-width:520px){.omt-ecosystem{padding:18px}.omt-logo-row{grid-template-columns:1fr 1fr}.omt-brand{min-height:86px;padding:12px}.omt-brand img{max-width:115px;max-height:38px}.omt-brand span{font-size:15px}.omt-ecosystem-foot{display:block}.omt-ecosystem-foot a{display:inline-block;margin-top:8px}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  const ecosystem=document.createElement('div');
+  ecosystem.className='omt-ecosystem';
+  ecosystem.setAttribute('aria-labelledby','omt-ecosystem-title');
+  ecosystem.innerHTML=`
+    <div class="omt-ecosystem-head">
+      <div>
+        <p class="eyebrow">OMT ecosystem</p>
+        <h3 id="omt-ecosystem-title">Open protocol.<br>Growing production ecosystem.</h3>
+      </div>
+      <p>Selected adopters and tools documented by the Open Media Transport project.</p>
+    </div>
+    <div class="omt-logo-row" aria-label="Selected Open Media Transport ecosystem brands">
+      <a class="omt-brand" href="https://www.vmix.com/" target="_blank" rel="noopener noreferrer" aria-label="vMix website">
+        <img src="https://www.vmix.com/images/2017/logos/web/vmix-logo/vMix-Logo-White.png" alt="vMix" loading="lazy">
+      </a>
+      <a class="omt-brand" href="https://obsproject.com/" target="_blank" rel="noopener noreferrer" aria-label="OBS Studio website">
+        <img class="omt-symbol" src="https://raw.githubusercontent.com/obsproject/obs-studio/220a16378fb9079b0ebd008ee994f5cb298de90d/frontend/forms/images/obs.png" alt="OBS Studio" loading="lazy">
+        <span>OBS Studio</span>
+      </a>
+      <a class="omt-brand omt-brand--text" href="https://www.sienna-tv.com/" target="_blank" rel="noopener noreferrer" aria-label="SIENNA website">
+        <span>SIENNA</span>
+      </a>
+      <a class="omt-brand omt-brand--text" href="https://centralcontrol.io/" target="_blank" rel="noopener noreferrer" aria-label="Central Control website">
+        <span>Central Control</span>
+      </a>
+    </div>
+    <div class="omt-ecosystem-foot">
+      <span>Marks belong to their respective owners. Ecosystem context only; no endorsement of TAKEFRAME is implied.</span>
+      <a href="https://www.openmediatransport.org/" target="_blank" rel="noopener noreferrer">Open Media Transport &rarr;</a>
+    </div>
+  `;
+  opinionated.before(ecosystem);
+})();
