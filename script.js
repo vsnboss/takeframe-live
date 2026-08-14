@@ -144,6 +144,37 @@ form?.addEventListener('submit',e=>{
   opinionated.before(switchers);
 })();
 
+/* Restore the exact football-first hero used before the positioning update. */
+(()=>{
+  const hero=document.querySelector('.hero#top');
+  if(!hero)return;
+  document.body.classList.add('football-hero-ready');
+  if(!document.querySelector('link[data-football-hero]')){
+    const styles=document.createElement('link');
+    styles.rel='stylesheet';
+    styles.href='/hero-football.css';
+    styles.dataset.footballHero='approved';
+    document.head.appendChild(styles);
+  }
+  if(!hero.querySelector('.hero-player')){
+    const figure=document.createElement('figure');
+    figure.className='hero-player';
+    figure.setAttribute('aria-hidden','true');
+    const player=document.createElement('img');
+    player.className='hero-player-image';
+    player.src='https://raw.githubusercontent.com/vsnboss/takeframe-live/22313895a35ed38ae00c4e4cadb1a08a1f7b169e/assets/hero-player.png';
+    player.alt='';
+    player.width=2048;
+    player.height=2048;
+    player.loading='eager';
+    player.fetchPriority='high';
+    player.decoding='async';
+    figure.appendChild(player);
+    const visual=hero.querySelector('.hero-visual');
+    hero.insertBefore(figure,visual||null);
+  }
+})();
+
 (()=>{
   const marketing=document.createElement('script');
   marketing.src='/marketing.js';
