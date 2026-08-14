@@ -79,8 +79,13 @@ form?.addEventListener('submit',e=>{
       .omt-brand--text span{font-size:clamp(16px,1.25vw,22px);text-align:center}
       .omt-ecosystem-foot{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-top:16px;padding-top:15px;border-top:1px solid rgba(112,153,203,.16);color:#7f93ac;font-size:10px;line-height:1.5;text-transform:uppercase;letter-spacing:.05em}
       .omt-ecosystem-foot a{color:#a9c9e8;font-weight:900}
-      @media(max-width:900px){.omt-ecosystem-head{display:block}.omt-ecosystem-head p:last-child{margin-top:10px;text-align:left}.omt-logo-row{grid-template-columns:repeat(2,1fr)}}
-      @media(max-width:520px){.omt-ecosystem{padding:18px}.omt-logo-row{grid-template-columns:1fr 1fr}.omt-brand{min-height:86px;padding:12px}.omt-brand img{max-width:115px;max-height:38px}.omt-brand span{font-size:15px}.omt-ecosystem-foot{display:block}.omt-ecosystem-foot a{display:inline-block;margin-top:8px}}
+      .switcher-support{margin-top:38px;padding:28px;border:1px solid rgba(0,200,255,.22);border-radius:16px;background:radial-gradient(circle at 15% 0,rgba(0,139,255,.1),transparent 36%),linear-gradient(180deg,#071522,#050c16)}
+      .switcher-support-head{display:flex;align-items:end;justify-content:space-between;gap:26px;margin-bottom:20px}
+      .switcher-support-head h3{margin:0;font:900 clamp(30px,3vw,50px) Squadra,Impact,sans-serif;line-height:.95;text-transform:uppercase}.switcher-support-head p:last-child{max-width:600px;margin:0;color:#a8bad2;font-size:13px;line-height:1.55;text-align:right}
+      .switcher-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.switcher-card{min-height:132px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(112,153,203,.2);border-radius:11px;background:#04101d}.switcher-card strong{font:900 22px Squadra,Impact,sans-serif;letter-spacing:.03em}.switcher-card small{display:block;margin-top:5px;color:#8fa4bf;line-height:1.35}.switcher-protocols{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}.switcher-protocols span{padding:6px 8px;border:1px solid rgba(55,224,139,.3);border-radius:6px;color:#63e7a1;background:rgba(55,224,139,.04);font-size:9px;font-weight:900;letter-spacing:.05em}.switcher-protocols span.omt{border-color:rgba(0,200,255,.32);color:#55d8ff;background:rgba(0,200,255,.04)}.switcher-support-foot{margin-top:15px;padding-top:14px;border-top:1px solid rgba(112,153,203,.15);color:#7f93ac;font-size:10px;line-height:1.5;text-transform:uppercase;letter-spacing:.045em}
+      @media(max-width:1100px){.switcher-grid{grid-template-columns:repeat(3,1fr)}}
+      @media(max-width:900px){.omt-ecosystem-head,.switcher-support-head{display:block}.omt-ecosystem-head p:last-child,.switcher-support-head p:last-child{margin-top:10px;text-align:left}.omt-logo-row{grid-template-columns:repeat(2,1fr)}.switcher-grid{grid-template-columns:repeat(2,1fr)}}
+      @media(max-width:520px){.omt-ecosystem,.switcher-support{padding:18px}.omt-logo-row{grid-template-columns:1fr 1fr}.omt-brand{min-height:86px;padding:12px}.omt-brand img{max-width:115px;max-height:38px}.omt-brand span{font-size:15px}.omt-ecosystem-foot{display:block}.omt-ecosystem-foot a{display:inline-block;margin-top:8px}.switcher-grid{grid-template-columns:1fr}.switcher-card{min-height:110px}}
     `;
     document.head.appendChild(style);
   }
@@ -117,4 +122,23 @@ form?.addEventListener('submit',e=>{
     </div>
   `;
   opinionated.before(ecosystem);
+
+  const switchers=document.createElement('div');
+  switchers.className='switcher-support';
+  switchers.setAttribute('aria-labelledby','switcher-support-title');
+  switchers.innerHTML=`
+    <div class="switcher-support-head">
+      <div><p class="eyebrow">Switcher compatibility</p><h3 id="switcher-support-title">Professional switchers.<br>IP graphics ready.</h3></div>
+      <p>TAKEFRAME Program can be ingested by production systems that natively receive the supported NDI or OMT feed. Alpha/key support depends on the specific switcher model and protocol mode.</p>
+    </div>
+    <div class="switcher-grid" aria-label="Protocol-compatible production switchers">
+      <article class="switcher-card"><div><strong>vMix 29</strong><small>Software production switcher with native NDI and OMT receive.</small></div><div class="switcher-protocols"><span>NDI</span><span class="omt">OMT</span><span>ALPHA</span></div></article>
+      <article class="switcher-card"><div><strong>Panasonic</strong><small>AV-HSW10 / supported NDI High Bandwidth modes.</small></div><div class="switcher-protocols"><span>NDI HB</span><span>ALPHA CG</span></div></article>
+      <article class="switcher-card"><div><strong>Ross Video</strong><small>Carbonite Code software production switcher.</small></div><div class="switcher-protocols"><span>NDI</span><span>KEY + FILL</span></div></article>
+      <article class="switcher-card"><div><strong>Vizrt</strong><small>TriCaster family with native NDI production workflows.</small></div><div class="switcher-protocols"><span>NDI</span><span>IP GRAPHICS</span></div></article>
+      <article class="switcher-card"><div><strong>FOR-A</strong><small>HVS-190 / HVS-490 / HVS-Q12 with HVS-NIF.</small></div><div class="switcher-protocols"><span>NDI HB</span><span>ALPHA RX</span></div></article>
+    </div>
+    <div class="switcher-support-foot">Protocol compatibility is based on current vendor documentation. These brands are not represented as TAKEFRAME partners, certifications or endorsements. Exact configuration depends on switcher model, firmware and enabled options.</div>
+  `;
+  opinionated.before(switchers);
 })();
