@@ -143,3 +143,10 @@ form?.addEventListener('submit',e=>{
   `;
   opinionated.before(switchers);
 })();
+
+(()=>{
+  const marketing=document.createElement('script');
+  marketing.src='/marketing.js';
+  marketing.defer=true;
+  document.head.appendChild(marketing);
+})();
