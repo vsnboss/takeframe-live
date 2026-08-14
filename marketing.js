@@ -101,3 +101,11 @@
     document.head.appendChild(style);
   }
 })();
+
+(()=>{
+  if(document.querySelector('script[data-real-assets]'))return;
+  const realAssets=document.createElement('script');
+  realAssets.src='/real-assets.js';
+  realAssets.dataset.realAssets='true';
+  document.head.appendChild(realAssets);
+})();
