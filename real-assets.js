@@ -1,15 +1,9 @@
 (()=>{
   const files={
-    hero:[
-      '/assets/real-data/hero-1.txt',
-      '/assets/real-data/hero-2.txt',
-      '/assets/real-data/hero-3.txt',
-      '/assets/real-data/hero-4.txt',
-      '/assets/real-data/hero-5.txt'
-    ],
-    scorebug:['/assets/real-data/scorebug.txt'],
+    hero:['/assets/real-data/hero-live.txt'],
+    scorebug:['/assets/real-data/scorebug-live.txt'],
     startingXI:['/assets/real-data/starting-xi-1.txt','/assets/real-data/starting-xi-2.txt'],
-    playerGraphic:['/assets/real-data/player-graphic.txt'],
+    playerGraphic:['/assets/real-data/player-graphic-live.txt'],
     goalEvent:['/assets/real-data/goal-event.txt']
   };
 
