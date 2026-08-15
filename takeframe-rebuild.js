@@ -96,28 +96,34 @@
     });
   });
 
-  /* Replace only the NORDIC1 STARTING XI mockup with the supplied real formation graphic. */
+  /* Replace ONLY the NORDIC1 "STARTING XI" card body with the supplied real formation screenshot. */
   const installRealFormationGraphic = async () => {
-    const card = document.querySelector('.graphics-row .graphic-card:nth-child(2)');
-    if (!card) return;
+    const card = document.querySelector('#graphics .gfx-row .gfx:nth-of-type(2)');
+    const body = card?.querySelector('.gfx-body');
+    if (!card || !body) return;
+
     try {
-      const response = await fetch('/assets/real-data/formation-1.txt', { cache: 'no-store' });
-      if (!response.ok) throw new Error('formation asset unavailable');
+      const response = await fetch('/assets/real-data/formation-1.txt?v=2', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`formation asset unavailable (${response.status})`);
+
       const encoded = (await response.text()).replace(/\s+/g, '');
-      const heading = card.querySelector('h4');
-      card.querySelectorAll(':scope > :not(h4)').forEach((node) => node.remove());
+      if (!encoded) throw new Error('formation asset is empty');
+
+      body.innerHTML = '';
+      body.style.padding = '0';
+      body.style.overflow = 'hidden';
+
       const img = document.createElement('img');
       img.src = `data:image/jpeg;base64,${encoded}`;
       img.alt = 'Real NK Osijek final formation graphic';
       img.decoding = 'async';
+      img.loading = 'eager';
       img.style.display = 'block';
       img.style.width = '100%';
-      img.style.height = heading ? 'calc(100% - 32px)' : '100%';
-      img.style.objectFit = 'contain';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
       img.style.objectPosition = 'center';
-      img.style.background = '#06111d';
-      if (heading) heading.textContent = 'FORMATION';
-      card.appendChild(img);
+      body.appendChild(img);
     } catch (err) {
       console.error('TAKEFRAME: formation graphic could not be loaded.', err);
     }
