@@ -1,95 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TAKEFRAME LIVE — The Football Graphics Operating System</title>
-  <meta name="description" content="TAKEFRAME LIVE turns football match information, operator actions and professional output into one football-native production system.">
-  <meta name="theme-color" content="#020711">
-  <link rel="canonical" href="https://takeframe.live/">
-  <meta property="og:title" content="TAKEFRAME LIVE — The Football Graphics Operating System">
-  <meta property="og:description" content="From team sheet to live graphics. Built for football. Not adapted to it.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://takeframe.live/">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="/assets/favicon.png">
-  <link rel="preload" href="/fonts/squadra-black.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="/assets/hero-player.png" as="image">
-  <link rel="stylesheet" href="/approved-base.css?v=2">
-  <link rel="stylesheet" href="/approved-mockups.css?v=2">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAKEFRAME LIVE — Football Graphics Operating System</title>
+<meta name="description" content="From team sheet to live graphics. TAKEFRAME LIVE is the football graphics operating system built for matchday production.">
+<meta name="theme-color" content="#020712">
+<link rel="stylesheet" href="/takeframe-rebuild.css?v=1">
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <a class="brand" href="#top" aria-label="TAKEFRAME LIVE home"><img src="/assets/logo.png" alt="TAKEFRAME LIVE"></a>
-  <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span><span></span></button>
-  <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-    <a href="#product">Product</a><a href="#workflow">How it works</a><a href="#football">Football</a><a href="#output">Output</a><a href="#graphics">Graphics</a><a href="#beta">Beta</a>
-  </nav>
-  <a class="btn btn-red header-cta" href="#beta">Book a demo <span>↗</span></a>
-</header>
+<a class="skip" href="#main">Skip to content</a>
+<div class="stage"><main id="main" class="canvas">
+  <div class="grid-bg"></div><div class="energy blue-a"></div><div class="energy blue-b"></div><div class="energy red-a"></div><div class="energy red-b"></div>
 
-<main id="main">
-<section class="hero" id="top">
-  <div class="hero-energy blue"></div><div class="hero-energy red"></div>
-  <div class="hero-grid">
+  <header class="header">
+    <a class="logo" href="#hero" aria-label="TAKEFRAME LIVE home"><img src="/assets/logo.png" alt="TAKEFRAME LIVE"></a>
+    <nav><a href="#product">PRODUCT</a><a href="#workflow">HOW IT WORKS</a><a href="#football">FOOTBALL</a><a href="#output">OUTPUT</a><a href="#graphics">GRAPHICS</a><a href="#beta">BETA</a></nav>
+    <button class="red-btn js-demo">BOOK A DEMO <b>↗</b></button>
+  </header>
+
+  <section class="hero" id="hero">
     <div class="hero-copy">
-      <p class="kicker">Football graphics. Operating system.</p>
-      <h1><span>From</span><span>team sheet</span><em>to live</em><em>graphics.</em></h1>
-      <p class="hero-lead">TAKEFRAME turns football data, operator actions and professional output into one production system. Everything connected. Everything live.</p>
-      <div class="hero-actions"><a class="btn btn-red" href="#beta">See TAKEFRAME in action <span>↗</span></a><a class="btn btn-dark" href="#workflow">See the workflow <span>▷</span></a></div>
+      <div class="tiny-cyan">FOOTBALL GRAPHICS. OPERATING SYSTEM.</div>
+      <h1><span>FROM</span><span>TEAM SHEET</span><em>TO LIVE</em><em>GRAPHICS.</em></h1>
+      <p>TAKEFRAME turns football data, operator actions, and professional output into one production system.<br>Everything connected. Everything live.</p>
+      <div class="hero-buttons"><button class="red-btn js-demo">SEE TAKEFRAME IN ACTION <b>↗</b></button><a class="outline-btn" href="#workflow"><i>▷</i> WATCH 90 SEC OVERVIEW</a></div>
     </div>
-    <div class="hero-stage">
-      <img class="hero-player" src="/assets/hero-player.png" alt="Football player">
-      <div class="hero-score glass"><div class="tiny-brand">TAKEFRAME <b>LIVE</b></div><div class="clock">78:24</div><div class="team"><i>NFC</i><strong>2</strong></div><div class="score-sep"></div><div class="team"><strong>1</strong><i>RBL</i></div></div>
-      <div class="hero-lineup glass"><div class="module-head"><strong>STARTING XI</strong><span>4-3-3</span></div><ol><li>A. NÜBEL (GK)</li><li>N. MUKIELE</li><li>L. ØRSTED</li><li>W. ORBAN</li><li>K. SCHLAGER</li><li>K. HAIDARA</li><li>X. SIMONS</li><li>D. OLMO</li><li>Y. POULSEN</li><li>T. WERNER</li><li>C. NKUNKU</li></ol></div>
-      <div class="hero-player-card glass"><div><span class="num">9</span><b>E. HAALAND</b><small>Today vs RBL</small></div><div class="stat-row"><span><small>GOALS</small><b>1</b></span><span><small>ASSISTS</small><b>4</b></span><span><small>SHOTS</small><b>3</b></span><span><small>PASS ACC.</small><b>87%</b></span></div><div class="portrait">9</div></div>
+    <img class="hero-player" src="/assets/hero-player.png" alt="Football player">
+
+    <div class="scoreboard tech-card">
+      <div class="tf-mini">TAKEFRAME <b>LIVE</b></div><div class="match-clock">78:24</div>
+      <div class="club left"><span class="crest crest-red">N</span><strong>NFC</strong></div><div class="score">2 <i></i> 1</div><div class="club right"><strong>RBL</strong><span class="crest crest-ball">⚽</span></div>
     </div>
-  </div>
-  <div class="capability-rail"><span>◉ Football-native</span><span>◎ 1080P50</span><span>◈ NDI + OMT</span><span>▣ Preview + Program</span><span>⊕ Alpha channel</span></div>
-</section>
+    <div class="lineup tech-card"><div class="module-title"><b>STARTING XI</b><span>4-3-3</span></div><ol><li>A. NÜBEL (GK)</li><li>N. MUKIELE</li><li>L. ØRSTED</li><li>W. ORBAN</li><li>K. SCHLAGER</li><li>K. HAIDARA</li><li>X. SIMONS</li><li>D. OLMO</li><li>Y. POULSEN</li><li>T. WERNER</li><li>C. NKUNKU</li></ol></div>
+    <div class="player-card tech-card"><div class="pc-head"><span class="big-num">9</span><div><b>E. HAALAND</b><small>Today vs RBL</small></div></div><div class="pc-stats"><span><small>GOALS</small><b>1</b></span><span><small>ASSISTS</small><b>4</b></span><span><small>SHOTS</small><b>3</b></span><span><small>PASS ACC.</small><b>87%</b></span></div><div class="portrait"><img src="/assets/hero-player.png" alt=""></div></div>
+  </section>
 
-<section class="section compare" id="product"><div class="section-grid compare-grid">
-  <div class="big-copy"><p class="eyebrow">The category shift</p><h2>You already have<br>a graphics tool.<br><em>This is the system<br>around it.</em></h2><p>TAKEFRAME orchestrates the match, data and graphics workflow so football production moves as one controlled system.</p></div>
-  <div class="compare-cards">
-    <article class="compare-card bad"><div class="card-title"><span>×</span> Traditional setup</div><ul><li>Disconnected data sources</li><li>Manual keying and updates</li><li>Operator silos</li><li>Inconsistent output</li><li>Time-consuming workflows</li></ul><strong>More friction. More risk. More stress.</strong></article>
-    <div class="vs">VS</div>
-    <article class="compare-card good"><div class="card-title"><span>✓</span> TAKEFRAME system</div><ul><li>Centralized match model</li><li>Live data + operator control</li><li>One football-native workflow</li><li>Consistent branded output</li><li>Faster repeatable production</li></ul><strong>One system. Total control. Zero chaos.</strong></article>
-  </div>
-</div></section>
+  <div class="cap-rail"><span>⊕ &nbsp; FOOTBALL-NATIVE</span><span>♙ &nbsp; 1 OPERATOR</span><span>⌘ &nbsp; NO CODE</span><span>▣ &nbsp; PREVIEW + PROGRAM</span><span>⊙ &nbsp; ALPHA CHANNEL</span></div>
 
-<section class="section workflow" id="workflow"><div class="section-grid workflow-grid">
-  <div class="big-copy narrow"><p class="eyebrow">Matchday flow</p><h2>Built for<br>the flow<br>of football.</h2><p>From pre-match preparation to final Program output, TAKEFRAME keeps the match moving through one operator workflow.</p></div>
-  <div class="steps"><article><b>01</b><h3>Onboard</h3><p>Bring squads, lineups, match sources and assets into one match.</p></article><article><b>02</b><h3>Prematch</h3><p>Verify teams, players, formations, officials and production data.</p></article><article><b>03</b><h3>Match</h3><p>Operate goals, cards, substitutions, VAR, clock and score live.</p></article><article><b>04</b><h3>Program</h3><p>Deliver finished graphics over professional IP output.</p></article></div>
-</div></section>
+  <section class="compare section" id="product"><div class="left-title"><h2>YOU ALREADY HAVE<br>A GRAPHICS TOOL.<br><em>THIS IS THE SYSTEM<br>AROUND IT.</em></h2><p>TAKEFRAME orchestrates data, people and graphics to deliver consistent, scalable, broadcast-ready output—every time.</p></div><div class="compare-pair"><article class="compare-card bad"><h3><i>×</i> TRADITIONAL SETUP</h3><ul><li>Disconnected data sources</li><li>Manual keying & input</li><li>Operator silos</li><li>Inconsistent output</li><li>Time-consuming workflows</li></ul><strong>More friction. More risk. More stress.</strong></article><div class="vs">VS</div><article class="compare-card good"><h3><i>✓</i> TAKEFRAME SYSTEM</h3><ul><li>Centralised match model</li><li>Live data + operator control</li><li>Collaborative workflows</li><li>Consistent, branded output</li><li>Faster turnarounds, less errors</li></ul><strong>One system. Total control. Zero chaos.</strong></article></div></section>
 
-<section class="section match-model" id="football"><div class="section-grid model-grid">
-  <div class="big-copy narrow"><p class="eyebrow">Football data</p><h2>Four sources in.<br>One match<br>model out.</h2><p>TAKEFRAME normalizes match information into one football model powering every graphic and operator decision.</p><a class="btn btn-outline" href="#output">Explore the system <span>↗</span></a></div>
-  <div class="model-map"><div class="source-card"><b>Data feeds</b><span>Providers, stats, spreadsheets</span><i>◫</i></div><div class="source-card"><b>Operator input</b><span>Manual actions and overrides</span><i>☝</i></div><div class="source-card"><b>Club & league data</b><span>Squads, fixtures, rules</span><i>⬡</i></div><div class="source-card"><b>3rd party systems</b><span>VAR, timing and broadcast feeds</span><i>⌘</i></div><div class="model-lines"></div><div class="model-core"><span class="tf-mark">TF</span><strong>TAKEFRAME<br>MATCH MODEL</strong><small>Live. Unified. Reliable.</small></div></div>
-</div></section>
+  <section class="workflow section" id="workflow"><div class="left-title"><h2>BUILT FOR<br>THE FLOW<br>OF FOOTBALL.</h2><p>From pre-match to post-match program—TAKEFRAME keeps your production moving, live and in sync.</p></div><div class="steps"><article><b>01</b><span class="step-icon">◎</span><h3>ONBOARD</h3><p>Import squads, kits,<br>lineups & match data<br>from any source.</p></article><article><b>02</b><span class="step-icon">♙</span><h3>PREMATCH</h3><p>Build team sheets,<br>tactics and<br>broadcast elements.</p></article><article><b>03</b><span class="step-icon">◌</span><h3>MATCH</h3><p>Operate live<br>with real-time<br>updates & control.</p></article><article><b>04</b><span class="step-icon">♟</span><h3>PROGRAM</h3><p>Deliver live all the<br>way to post-match<br>and format outputs.</p></article></div></section>
 
-<section class="section control" id="output"><div class="section-grid control-grid">
-  <div class="big-copy narrow"><p class="eyebrow">Control room</p><h2>Your control room.<br>Designed<br>for speed.</h2><p>A football-native interface for match control, preview, graphics and Program output.</p><div class="protocol-badges"><span>NDI</span><span>OMT</span><span>ALPHA</span><span>50P</span></div></div>
-  <div class="control-ui glass">
-    <div class="app-top"><b>TAKEFRAME <em>LIVE</em></b><nav><span>MATCH</span><span>GRAPHICS</span><span>DATA</span><span>OUTPUT</span><span>SETTINGS</span></nav></div>
-    <aside><span>Dashboard</span><span class="active">Match Data</span><span>Team Sheets</span><span>Graphics</span><span>Playlists</span><span>Outputs</span><span>Settings</span></aside>
-    <div class="match-overview panel"><small>MATCH OVERVIEW</small><div class="mini-score"><b>NFC</b><strong>2</strong><i>1</i><b>RBL</b></div><div class="pitch"><i></i></div></div>
-    <div class="events panel"><small>LIVE EVENTS</small><p><b>78′</b> ⚽ E. HAALAND <em>GOAL</em></p><p><b>72′</b> 🟨 N. MUKIELE</p><p><b>68′</b> ↔ X. SIMONS</p><p><b>63′</b> ◉ D. OLMO</p><button>+ ADD EVENT</button></div>
-    <div class="pvw panel"><small>PREVIEW</small><div class="screen">NFC <b>2&nbsp; 1</b> RBL</div><small>PROGRAM <em>ON AIR</em></small><div class="screen program">NFC <b>2&nbsp; 1</b> RBL</div></div>
-    <div class="outputs panel"><small>OUTPUTS</small><p>🟢 Main Feed <b>1080p50</b></p><p>🔴 Tactical Feed <b>1080p50</b></p><p>◼ Social Vertical <b>1080×1920</b></p><p>▣ Stadium Screen <b>4K</b></p><button>+ NEW OUTPUT</button></div>
-  </div>
-</div></section>
+  <section class="model section" id="football"><div class="left-title"><h2>FOUR SOURCES IN.<br>ONE MATCH<br>MODEL OUT.</h2><p>TAKEFRAME normalises data into a single, live match model—powering every graphic, every platform.</p><a class="mini-outline" href="#output">EXPLORE DATA INTEGRATIONS &nbsp; ↗</a></div><div class="source-row"><article><b>DATA FEEDS</b><p>Live providers, stats,<br>spreadsheets & more</p><i>◫</i></article><article><b>OPERATOR INPUT</b><p>Manual actions,<br>tactics & overrides</p><i>☝</i></article><article><b>CLUB & LEAGUE DATA</b><p>Squad lists, fixtures,<br>competition rules</p><i>⬡</i></article><article><b>3RD PARTY SYSTEMS</b><p>VAR, tracking, timing<br>& broadcast feeds</p><i>⌘</i></article><div class="model-lines"></div><div class="model-core"><span>TF</span><div><b>TAKEFRAME<br>MATCH MODEL</b><small>Live. Unified. Reliable.</small></div></div></div></section>
 
-<section class="section graphics" id="graphics"><div class="section-grid graphics-grid">
-  <div class="big-copy narrow"><p class="eyebrow">NORDIC1 graphics</p><h2>Graphics.<br>Made to<br>stand out.</h2><p>Premium football graphics with a consistent broadcast identity across score, lineups, player stories and match events.</p><a class="btn btn-outline" href="#beta">See the package <span>↗</span></a></div>
-  <div class="graphics-showcase"><article class="gfx-card"><small>SCOREBUG</small><div class="gfx-score"><span>NFC</span><b>2</b><i>1</i><span>RBL</span></div><em>78:24</em></article><article class="gfx-card"><small>STARTING XI</small><div class="formation"><i>11</i><i>9</i><i>7</i><i>8</i><i>10</i><i>6</i><i>3</i><i>4</i><i>5</i><i>2</i><i>1</i></div></article><article class="gfx-card player-gfx"><small>PLAYER GRAPHIC</small><strong>9</strong><h3>E. HAALAND</h3><div class="small-stats"><span>GOALS <b>16</b></span><span>ASSISTS <b>4</b></span><span>SHOTS <b>45</b></span></div></article><article class="gfx-card event-gfx"><small>MATCH EVENT</small><div class="goal">GOAL<small>9 E. HAALAND</small></div></article></div>
-</div></section>
+  <section class="control section" id="output"><div class="left-title"><h2>YOUR CONTROL ROOM.<br>DESIGNED FOR SPEED.</h2><p>A frictionless interface for fast, graphics, playback and output. Everything at your fingertips.</p><a class="mini-outline" href="#output">EXPLORE THE INTERFACE &nbsp; ↗</a></div><div class="control-ui tech-card"><div class="control-top"><b>TAKEFRAME <em>LIVE</em></b><nav><span>MATCH</span><span>GRAPHICS</span><span>DATA</span><span>OUTPUT</span><span>SETTINGS</span></nav></div><div class="control-body"><aside><span>◉ Dashboard</span><span>◫ Match Data</span><span>▤ Team Sheets</span><span>▱ Graphics</span><span>▷ Playlists</span><span>▣ Outputs</span><span>⚙ Settings</span></aside><div class="match-overview panel"><h4>MATCH OVERVIEW</h4><div class="mini-score"><small>78:24</small><b>NFC &nbsp; 2 &nbsp; 1 &nbsp; RBL</b></div><div class="pitch"><div class="field-line"></div></div></div><div class="events panel"><h4>LIVE EVENTS</h4><p><b>78'</b> ⚽ E. HAALAND <em>GOAL</em></p><p><b>72'</b> 🟨 N. MUKIELE <em>YELLOW CARD</em></p><p><b>68'</b> ↺ X. SIMONS <em>SUBSTITUTION</em></p><p><b>63'</b> ◎ D. OLMO <em>SHOT ON TARGET</em></p><button>+ ADD EVENT</button></div><div class="preview-col"><div class="panel preview"><h4>PREVIEW</h4><div class="mini-program">NFC &nbsp; 2 &nbsp; 1 &nbsp; RBL</div></div><div class="panel program"><h4>PROGRAM <em>ON AIR</em></h4><div class="mini-program">NFC &nbsp; 2 &nbsp; 1 &nbsp; RBL</div></div></div><div class="outputs panel"><h4>OUTPUTS</h4><p>🟩 Main Feed<small>1080p50</small></p><p>🟥 Tactical Feed<small>1080p50</small></p><p>🔵 Social Vertical<small>1080x1920</small></p><p>⬜ Stadium Screen<small>4K</small></p><button>+ NEW OUTPUT</button></div></div></div></section>
 
-<section class="section audience"><div class="section-grid audience-grid"><div class="big-copy narrow"><p class="eyebrow">Built for the game</p><h2>Built for<br>the game.<br>Trusted by<br>the best.</h2></div><div class="audience-cards"><article><h3>Clubs</h3><p>Control the brand. Upgrade every match. Give media teams professional output.</p></article><article><h3>Leagues</h3><p>Create consistent competition graphics and scalable match workflows.</p></article><article><h3>Federations</h3><p>Standardize football presentation across national and competition environments.</p></article><article><h3>Production companies</h3><p>Move faster, reduce repetitive setup and deliver more football with less friction.</p></article></div></div></section>
+  <section class="graphics section" id="graphics"><div class="left-title"><h2>NORDIC1<br>GRAPHICS.<br>MADE TO STAND OUT.</h2><p>Premium, modular graphics built for modern football. Fully customisable.</p><a class="mini-outline" href="#graphics">VIEW ALL GRAPHICS &nbsp; ↗</a></div><div class="graphics-row"><article class="graphic-card"><h4>SCOREBUG</h4><div class="big-score"><small>78:24</small><b>NFC &nbsp; 2 &nbsp; 1 &nbsp; RBL</b></div></article><article class="graphic-card"><h4>STARTING XI</h4><div class="formation"><span class="p p1">11</span><span class="p p2">9</span><span class="p p3">7</span><span class="p p4">8</span><span class="p p5">10</span><span class="p p6">6</span><span class="p p7">3</span><span class="p p8">4</span><span class="p p9">5</span><span class="p p10">2</span><span class="p gk">1</span></div></article><article class="graphic-card player-graphic"><h4>PLAYER GRAPHIC</h4><div class="pg-main"><span class="pg-num">9</span><div><b>E. HAALAND</b><small>FORWARD</small></div><div class="pg-photo"><img src="/assets/hero-player.png" alt=""></div></div><div class="pg-stats"><span>GOALS<b>16</b></span><span>ASSISTS<b>4</b></span><span>SHOTS<b>45</b></span></div></article><article class="graphic-card event-graphic"><h4>MATCH EVENT</h4><div class="goal-burst"><b>GOAL</b><span>9 E. HAALAND</span><i>⚽</i></div></article></div></section>
 
-<section class="cta" id="beta"><div class="cta-copy"><p>Ready to</p><h2>Elevate your<br>football production?</h2></div><div class="cta-text">Join the next generation of broadcasters, clubs and leagues using TAKEFRAME to run football graphics as a system.</div><form class="demo-form" id="demo-form"><div class="form-row"><input required name="name" autocomplete="name" placeholder="Your name"><input required type="email" name="email" autocomplete="email" placeholder="Work email"></div><input required name="company" autocomplete="organization" placeholder="Club / league / company"><button class="btn btn-red" type="submit">Book a demo <span>↗</span></button><p id="form-status" class="form-status" aria-live="polite"></p></form><div class="digital-ball" aria-hidden="true"><span></span></div></section>
-</main>
-<footer class="footer"><img src="/assets/logo.png" alt="TAKEFRAME LIVE"><span>© 2026 TAKEFRAME. VSN.</span><nav aria-label="Footer"><a href="#product">Product</a><a href="#output">Output</a><a href="#beta">Contact</a></nav></footer>
-<script src="/approved.js?v=2" defer></script>
+  <section class="audience section"><div class="left-title"><h2>BUILT FOR<br>THE GAME.<br>TRUSTED BY<br>THE BEST.</h2></div><div class="audience-row"><article><h3>CLUBS</h3><p>• Control your brand<br>• Engage your fans<br>• Broadcast-quality<br>• every match</p></article><article><h3>LEAGUES</h3><p>• Consistent season<br>• branded graphics<br>• Scalable production<br>• Centralised control</p></article><article><h3>FEDERATIONS</h3><p>• National team identity<br>• Multi-competition<br>• Secure & compliant</p></article><article><h3>PRODUCTION<br>COMPANIES</h3><p>• Faster workflows<br>• Higher quality<br>• More shows, less stress</p></article></div></section>
+
+  <section class="cta" id="beta"><div class="cta-title">READY TO<br>ELEVATE YOUR<br>FOOTBALL PRODUCTION?</div><p>Join the next generation of broadcasters,<br>clubs and leagues.<br>One system. Total control.</p><button class="red-btn big js-demo">BOOK A DEMO <small>SEE TAKEFRAME IN ACTION</small></button><div class="neon-ball">⚽</div></section>
+
+  <footer><img src="/assets/logo.png" alt="TAKEFRAME LIVE"><span>© 2026 TAKEFRAME. All rights reserved.</span><div class="social">𝕏 &nbsp;&nbsp; in &nbsp;&nbsp; ▶</div><nav><a href="#">PRIVACY POLICY</a><a href="#">TERMS OF SERVICE</a><a href="mailto:office@vsn.hr">CONTACT</a></nav></footer>
+</main></div>
+
+<dialog id="demo" class="modal"><button class="close" aria-label="Close">×</button><small>TAKEFRAME LIVE</small><h2>BOOK A DEMO</h2><p>Bring us your next match. We’ll show you how TAKEFRAME fits your football production workflow.</p><form id="demo-form"><input required name="name" placeholder="Name"><input required type="email" name="email" placeholder="Work email"><input required name="company" placeholder="Club / company"><button class="red-btn" type="submit">SEND REQUEST ↗</button><output></output></form></dialog>
+<script src="/takeframe-rebuild.js?v=1"></script>
 </body>
 </html>
