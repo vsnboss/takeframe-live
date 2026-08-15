@@ -1,3 +1,26 @@
+(()=>{
+  const style=document.createElement('style');
+  style.dataset.headerBrandScale='true';
+  style.textContent=`
+    .topbar{height:92px;grid-template-columns:360px 1fr auto}
+    .brand{height:100%;display:flex;align-items:center}
+    .brand img{width:320px;max-height:72px;object-fit:contain;object-position:left center}
+    @media(max-width:1180px){
+      .topbar{height:84px;grid-template-columns:300px 1fr auto}
+      .brand img{width:270px;max-height:64px}
+    }
+    @media(max-width:820px){
+      .topbar{height:76px;grid-template-columns:1fr auto auto}
+      .brand img{width:230px;max-height:58px}
+      .site-nav{top:84px}
+    }
+    @media(max-width:430px){
+      .brand img{width:205px;max-height:54px}
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
 const menuButton=document.querySelector('.menu-toggle');
 const nav=document.querySelector('.site-nav');
 const closeMenu=()=>{nav?.classList.remove('open');menuButton?.setAttribute('aria-expanded','false')};
