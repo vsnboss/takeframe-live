@@ -3,277 +3,247 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>TAKEFRAME - Football Broadcast Graphics Operating System</title>
-  <meta name="description" content="TAKEFRAME is a football-native broadcast graphics operating system for clubs, leagues and production teams - from match onboarding to professional IP Program output.">
-  <meta name="theme-color" content="#030914">
+  <title>TAKEFRAME — The Football Graphics Operating System</title>
+  <meta name="description" content="TAKEFRAME takes football match data into one operator console and delivers broadcast-ready Program output over NDI and OMT.">
+  <meta name="theme-color" content="#020712">
   <link rel="canonical" href="https://takeframe.live/">
-  <meta property="og:title" content="TAKEFRAME - Football Broadcast Graphics Operating System">
-  <meta property="og:description" content="From team sheet to live graphics. Built for football. Not adapted to it.">
+  <meta property="og:title" content="TAKEFRAME — The Football Graphics Operating System">
+  <meta property="og:description" content="From team sheet to live graphics. One football-native workflow, one operator, professional Program output over NDI and OMT.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://takeframe.live/">
-  <meta property="og:image" content="https://takeframe.live/assets/onboarding-source.svg">
+  <meta property="og:image" content="https://takeframe.live/assets/console.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.png">
   <link rel="preload" href="/fonts/squadra-black.otf" as="font" type="font/otf" crossorigin>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/site-v2.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="TAKEFRAME home"><img src="/assets/logo.png" alt="TAKEFRAME LIVE"></a>
+    <a class="brand" href="#top" aria-label="TAKEFRAME home"><img src="/assets/logo.png" alt="TAKEFRAME"></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span><span></span></button>
     <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-      <a href="#product">Product</a>
-      <a href="#how-it-works">How it works</a>
+      <a href="#matchday">Matchday</a>
+      <a href="#workflow">How it works</a>
+      <a href="#control-room">Control room</a>
       <a href="#football">Football</a>
-      <a href="#output">Output</a>
-      <a href="#graphics">Graphics</a>
-      <a href="#beta">Beta</a>
+      <a href="#proof">Proof</a>
     </nav>
-    <a class="button button-primary top-cta" href="#beta">Join football beta</a>
+    <a class="button button-primary top-cta" href="#beta">Bring us your next match</a>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow">The football graphics operating system</p>
-        <h1>From team sheet<br><em>to live graphics.</em></h1>
-        <p class="hero-lead">TAKEFRAME prepares the match, guides the operator and delivers professional football graphics from a dedicated local production engine.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#how-it-works">See how a match works</a>
-          <a class="button button-secondary" href="#beta">Join the football beta</a>
+      <div class="container">
+        <div class="hero-copy">
+          <p class="eyebrow">The football graphics operating system</p>
+          <h1>From team sheet<br><em>to live graphics.</em></h1>
+          <p class="hero-lead">TAKEFRAME takes your team sheet, squad data and match sources into one operator console and delivers a broadcast-ready Program output over NDI or OMT.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#beta">Bring us your next match</a>
+            <a class="button button-secondary" href="#control-room">See TAKEFRAME in action</a>
+          </div>
+          <div class="spec-strip" aria-label="TAKEFRAME production facts">
+            <span>NDI + OMT OUT</span>
+            <span>1920 × 1080 / 50P</span>
+            <span>ALPHA</span>
+            <span>LOCAL RENDER NODE</span>
+          </div>
         </div>
-        <div class="proof-strip" aria-label="Product proof">
-          <span>Football-native</span><i></i>
-          <span>Local-first</span><i></i>
-          <span>1080p50 Program</span><i></i>
-          <span>NDI + OMT</span><i></i>
-          <span>Manual fallback</span>
-        </div>
-      </div>
 
-      <div class="hero-visual" aria-label="TAKEFRAME product workflow">
-        <div class="live-rail"><span class="live-dot"></span> MATCH SYSTEM / READY</div>
-        <figure class="product-shot product-shot-primary">
-          <img src="/assets/onboarding-source.svg" alt="TAKEFRAME onboarding interface for adding match sources">
-          <figcaption><b>ONBOARD</b><span>Match sources become verified production data.</span></figcaption>
-        </figure>
-        <figure class="product-shot product-shot-secondary">
-          <img src="/assets/console.webp" alt="TAKEFRAME match operator console">
-          <figcaption><b>MATCH</b><span>Operate football events, Preview and Program.</span></figcaption>
-        </figure>
-        <div class="hero-status"><span>NDI <b>AVAILABLE</b></span><span>OMT <b>AVAILABLE</b></span></div>
+        <div class="hero-media" aria-label="Real TAKEFRAME product and NORDIC1 graphics">
+          <div class="hero-live"><i aria-hidden="true"></i> MATCH SYSTEM / READY</div>
+          <figure class="hero-product hero-controller">
+            <img src="/assets/console.webp?v=real-20260815" alt="Real TAKEFRAME Control LIVE operator interface" loading="eager" fetchpriority="high">
+            <figcaption><b>TAKEFRAME CONTROL</b><span>Real operator interface</span></figcaption>
+          </figure>
+          <img class="hero-player-image" src="/assets/hero-player.png" alt="Football player in match action" loading="eager" fetchpriority="high">
+          <figure class="hero-product hero-graphic">
+            <img src="/assets/lineup.webp?v=real-20260815" alt="Real NORDIC1 Starting XI football graphic" loading="eager">
+            <figcaption><b>NORDIC1</b><span>Real graphics package</span></figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
-    <section class="statement section" id="product">
-      <div class="statement-copy">
-        <p class="eyebrow">Match first</p>
-        <h2>Built for football.<br><em>Not adapted to it.</em></h2>
-        <p>Most graphics platforms give you tools and expect you to build the football workflow around them. TAKEFRAME already understands the match - teams, players, officials, lineups, score, goals, cards, substitutions, VAR and match phases.</p>
-      </div>
-      <div class="match-vs-template" aria-label="TAKEFRAME starts with the match, not a template">
-        <div class="vs-item muted"><small>Generic starting point</small><strong>TEMPLATE</strong></div>
-        <span class="vs-mark">vs</span>
-        <div class="vs-item active"><small>TAKEFRAME starting point</small><strong>MATCH</strong></div>
+    <section class="section" id="matchday">
+      <div class="container">
+        <div class="comparison-head">
+          <div>
+            <p class="eyebrow">What matchday looks like now</p>
+            <h2>You already have a graphics tool.<br><em>That is not where matchday breaks.</em></h2>
+          </div>
+          <p class="section-lead">Most football productions already use tools such as vMix or OBS around the switcher and CasparCG, SPX, Singular or other graphics systems. TAKEFRAME focuses on the football workflow around those tools.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="comparison-table">
+            <thead><tr><th>Matchday task</th><th>Today, with a graphics tool</th><th>With TAKEFRAME</th></tr></thead>
+            <tbody>
+              <tr><td>Team sheet arrives as a PDF before kickoff</td><td>Names, shirt numbers and lineup data are often re-keyed or mapped into the graphics workflow.</td><td>PDF and team-sheet sources enter the TAKEFRAME onboarding flow, with operator confirmation before match operation.</td></tr>
+              <tr><td>Late lineup change at warm-up</td><td>The data source and dependent graphics have to be checked again before air.</td><td>The operator updates the match model and continues from the same football-native workflow.</td></tr>
+              <tr><td>Goal, then VAR changes the decision</td><td>The operator must keep score, event graphics and any dependent data aligned manually.</td><td>Goal and VAR are match actions inside the same operator console and match state.</td></tr>
+              <tr><td>Half-time graphics</td><td>The graphics operator assembles what is available from the production data sources.</td><td>Score, match phase, lineups and available match statistics remain in the same TAKEFRAME session.</td></tr>
+              <tr><td>Second fixture next week</td><td>The production team prepares the next project, data source and graphics state again.</td><td>The next fixture starts as a new football match inside the same operating workflow and graphics package.</td></tr>
+              <tr><td>Who has to be in the room</td><td>An operator who understands the switcher, graphics tool and the project-specific data flow.</td><td>One football operator runs TAKEFRAME Control while the switcher remains in the existing production stack.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="comparison-close">We are not replacing your switcher. TAKEFRAME sits in front of it and feeds it.</p>
       </div>
     </section>
 
-    <section class="section journey" id="how-it-works">
-      <div class="section-heading">
+    <section class="section" id="workflow">
+      <div class="container">
         <p class="eyebrow">How it works</p>
-        <h2>One match.<br>Four controlled stages.</h2>
-      </div>
-      <div class="journey-line" aria-label="ONBOARD to PREMATCH to MATCH to PROGRAM">
-        <article><span>01</span><b>ONBOARD</b><p>Bring the match information.</p></article>
-        <i>&rarr;</i>
-        <article><span>02</span><b>PREMATCH</b><p>Verify identities, squads, lineups, formations, officials and production data.</p></article>
-        <i>&rarr;</i>
-        <article><span>03</span><b>MATCH</b><p>Operate goals, cards, substitutions, VAR, clock, score and match phases.</p></article>
-        <i>&rarr;</i>
-        <article><span>04</span><b>PROGRAM</b><p>Render professional graphics and send Program over IP.</p></article>
-      </div>
-    </section>
-
-    <section class="section onboard">
-      <div class="section-heading left-heading">
-        <p class="eyebrow">Onboard match</p>
-        <h2>Give TAKEFRAME<br><em>what you have.</em></h2>
-        <p>A football production rarely begins with perfect structured data. TAKEFRAME collects the sources available for the match, extracts information it can verify, exposes conflicts and brings the operator to one production truth for confirmation.</p>
-        <div class="micro-proof"><span>Structured sources where supported</span><span>The operator confirms</span></div>
-      </div>
-      <div class="source-grid" aria-label="Supported match source types">
-        <span>Match URL</span><span>Team sheet</span><span>PDF</span><span>Excel / CSV</span><span>Image / screenshot</span><span>Player photos</span><span>Club assets</span><span>Pasted text</span><span>Manual entry</span><span>TAKEFRAME session</span>
-      </div>
-    </section>
-
-    <section class="section intelligence">
-      <div class="intelligence-title">
-        <p class="eyebrow">TAKEFRAME Match Intelligence</p>
-        <h2>One match.<br>Many sources.<br><em>One production truth.</em></h2>
-        <p>TAKEFRAME assists. The operator remains in control.</p>
-      </div>
-      <div class="pipeline" aria-label="Match Intelligence pipeline">
-        <div class="pipeline-group source-group"><span>Match URL</span><span>Team sheet</span><span>PDF</span><span>CSV</span><span>Manual input</span></div>
-        <i>&darr;</i>
-        <div class="pipeline-core"><small>TAKEFRAME</small><strong>MATCH INTELLIGENCE</strong><span>collect / normalize / compare</span></div>
-        <i>&darr;</i>
-        <div class="pipeline-group truth-group"><span>Teams</span><span>Players</span><span>Officials</span><span>Venue</span><span>Lineups</span><span>Assets</span></div>
-        <i>&darr;</i>
-        <div class="operator-confirm">OPERATOR CONFIRMATION</div>
-      </div>
-    </section>
-
-    <section class="section operation" id="football">
-      <div class="operation-copy">
-        <p class="eyebrow">Football-native operation</p>
-        <h2>Run the match.<br><em>Not the templates.</em></h2>
-        <p>The operator tells TAKEFRAME what happened in the match. TAKEFRAME handles the appropriate football graphics workflow.</p>
-        <div class="event-grid" aria-label="Football match controls">
-          <span>GOAL</span><span>YELLOW CARD</span><span>SECOND YELLOW</span><span>RED CARD</span><span>SUBSTITUTION</span><span>VAR</span><span>ADDITIONAL TIME</span><span>HALF-TIME</span><span>FULL-TIME</span>
+        <h2>Four controlled stages.<br><em>One operator workflow.</em></h2>
+        <div class="workflow-grid">
+          <article class="workflow-card"><span class="num">01 / ONBOARD</span><h3>Bring the match information.</h3><p>Match URL, team sheet, PDF, Excel/CSV, player assets, pasted text or manual entry.</p></article>
+          <article class="workflow-card"><span class="num">02 / PREMATCH</span><h3>Prepare the football model.</h3><p>Verify identities, squads, lineups, formations, officials and production data.</p></article>
+          <article class="workflow-card"><span class="num">03 / MATCH</span><h3>Operate football events.</h3><p>Goals, cards, substitutions, VAR, clock, score and match phases from one console.</p></article>
+          <article class="workflow-card"><span class="num">04 / PROGRAM</span><h3>Send finished pixels.</h3><p>Dedicated Program rendering with Preview, alpha and professional IP output over NDI or OMT.</p></article>
         </div>
       </div>
-      <div class="console-panel">
-        <div class="console-kicker">ONE OPERATOR. ONE MATCH.</div>
-        <img src="/assets/console.webp" alt="TAKEFRAME professional football operator console" loading="lazy">
-        <div class="console-features"><span>PROGRAM</span><span>PREVIEW</span><span>SCOREBUG</span><span>MATCH CLOCK</span><span>EVENTS</span><span>VAR</span><span>STATISTICS</span><span>PREVIEW CLEAN</span><span>PROGRAM OUT</span><span>EMERGENCY CLEAR</span></div>
-        <strong>NO GRAPHICS ENGINEERING DEPARTMENT REQUIRED.</strong>
+    </section>
+
+    <section class="section" id="match-model">
+      <div class="container model-grid">
+        <div>
+          <p class="eyebrow">One match model</p>
+          <h2>Four sources in.<br><em>One match model out.</em></h2>
+          <p class="source-sentence">Team sheet. PDF. Spreadsheet. Match URL. Screenshot. Manual correction.</p>
+          <p class="model-note">TAKEFRAME is built around the match, not around disconnected graphic fields. The operator remains the authority when information conflicts.</p>
+        </div>
+        <div class="model-panel">
+          <h3>What the operator works with</h3>
+          <div class="entity-list" aria-label="TAKEFRAME football match entities">
+            <span>Fixture</span><span>Competition</span><span>Venue</span><span>Kickoff</span><span>Teams</span><span>Players</span><span>Shirt numbers</span><span>Positions</span><span>Lineups</span><span>Formations</span><span>Captain</span><span>Officials</span><span>Substitutes</span><span>Score</span><span>Clock</span><span>Match phase</span><span>Cards</span><span>Substitutions</span><span>VAR</span><span>Statistics</span><span>Assets</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section output" id="output">
-      <div class="section-heading left-heading">
-        <p class="eyebrow">Professional output</p>
-        <h2>Program is a broadcast output.<br><em>Not a browser tab.</em></h2>
-        <p>TAKEFRAME separates the operator interface from the local render path and finished Program pixels.</p>
-      </div>
-      <div class="architecture" aria-label="TAKEFRAME professional Program architecture">
-        <div><small>CONTROL</small><b>TAKEFRAME CONTROL</b></div><i>&rarr;</i>
-        <div><small>LOCAL</small><b>RENDER NODE</b></div><i>&rarr;</i>
-        <div><small>GRAPHICS</small><b>SCENE ENGINE</b></div><i>&rarr;</i>
-        <div class="active"><small>FINISHED PIXELS</small><b>PROGRAM FRAME</b></div><i>&rarr;</i>
-        <div><small>TRANSPORT</small><b>IP OUTPUT</b></div><i>&rarr;</i>
-        <div><small>NETWORK</small><b>PRODUCTION NETWORK</b></div><i>&rarr;</i>
-        <div><small>RECEIVER</small><b>SWITCHER</b></div>
-      </div>
-      <div class="output-proof"><span>1920 &times; 1080</span><span>50P</span><span>ALPHA</span><span>DEDICATED PROGRAM</span><span>SEPARATE PREVIEW</span><span>NDI + OMT</span></div>
-      <p class="topology-note"><b>Professional topology:</b> dedicated TAKEFRAME graphics machine &rarr; network &rarr; separate production / switcher machine.</p>
-
-      <div class="protocols">
-        <article class="protocol available"><div><p class="eyebrow">IP output adapter</p><h3>NDI</h3></div><span>AVAILABLE</span><p>Professional alpha Program output over the production network.</p></article>
-        <article class="protocol available"><div><p class="eyebrow">IP output adapter</p><h3>OMT</h3></div><span>AVAILABLE</span><p>Open Media Transport delivers the finished TAKEFRAME Program as a second professional IP output adapter.</p></article>
-      </div>
-      <p class="topology-note"><b>One Program Frame:</b> TAKEFRAME renders the match once. NDI and OMT deliver the same finished Program through professional IP output adapters.</p>
-      <p class="opinionated">TAKEFRAME is opinionated about football. <strong>Not about the switcher you use.</strong></p>
-    </section>
-
-    <section class="section resilience">
-      <div class="resilience-copy">
-        <p class="eyebrow">Local-first resilience</p>
-        <h2>The match doesn't stop<br><em>because the internet does.</em></h2>
-        <p>TAKEFRAME's production engine runs locally on the graphics machine. Live match operation and Program rendering are not dependent on a public cloud connection.</p>
-        <strong class="support-line">CLOUD WHERE IT HELPS. LOCAL WHERE FAILURE MATTERS.</strong>
-      </div>
-      <div class="safety-grid">
-        <article><b>MANUAL ALWAYS AVAILABLE</b><p>Continue operating when automation or data disappears.</p></article>
-        <article><b>PROGRAM / PREVIEW SEPARATION</b><p>Preview rehearsal stays isolated from Program.</p></article>
-        <article><b>ENGINE HEALTH</b><p>READY reflects the real state of the local engine.</p></article>
-        <article><b>PROGRAM OUT</b><p>Explicit control of graphics currently on air.</p></article>
-        <article><b>EMERGENCY CLEAR</b><p>A dedicated emergency path is always visible.</p></article>
-        <article><b>LOCAL EXECUTION</b><p>Internet loss does not stop Program.</p></article>
+    <section class="section" id="control-room">
+      <div class="container">
+        <div class="control-head">
+          <div>
+            <p class="eyebrow">In the control room</p>
+            <h2>What it outputs.<br><em>How it reaches production.</em></h2>
+          </div>
+          <p class="section-lead">TAKEFRAME renders one finished Program frame locally and hands that Program to the production network through professional IP output adapters.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <tbody>
+              <tr><td>Program output</td><td>NDI + OMT</td></tr>
+              <tr><td>Program format</td><td>1920 × 1080 · 50P</td></tr>
+              <tr><td>Colour / keying</td><td>Alpha</td></tr>
+              <tr><td>Live render path</td><td>Local Render Node → Scene Engine → Program Frame</td></tr>
+              <tr><td>Operator monitoring</td><td>Preview · Preview Clean · Program · Program OUT</td></tr>
+              <tr><td>Emergency operation</td><td>Manual fallback · Emergency Clear</td></tr>
+              <tr><td>Public internet dependency for live Program</td><td>Live match operation and Program rendering run locally</td></tr>
+              <tr><td>Production topology</td><td>TAKEFRAME graphics machine → production network → separate production / switcher machine</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="architecture-line">TAKEFRAME CONTROL → RENDER NODE → SCENE ENGINE → PROGRAM FRAME → IP OUTPUT → PRODUCTION NETWORK → SWITCHER</div>
+        <div class="protocol-proof"><span>NDI AVAILABLE</span><span>OMT AVAILABLE</span><span>NORDIC1 AVAILABLE</span></div>
+        <p class="compatibility-note">Designed for documented production workflows around vMix, Panasonic AV-HSW10, Ross Video Carbonite Code, Vizrt TriCaster, Datavideo NDI-enabled systems and FOR-A HVS systems with the appropriate NDI options. Exact compatibility depends on model, firmware and installed options; vendor names do not imply certification or endorsement.</p>
       </div>
     </section>
 
-    <section class="section graphics" id="graphics">
-      <div class="graphics-copy">
-        <p class="eyebrow">Graphics packages</p>
-        <h2>Professional football looks.<br><em>Without building them from scratch.</em></h2>
-        <p>Graphics packages define the visual identity. TAKEFRAME defines the football workflow.</p>
-        <div class="package-name"><small>AVAILABLE</small><strong>NORDIC1</strong></div>
-      </div>
-      <div class="graphics-grid">
-        <figure><img src="/assets/scorebug.webp" alt="NORDIC1 football scorebug" loading="lazy"><figcaption>Scorebug</figcaption></figure>
-        <figure><img src="/assets/lineup.webp" alt="NORDIC1 football lineup graphic" loading="lazy"><figcaption>Starting XI</figcaption></figure>
-        <figure><img src="/assets/lowerthird.webp" alt="NORDIC1 football player graphic" loading="lazy"><figcaption>Player graphic</figcaption></figure>
-        <figure><img src="/assets/stats.webp" alt="NORDIC1 football statistics graphic" loading="lazy"><figcaption>Statistics</figcaption></figure>
-      </div>
-    </section>
-
-    <section class="section data-section">
-      <div class="section-heading left-heading">
-        <p class="eyebrow">Football data</p>
-        <h2>Your football data.<br><em>One match model.</em></h2>
-      </div>
-      <div class="data-columns">
-        <div><div class="status-heading available-text">AVAILABLE NOW</div><ul><li>Manual entry</li><li>Match URL / structured source intelligence</li><li>PDF</li><li>Excel / CSV</li><li>Team sheets</li><li>TAKEFRAME session import</li></ul></div>
-        <div><div class="status-heading roadmap-text">ROADMAP</div><ul><li>Live data providers</li><li>League feeds</li><li>Scoreboard feeds</li><li>Football API</li><li>Remote data sources</li></ul></div>
+    <section class="section" id="football">
+      <div class="container operation-layout">
+        <div>
+          <p class="eyebrow">Football-native operation</p>
+          <h2>Stop operating graphics.<br><em>Run the match.</em></h2>
+          <p class="section-lead">The operator works in football language. TAKEFRAME connects match events to the live graphics workflow without turning every action into a template edit.</p>
+          <div class="event-list" aria-label="Current TAKEFRAME football match controls">
+            <span>GOAL</span><span>YELLOW CARD</span><span>SECOND YELLOW</span><span>RED CARD</span><span>SUBSTITUTION</span><span>VAR</span><span>ADDITIONAL TIME</span><span>HALF-TIME</span><span>FULL-TIME</span>
+          </div>
+          <p class="operation-line">Every one of these is a match control, not a template edit.</p>
+        </div>
+        <figure class="console-frame">
+          <img src="/assets/console.webp?v=real-20260815" alt="Real TAKEFRAME Control LIVE football operator console" loading="lazy">
+          <figcaption>Real TAKEFRAME Control LIVE interface from the current product.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="section audience">
-      <div class="section-heading"><p class="eyebrow">Who TAKEFRAME is for</p><h2>For the teams<br>producing football.</h2></div>
-      <div class="audience-grid">
-        <article><b>FOOTBALL CLUBS</b><p>Professional match graphics without building an internal graphics engineering team.</p></article>
-        <article><b>LEAGUES &amp; FEDERATIONS</b><p>Standardized competition graphics and operator workflows across many matches.</p></article>
-        <article><b>PRODUCTION COMPANIES</b><p>Prepare matches faster and reduce complexity on the graphics operator.</p></article>
-        <article><b>RIGHTS HOLDERS &amp; STREAMERS</b><p>Upgrade football coverage without traditional graphics infrastructure.</p></article>
-        <article><b>REGIONAL BROADCASTERS</b><p>Professional IP graphics using modern production networks and existing switching systems.</p></article>
+    <section class="section" id="proof">
+      <div class="container">
+        <div class="proof-head">
+          <div>
+            <p class="eyebrow">Product proof</p>
+            <h2>NORDIC1 is not a mockup.<br><em>It is a real TAKEFRAME package.</em></h2>
+          </div>
+          <p class="section-lead">The graphics below are from the real NORDIC1 football package supplied with TAKEFRAME. The operator console shown on this page is the real TAKEFRAME Control interface.</p>
+        </div>
+        <div class="proof-bar"><span>REAL TAKEFRAME CONTROL</span><span>REAL NORDIC1 PACKAGE</span><span>NDI + OMT OUTPUT</span></div>
+        <div class="nordic-grid">
+          <figure><img src="/assets/scorebug.webp?v=real-20260815" alt="Real NORDIC1 scorebug graphic" loading="lazy"><figcaption>Scorebug</figcaption></figure>
+          <figure><img src="/assets/lineup.webp?v=real-20260815" alt="Real NORDIC1 Starting XI graphic" loading="lazy"><figcaption>Starting XI</figcaption></figure>
+          <figure><img src="/assets/lowerthird.webp?v=real-20260815" alt="Real NORDIC1 player graphic" loading="lazy"><figcaption>Player graphic</figcaption></figure>
+          <figure><img src="/assets/stats.webp?v=real-20260815" alt="Real NORDIC1 goal event graphic" loading="lazy"><figcaption>Goal event</figcaption></figure>
+        </div>
+        <div class="vsn-proof"><strong>BUILT BY VSN</strong><p>TAKEFRAME is a VSN product built for football production teams that need a repeatable path from match information to professional live graphics.</p></div>
       </div>
     </section>
 
-    <section class="section comparison">
-      <div class="section-heading"><p class="eyebrow">Category difference</p><h2>Built for football.<br><em>Not adapted to it.</em></h2></div>
-      <div class="comparison-table" role="table" aria-label="Generic live graphics platform compared with TAKEFRAME">
-        <div class="comparison-head" role="row"><span role="columnheader">GENERIC LIVE GRAPHICS PLATFORM</span><b role="columnheader">TAKEFRAME</b></div>
-        <div role="row"><small>STARTS WITH</small><span>Templates</span><b>Match</b></div>
-        <div role="row"><small>FOOTBALL MODEL</small><span>Build / integrate</span><b>Native</b></div>
-        <div role="row"><small>MATCH ONBOARDING</small><span>Custom workflow</span><b>Built in</b></div>
-        <div role="row"><small>GOALS / CARDS / SUBS / VAR</small><span>Configure controls</span><b>Native football actions</b></div>
-        <div role="row"><small>OPERATOR</small><span>Generic / custom control</span><b>Football operator console</b></div>
-        <div role="row"><small>DATA</small><span>Generic feeds</span><b>Football normalization</b></div>
-        <div role="row"><small>GRAPHICS</small><span>Maximum authoring flexibility</span><b>Curated football packages</b></div>
-        <div role="row"><small>LIVE ENGINE</small><span>Architecture dependent</span><b>Local-first</b></div>
-        <div role="row"><small>MANUAL FALLBACK</small><span>Implementation dependent</span><b>First-class</b></div>
-        <div role="row"><small>PROGRAM OUTPUT</small><span>General workflows</span><b>Dedicated professional IP Program</b></div>
+    <section class="section" id="audience">
+      <div class="container">
+        <p class="eyebrow">Who it is for</p>
+        <h2>For the teams<br><em>producing football.</em></h2>
+        <div class="audience-grid">
+          <article class="audience-card"><h3>Football clubs</h3><p>Run professional match graphics without rebuilding the production workflow for every fixture.</p></article>
+          <article class="audience-card"><h3>Production companies</h3><p>Add a football-native graphics control layer without replacing the existing switcher environment.</p></article>
+          <article class="audience-card"><h3>Leagues</h3><p>Standardise operator workflow and graphics packages across recurring competition matches.</p></article>
+          <article class="audience-card"><h3>Federations</h3><p>Evaluate one repeatable operating model for teams, lineups, events, Program output and future data integrations.</p></article>
+          <article class="audience-card"><h3>Rights holders</h3><p>Build a consistent football graphics layer around the production stack already in use.</p></article>
+        </div>
       </div>
     </section>
 
-    <section class="section final-cta" id="beta">
-      <div class="final-copy">
-        <p class="eyebrow">Football beta</p>
-        <h2>Your next match<br>should not need<br><em>a graphics engineer.</em></h2>
-        <p>Bring the match information. TAKEFRAME prepares the production.</p>
-        <a class="button button-secondary" href="#football">See the product</a>
+    <section class="section" id="beta">
+      <div class="container beta-layout">
+        <div class="beta-copy">
+          <p class="eyebrow">Football beta</p>
+          <h2>Bring the match.<br><em>Go to air.</em></h2>
+          <p class="section-lead">Send us your next-match details and we will start from the material your production actually receives: team sheets, spreadsheets, match links, assets and current switcher/graphics workflow.</p>
+          <div class="next-step">First step: send four details. We use them to start a technical conversation around your next match and the production stack you already run.</div>
+        </div>
+        <div>
+          <form id="lead-form" class="lead-form" novalidate>
+            <div class="form-grid">
+              <div class="field"><label for="name">Name *</label><input id="name" name="name" autocomplete="name" required></div>
+              <div class="field"><label for="email">Work email *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+              <div class="field"><label for="company">Company *</label><input id="company" name="company" autocomplete="organization" required></div>
+              <div class="field"><label for="organisation">Organisation type *</label><select id="organisation" name="organisation" required><option value="">Select</option><option>Football club</option><option>League</option><option>Federation</option><option>Production company</option><option>Broadcaster</option><option>Rights holder</option><option>Other</option></select></div>
+              <div class="check"><input id="privacy" name="privacy" type="checkbox" required><label for="privacy">I agree that VSN may use these details to contact me about TAKEFRAME.</label></div>
+            </div>
+            <div class="form-actions"><button class="button button-primary" type="submit">Bring us your next match</button></div>
+            <p id="lead-status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div id="enrichment" class="enrichment" aria-label="Optional production details">
+            <form id="enrichment-form" class="enrichment-form">
+              <h3>Optional: give us the production context.</h3>
+              <p>Your first step is already complete. These details help us prepare the technical conversation.</p>
+              <div class="form-grid">
+                <div class="field"><label for="matches">Matches per year</label><input id="matches" name="matches" inputmode="numeric"></div>
+                <div class="field"><label for="software">Current production software</label><select id="software" name="software"><option value="">Select</option><option>vMix</option><option>OBS</option><option>CasparCG</option><option>SPX</option><option>Singular</option><option>NewBlue</option><option>Captivate</option><option>Vizrt</option><option>Ross</option><option>Other</option></select></div>
+                <div class="field full"><label for="sources">What sources do you usually receive?</label><textarea id="sources" name="sources" placeholder="Team sheet PDF, Excel, match URL, league feed, photos..."></textarea></div>
+                <div class="check"><input id="testmatch" name="testmatch" type="checkbox"><label for="testmatch">We are ready to share a test match package.</label></div>
+              </div>
+              <div class="form-actions"><button class="button button-secondary" type="submit">Send production context</button></div>
+            </form>
+          </div>
+        </div>
       </div>
-      <form class="demo-form" id="demo-form" novalidate>
-        <div class="form-title"><span>JOIN THE FOOTBALL BETA</span><b>Bring us a real match.</b></div>
-        <div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-        <label>Name<input name="name" required autocomplete="name"></label>
-        <label>Company<input name="company" required autocomplete="organization"></label>
-        <label>Work email<input name="email" type="email" required autocomplete="email"></label>
-        <label>Country<input name="country" required autocomplete="country-name"></label>
-        <label>Organisation type<select name="organisation" required><option value="">Select</option><option>Club</option><option>Production company</option><option>Broadcaster</option><option>Federation</option><option>League/competition</option><option>Rights holder / streamer</option><option>Other</option></select></label>
-        <label>Matches per year<input name="matches" type="number" min="1" required></label>
-        <label>Current production software<select name="software" required><option value="">Select</option><option>OBS</option><option>vMix</option><option>CasparCG</option><option>SPX</option><option>Singular</option><option>NewBlue Captivate</option><option>Vizrt</option><option>Ross</option><option>Other</option></select></label>
-        <label class="full">What sources do you usually receive?<textarea name="sources" rows="3" required></textarea></label>
-        <label class="full">Message<textarea name="message" rows="4"></textarea></label>
-        <label class="checkbox full"><input type="checkbox" name="testmatch">We are ready to share a test match package.</label>
-        <label class="checkbox full"><input type="checkbox" name="privacy" required>I agree that VSN may use these details to respond to this request. See the <a href="/privacy/">privacy notice</a>.</label>
-        <button class="button button-primary full" type="submit">Join the football beta</button>
-        <p class="form-status full" id="form-status" role="status"></p>
-        <small class="full">No files are uploaded through this form. When no secure backend is configured, the form opens a pre-filled email to <a href="mailto:office@vsn.hr">office@vsn.hr</a>.</small>
-      </form>
     </section>
   </main>
 
-  <footer id="resources">
-    <img src="/assets/logo.png" alt="TAKEFRAME LIVE">
-    <div><b>TAKEFRAME is operated by VSN.</b><a href="mailto:office@vsn.hr">office@vsn.hr</a></div>
-    <nav aria-label="Footer"><a href="#product">Product</a><a href="/pilot/">Pilot &amp; Pricing</a><a href="/operator-gear/">Operator Gear</a><a href="/privacy/">Privacy</a></nav>
-  </footer>
-
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TAKEFRAME","applicationCategory":"MultimediaApplication","operatingSystem":"Windows","description":"Football-native broadcast graphics operating system from match onboarding to professional IP Program output.","publisher":{"@type":"Organization","name":"VSN"}}</script>
-  <script src="/script.js" defer></script>
+  <footer><div class="container footer-row"><strong>TAKEFRAME — A VSN PRODUCT</strong><span>The football graphics operating system · NDI + OMT · Local-first production</span></div></footer>
+  <script src="/site-v2.js" defer></script>
 </body>
 </html>
