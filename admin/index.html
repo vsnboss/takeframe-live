@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAKEFRAME Website Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="/admin/admin.css?v=1">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><img src="/assets/logo.png" alt="TAKEFRAME LIVE"><span>WEBSITE ADMIN</span></div>
+  <div class="top-actions">
+    <span id="save-state" class="save-state">Draft not saved</span>
+    <button id="preview-btn" class="btn secondary" type="button">PREVIEW WEBSITE</button>
+    <button id="publish-btn" class="btn primary" type="button">PUBLISH LIVE</button>
+  </div>
+</header>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-label">CONTENT</div>
+    <button class="nav-item active" data-panel="hero">Hero</button>
+    <button class="nav-item" data-panel="graphics">Graphics</button>
+    <button class="nav-item" data-panel="sections">Sections</button>
+    <button class="nav-item" data-panel="cta">Final CTA</button>
+    <div class="sidebar-label">SITE</div>
+    <button class="nav-item" data-panel="seo">SEO</button>
+    <button class="nav-item" data-panel="media">Media Library</button>
+    <div class="sidebar-foot">
+      <strong>DESIGN LOCKED</strong>
+      <p>Layout, typography, animation and responsive behavior remain protected in code.</p>
+    </div>
+  </aside>
+
+  <main class="workspace">
+    <section class="panel active" data-panel-id="hero">
+      <div class="panel-head"><div><span>01</span><h1>Hero</h1></div><p>Edit what visitors see. The approved hero layout remains locked.</p></div>
+      <div class="form-grid">
+        <label class="wide">Kicker<input data-path="hero.kicker" type="text"></label>
+        <label class="wide">Headline line 1<input data-path="hero.headline.0" type="text"></label>
+        <label class="wide">Headline line 2<input data-path="hero.headline.1" type="text"></label>
+        <label class="wide">Headline line 3<input data-path="hero.headline.2" type="text"></label>
+        <label class="wide">Headline line 4<input data-path="hero.headline.3" type="text"></label>
+        <label class="wide">Description<textarea data-path="hero.description" rows="4"></textarea></label>
+        <label>Primary CTA<input data-path="hero.primaryCta" type="text"></label>
+        <label>Secondary CTA<input data-path="hero.secondaryCta" type="text"></label>
+      </div>
+    </section>
+
+    <section class="panel" data-panel-id="graphics">
+      <div class="panel-head"><div><span>02</span><h1>NORDIC1 Graphics</h1></div><p>Replace marketing screenshots without changing the website code.</p></div>
+      <div id="graphics-editor" class="graphics-editor"></div>
+    </section>
+
+    <section class="panel" data-panel-id="sections">
+      <div class="panel-head"><div><span>03</span><h1>Sections</h1></div><p>Headlines and supporting copy only. Section geometry stays locked.</p></div>
+      <div class="section-editor" id="section-editor"></div>
+    </section>
+
+    <section class="panel" data-panel-id="cta">
+      <div class="panel-head"><div><span>04</span><h1>Final CTA</h1></div><p>Control the last conversion block.</p></div>
+      <div class="form-grid">
+        <label class="wide">Headline line 1<input data-path="cta.headline.0" type="text"></label>
+        <label class="wide">Headline line 2<input data-path="cta.headline.1" type="text"></label>
+        <label class="wide">Headline line 3<input data-path="cta.headline.2" type="text"></label>
+        <label class="wide">Description<textarea data-path="cta.description" rows="3"></textarea></label>
+        <label>Button<input data-path="cta.button" type="text"></label>
+        <label>Button subline<input data-path="cta.buttonSub" type="text"></label>
+      </div>
+    </section>
+
+    <section class="panel" data-panel-id="seo">
+      <div class="panel-head"><div><span>05</span><h1>SEO</h1></div><p>Search result title and description.</p></div>
+      <div class="form-grid">
+        <label class="wide">Page title<input data-path="seo.title" type="text"></label>
+        <label class="wide">Meta description<textarea data-path="seo.description" rows="4"></textarea></label>
+      </div>
+    </section>
+
+    <section class="panel" data-panel-id="media">
+      <div class="panel-head"><div><span>06</span><h1>Media Library</h1></div><p>Upload support will be connected to the isolated TAKEFRAME media backend. Existing site assets are shown below.</p></div>
+      <div class="media-grid" id="media-grid"></div>
+    </section>
+  </main>
+
+  <aside class="inspector">
+    <div class="inspector-head"><span>LIVE PREVIEW</span><button id="refresh-preview" type="button">REFRESH</button></div>
+    <iframe id="preview-frame" src="/?tf_admin_preview=1" title="TAKEFRAME website preview"></iframe>
+  </aside>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<dialog id="publish-dialog" class="dialog">
+  <button class="dialog-close" type="button" data-close-dialog>×</button>
+  <span class="eyebrow">PUBLISH</span>
+  <h2>Backend connection required</h2>
+  <p>The admin and preview system are ready. Live publishing will be enabled after the isolated TAKEFRAME content backend is connected.</p>
+  <div class="dialog-actions"><button class="btn secondary" type="button" data-close-dialog>CLOSE</button></div>
+</dialog>
+
+<script src="/admin/admin.js?v=1"></script>
+</body>
+</html>
