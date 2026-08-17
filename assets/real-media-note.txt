@@ -1,1 +1,0 @@
-Media rendering hotfix in progress. Root cause: the merged real-content sprite was truncated during upload (14.5 KB instead of the complete generated asset). This marker exists only to force a new deployment while the runtime is moved away from treating deployment success as visual success.
