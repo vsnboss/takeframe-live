@@ -107,8 +107,8 @@
     body.style.background = '#06111d';
 
     const img = document.createElement('img');
-    img.src = '/assets/formation.jpg?v=1';
-    img.alt = 'NK Osijek final formation';
+    img.src = '/assets/starting-xi-control.jpg?v=2';
+    img.alt = 'TAKEFRAME CONTROL Team Sheet — Shakhtar vs Osijek';
     img.decoding = 'async';
     img.loading = 'eager';
     img.style.display = 'block';
