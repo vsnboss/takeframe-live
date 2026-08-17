@@ -5,7 +5,7 @@
   const root = document.documentElement;
   const REF_W = 941;
   const FLOW_BP = 900;
-  const REAL_SPRITE = '/assets/real-content-sprite.webp?v=1';
+  const REAL_SPRITE = '/assets/real-content-sprite-v2.webp?v=2';
 
   const applyScale = () => {
     const w = document.documentElement.clientWidth || window.innerWidth;
