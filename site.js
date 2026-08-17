@@ -1,27 +1,9 @@
-/* TAKEFRAME LIVE — homepage interactions (mobile nav only; no media magic). */
-(function () {
-  var burger = document.getElementById('burger');
-  var nav = document.getElementById('nav');
-  if (!burger || !nav) return;
-
-  function close() {
-    nav.classList.remove('open');
-    burger.setAttribute('aria-expanded', 'false');
-  }
-
-  burger.addEventListener('click', function () {
-    var open = nav.classList.toggle('open');
-    burger.setAttribute('aria-expanded', String(open));
+/* TAKEFRAME LIVE — intentionally minimal homepage interactions. */
+document.querySelectorAll('a[href^="#"]').forEach(function(link){
+  link.addEventListener('click',function(e){
+    var id=link.getAttribute('href');
+    if(!id||id==='#') return;
+    var target=document.querySelector(id);
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
   });
-
-  nav.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A') close();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && nav.classList.contains('open')) {
-      close();
-      burger.focus();
-    }
-  });
-})();
+});
