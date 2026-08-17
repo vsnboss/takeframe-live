@@ -92,7 +92,7 @@ for (const width of WIDTHS) {
 /* every media file must be served successfully */
 {
   const page = await browser.newPage();
-  for (const f of ['control-live.webp', 'team-sheet.webp', 'starting-11.webp', 'scorebug.webp', 'goal-event.webp', 'player-card.webp']) {
+  for (const f of ['control-live.jpg', 'match-ready.jpg', 'team-sheet.jpg', 'player-id.jpg', 'starting-11.png', 'formation.png', 'formation-players.png', 'yellow-card.png', 'var-check.png', 'match-opener.png', 'scorebug.webp', 'goal-event.webp', 'player-card.webp']) {
     const res = await page.request.get(`${BASE}/assets/media/${f}`);
     check(`media 200: ${f}`, res.status() === 200, `status=${res.status()}`);
   }
