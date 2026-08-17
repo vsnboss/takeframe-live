@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "seo": {
+    "title": "TAKEFRAME LIVE — Football Graphics Operating System",
+    "description": "From team sheet to live graphics. TAKEFRAME LIVE is the football graphics operating system built for matchday production."
+  },
+  "hero": {
+    "kicker": "FOOTBALL GRAPHICS. OPERATING SYSTEM.",
+    "headline": ["FROM", "TEAM SHEET", "TO LIVE", "GRAPHICS."],
+    "description": "TAKEFRAME turns football data, operator actions, and professional output into one production system. Everything connected. Everything live.",
+    "primaryCta": "SEE TAKEFRAME IN ACTION",
+    "secondaryCta": "WATCH 90 SEC OVERVIEW"
+  },
+  "comparison": {
+    "headline": ["YOU ALREADY HAVE", "A GRAPHICS TOOL.", "THIS IS THE SYSTEM", "AROUND IT."],
+    "description": "TAKEFRAME orchestrates data, people and graphics to deliver consistent, scalable, broadcast-ready output—every time."
+  },
+  "workflow": {
+    "headline": ["BUILT FOR", "THE FLOW", "OF FOOTBALL."],
+    "description": "From pre-match to post-match program—TAKEFRAME keeps your production moving, live and in sync."
+  },
+  "matchModel": {
+    "headline": ["FOUR SOURCES IN.", "ONE MATCH", "MODEL OUT."],
+    "description": "TAKEFRAME normalises data into a single, live match model—powering every graphic, every platform."
+  },
+  "controlRoom": {
+    "headline": ["YOUR CONTROL ROOM.", "DESIGNED FOR SPEED."],
+    "description": "A frictionless interface for fast graphics, playback and output. Everything at your fingertips."
+  },
+  "graphics": {
+    "headline": ["NORDIC1", "GRAPHICS.", "MADE TO STAND OUT."],
+    "description": "Premium, modular graphics built for modern football. Fully customisable.",
+    "cards": {
+      "scorebug": {"title": "SCOREBUG", "imageUrl": "", "fit": "cover", "position": "center"},
+      "startingXi": {"title": "STARTING XI", "imageUrl": "/assets/formation.jpg?v=1", "fit": "cover", "position": "center"},
+      "playerGraphic": {"title": "PLAYER GRAPHIC", "imageUrl": "", "fit": "cover", "position": "center"},
+      "matchEvent": {"title": "MATCH EVENT", "imageUrl": "", "fit": "cover", "position": "center"}
+    }
+  },
+  "audience": {"headline": ["BUILT FOR", "THE GAME.", "TRUSTED BY", "THE BEST."]},
+  "cta": {
+    "headline": ["READY TO", "ELEVATE YOUR", "FOOTBALL PRODUCTION?"],
+    "description": "Join the next generation of broadcasters, clubs and leagues. One system. Total control.",
+    "button": "BOOK A DEMO",
+    "buttonSub": "SEE TAKEFRAME IN ACTION"
+  }
+}
