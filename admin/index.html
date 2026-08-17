@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TAKEFRAME Website Admin</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/admin.css?v=1">
+<link rel="stylesheet" href="/admin/admin.css?v=2">
 </head>
 <body>
 <header class="topbar">
@@ -49,7 +49,7 @@
     </section>
 
     <section class="panel" data-panel-id="graphics">
-      <div class="panel-head"><div><span>02</span><h1>NORDIC1 Graphics</h1></div><p>Replace marketing screenshots without changing the website code.</p></div>
+      <div class="panel-head"><div><span>02</span><h1>NORDIC1 Graphics</h1></div><p>Replace screenshots in seconds. New files are uploaded only when you publish.</p></div>
       <div id="graphics-editor" class="graphics-editor"></div>
     </section>
 
@@ -79,7 +79,7 @@
     </section>
 
     <section class="panel" data-panel-id="media">
-      <div class="panel-head"><div><span>06</span><h1>Media Library</h1></div><p>Upload support will be connected to the isolated TAKEFRAME media backend. Existing site assets are shown below.</p></div>
+      <div class="panel-head"><div><span>06</span><h1>Media Library</h1></div><p>Current locked/core assets. Marketing graphics are replaced from the Graphics panel.</p></div>
       <div class="media-grid" id="media-grid"></div>
     </section>
   </main>
@@ -92,14 +92,34 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<dialog id="publish-dialog" class="dialog">
+<dialog id="publish-dialog" class="dialog publish-dialog">
   <button class="dialog-close" type="button" data-close-dialog>×</button>
-  <span class="eyebrow">PUBLISH</span>
-  <h2>Backend connection required</h2>
-  <p>The admin and preview system are ready. Live publishing will be enabled after the isolated TAKEFRAME content backend is connected.</p>
-  <div class="dialog-actions"><button class="btn secondary" type="button" data-close-dialog>CLOSE</button></div>
+  <span class="eyebrow">ZERO-COST PUBLISH</span>
+  <h2>Publish to TAKEFRAME.live</h2>
+  <p>Content and replacement images are committed directly to <strong>vsnboss/takeframe-live</strong>. Vercel deploys the commit automatically.</p>
+
+  <div class="security-note">
+    <strong>GitHub connection</strong>
+    <span>Use a fine-grained token limited to this repository with <b>Contents: Read and write</b>. By default it is kept only for this browser tab/session and is never committed to the website.</span>
+  </div>
+
+  <label class="token-label">Fine-grained GitHub token
+    <input id="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+  </label>
+  <label class="remember-row"><input id="remember-token" type="checkbox"> Remember on this browser <span>(less secure)</span></label>
+
+  <div class="connection-row">
+    <span id="connection-state" class="connection-state">NOT CONNECTED</span>
+    <button id="connect-github" class="btn secondary" type="button">TEST CONNECTION</button>
+  </div>
+
+  <p id="publish-status" class="publish-status">Only content changes will be published.</p>
+  <div class="dialog-actions">
+    <button class="btn secondary" type="button" data-close-dialog>CANCEL</button>
+    <button id="confirm-publish" class="btn primary" type="button">PUBLISH LIVE</button>
+  </div>
 </dialog>
 
-<script src="/admin/admin.js?v=1"></script>
+<script src="/admin/admin.js?v=2"></script>
 </body>
 </html>
