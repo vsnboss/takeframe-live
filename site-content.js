@@ -107,12 +107,22 @@
     installGraphicImage(4, cards.matchEvent, 'TAKEFRAME match event graphic');
   };
 
+  const fetchJson = async (url) => {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+    return response.json();
+  };
+
   const load = async () => {
     let content = null;
     try {
-      content = await fetch('/content/site-default.json', { cache: 'no-store' }).then((r) => r.json());
-    } catch (error) {
-      console.warn('TAKEFRAME CMS defaults unavailable.', error);
+      content = await fetchJson('/content/site-live.json');
+    } catch {
+      try {
+        content = await fetchJson('/content/site-default.json');
+      } catch (error) {
+        console.warn('TAKEFRAME CMS content unavailable.', error);
+      }
     }
 
     const preview = new URLSearchParams(location.search).get('tf_admin_preview') === '1';
