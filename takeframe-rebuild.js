@@ -119,9 +119,14 @@
     body.appendChild(img);
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', installRealFormationGraphic, { once: true });
-  } else {
+  const boot = () => {
     installRealFormationGraphic();
-  }
+    const cms = document.createElement('script');
+    cms.src = '/site-content.js?v=1';
+    cms.async = true;
+    document.head.appendChild(cms);
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
 })();
