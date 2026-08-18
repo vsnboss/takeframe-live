@@ -162,8 +162,8 @@ async function createMatchPassCheckout({ customer, localCustomer, origin }) {
     body: JSON.stringify({
       amount: 7900,
       currency: 'EUR',
-      customer_id: customer.id,
-      merchant_order_ext_ref: externalReference,
+      customer: { id: customer.id },
+      merchant_order_data: { reference: externalReference },
       description: 'TAKEFRAME Match Pass',
       redirect_url: `${origin}/welcome?plan=match-pass`,
       metadata: { product: 'takeframe', plan: 'match-pass' },
