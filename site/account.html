@@ -17,83 +17,116 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hdr" id="hdr">
-  <div class="wrap">
-    <div class="hdr-in">
-      <a class="brand" href="/" aria-label="TAKEFRAME home">
-        <img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME">
-        <span class="brand-sub">FOOTBALL<br>GRAPHICS OS</span>
-      </a>
-      <div class="hdr-act">
-        <a class="btn btn-s btn-hdr" href="/pricing">PRICING</a>
-        <a class="btn btn-p btn-hdr" href="/account">MY TAKEFRAME</a>
-      </div>
-    </div>
-  </div>
+  <div class="wrap"><div class="hdr-in">
+    <a class="brand" href="/" aria-label="TAKEFRAME home"><img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME"><span class="brand-sub">FOOTBALL<br>GRAPHICS OS</span></a>
+    <div class="hdr-act"><a class="btn btn-s btn-hdr" href="/pricing">PRICING</a><a class="btn btn-p btn-hdr" href="/account">MY TAKEFRAME</a></div>
+  </div></div>
 </header>
 <main id="main">
+<section class="sec" style="border-bottom:none"><div class="wrap">
+  <div class="sec-head">
+    <div><p class="eyebrow"><span class="num">&mdash;</span><span class="elabel">ACCOUNT</span><i class="erule" aria-hidden="true"></i></p><h1 class="disp" style="font-size:clamp(36px,4.8vw,64px)">My TAKEFRAME</h1></div>
+    <p class="lead">Licence administration &mdash; separate from the operator product. Nothing here touches a live production.</p>
+  </div>
 
-<section class="sec" style="border-bottom:none">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow"><span class="num">&mdash;</span><span class="elabel">ACCOUNT</span><i class="erule" aria-hidden="true"></i></p>
-        <h1 class="disp" style="font-size:clamp(36px,4.8vw,64px)">My TAKEFRAME</h1>
-      </div>
-      <p class="lead">Licence administration &mdash; separate from the operator product. Nothing here touches a live production.</p>
-    </div>
+  <div id="auth-box" class="card" style="max-width:680px">
+    <h3>Sign in to your TAKEFRAME account</h3>
+    <p>Use the email address attached to your TAKEFRAME purchase or evaluation. We will send a one-time login code.</p>
+    <form id="email-form" style="margin-top:22px;display:flex;flex-direction:column;gap:12px">
+      <label class="elabel" for="account-email">ACCOUNT EMAIL</label>
+      <input id="account-email" type="email" autocomplete="email" required placeholder="name@company.com" style="height:52px;padding:0 16px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit">
+      <button class="btn btn-p" type="submit" style="align-self:flex-start;height:46px">SEND LOGIN CODE</button>
+    </form>
+    <form id="code-form" hidden style="margin-top:22px;display:flex;flex-direction:column;gap:12px">
+      <label class="elabel" for="account-code">SIX-DIGIT CODE</label>
+      <input id="account-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" style="height:52px;padding:0 16px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit;letter-spacing:.24em">
+      <button class="btn btn-p" type="submit" style="align-self:flex-start;height:46px">SIGN IN</button>
+    </form>
+    <p id="auth-message" class="note" style="margin-top:14px" aria-live="polite"></p>
+  </div>
 
+  <div id="account-content" hidden>
     <div class="g3">
       <article class="card">
         <h3>Licence &amp; devices</h3>
-        <p>Your plan, registered production machines, Match Passes and concurrent-production entitlement are held in your TAKEFRAME licence and shown inside the application on your production machine.</p>
-        <p class="mono" style="font-size:10.5px;letter-spacing:.12em;color:var(--ink-4)">MANAGED IN TAKEFRAME &middot; LOCAL-FIRST</p>
+        <p id="licence-plan">&mdash;</p>
+        <p class="mono" id="licence-key" style="font-size:12px;letter-spacing:.12em;color:var(--ink-2)"></p>
+        <p class="note" id="licence-valid"></p>
+        <div id="device-list" style="margin-top:18px"></div>
       </article>
       <article class="card">
-        <h3>Billing &amp; invoices</h3>
-        <p>Payment method, billing details, invoices, renewals and cancellation are handled in the billing portal. The link is in every receipt we send you.</p>
-        <a class="btn btn-s" style="height:44px;margin-top:4px" href="/#demo">NEED THE PORTAL LINK?</a>
+        <h3>Billing &amp; Match Passes</h3>
+        <p id="billing-state">&mdash;</p>
+        <p class="mono" id="match-pass-balance" style="font-size:12px;letter-spacing:.12em;color:var(--ink-2)"></p>
+        <a class="btn btn-p" style="height:44px;margin-top:8px" href="/api/checkout?plan=match-pass">BUY MATCH PASS</a>
       </article>
       <article class="card">
         <h3>Download</h3>
-        <p>The current Windows release and your licence key are delivered with your purchase confirmation. Ask us any time if you need them re-sent.</p>
-        <a class="btn btn-s" style="height:44px;margin-top:4px" href="/#demo">REQUEST A RE-SEND</a>
+        <p>The current Windows release and licence details are tied to this account. Production data remains local to your machine.</p>
+        <a class="btn btn-s" style="height:44px;margin-top:4px" href="/#demo">NEED HELP?</a>
       </article>
     </div>
 
     <div class="band band-brand" style="margin-top:var(--gap)">
-      <div>
-        <h3>Need another match, or more at once?</h3>
-        <p class="note" style="margin-top:10px">Buy an extra Match Pass, move to an Annual subscription, or add concurrent productions for a league or network schedule.</p>
-      </div>
-      <div class="act">
-        <a class="btn btn-p btn-lg" href="/api/checkout?plan=match-pass">BUY MATCH PASS</a>
-        <a class="btn btn-s btn-lg" href="/pricing">VIEW PRICING</a>
-      </div>
+      <div><h3 id="account-email-display">TAKEFRAME account</h3><p class="note" style="margin-top:10px">Manage registered production machines here. Deactivation never terminates an active broadcast.</p></div>
+      <div class="act"><a class="btn btn-s btn-lg" href="/pricing">VIEW PRICING</a><button class="btn btn-s btn-lg" id="logout" type="button">SIGN OUT</button></div>
     </div>
+  </div>
 
-    <p class="legal" style="margin-top:32px">Cancelling TAKEFRAME does not delete your production data. Your local match data stays on your machine; clean licensed Program output resumes when you renew.</p>
-  </div>
-</section>
+  <p class="legal" style="margin-top:32px">Cancelling TAKEFRAME does not delete your production data. Your local match data stays on your machine; clean licensed Program output resumes when you renew.</p>
+</div></section>
 </main>
-<footer>
-  <div class="wrap">
-    <div class="ftr">
-      <div class="ftr-brand">
-        <img src="/assets/lockup-400.webp" width="400" height="73" loading="lazy" alt="TAKEFRAME">
-        <span class="by">BY VSN</span>
-      </div>
-      <span class="ftr-mid">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS SYSTEM</span>
-      <nav class="ftr-links" aria-label="Footer">
-        <a href="/pricing">PRICING</a>
-        <a href="/#connectivity">CONNECTIVITY</a>
-        <a href="/#demo">CONTACT</a>
-        <span>&copy; 2026 VSN</span>
-      </nav>
-    </div>
-    <div style="padding-bottom:34px">
-      <p class="legal">NDI&reg; is a registered trademark of Vizrt Group. See <a href="https://ndi.video" rel="noopener">ndi.video</a>. Third-party product and company names are trademarks of their respective owners.</p>
-    </div>
-  </div>
-</footer>
+<footer><div class="wrap"><div class="ftr"><div class="ftr-brand"><img src="/assets/lockup-400.webp" width="400" height="73" loading="lazy" alt="TAKEFRAME"><span class="by">BY VSN</span></div><span class="ftr-mid">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS SYSTEM</span><nav class="ftr-links" aria-label="Footer"><a href="/pricing">PRICING</a><a href="/#connectivity">CONNECTIVITY</a><a href="/#demo">CONTACT</a><span>&copy; 2026 VSN</span></nav></div><div style="padding-bottom:34px"><p class="legal">NDI&reg; is a registered trademark of Vizrt Group. See <a href="https://ndi.video" rel="noopener">ndi.video</a>. Third-party product and company names are trademarks of their respective owners.</p></div></div></footer>
+<script>
+(function(){
+  var authBox=document.getElementById('auth-box');
+  var content=document.getElementById('account-content');
+  var emailForm=document.getElementById('email-form');
+  var codeForm=document.getElementById('code-form');
+  var emailInput=document.getElementById('account-email');
+  var codeInput=document.getElementById('account-code');
+  var message=document.getElementById('auth-message');
+  var loginEmail='';
+
+  function fmt(value){if(!value)return 'Not set';var d=new Date(value);return isNaN(d.getTime())?'Not set':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
+  async function api(url,options){var response=await fetch(url,Object.assign({headers:{'Content-Type':'application/json'}},options||{}));var data={};try{data=await response.json();}catch(e){}if(!response.ok){var err=new Error(data.message||'Request failed');err.status=response.status;throw err;}return data;}
+
+  function renderDevices(devices){
+    var root=document.getElementById('device-list');root.textContent='';
+    if(!devices.length){var none=document.createElement('p');none.className='note';none.textContent='No production machines registered yet.';root.appendChild(none);return;}
+    devices.forEach(function(device,index){
+      var row=document.createElement('div');row.style.cssText='padding:12px 0;border-top:1px solid var(--line)';
+      var name=document.createElement('p');name.style.margin='0';name.textContent=device.name||('Production machine '+(index+1));
+      var meta=document.createElement('p');meta.className='note';meta.style.marginTop='5px';meta.textContent=(device.platform||'Windows')+' · last seen '+fmt(device.lastSeenAt||device.registeredAt);
+      var button=document.createElement('button');button.type='button';button.className='btn btn-s';button.style.cssText='height:36px;margin-top:8px';button.textContent='DEACTIVATE';
+      button.addEventListener('click',async function(){if(!confirm('Deactivate this production machine?'))return;button.disabled=true;try{await api('/api/account/deactivate-device',{method:'POST',body:JSON.stringify({deviceId:device.id})});await load();}catch(e){alert(e.message);}finally{button.disabled=false;}});
+      row.appendChild(name);row.appendChild(meta);row.appendChild(button);root.appendChild(row);
+    });
+  }
+
+  function render(data){
+    authBox.hidden=true;content.hidden=false;
+    document.getElementById('account-email-display').textContent=data.account.email;
+    var licence=data.license;
+    document.getElementById('licence-plan').textContent=licence?(String(licence.plan).toUpperCase()+' · '+String(licence.status).toUpperCase()):'No active TAKEFRAME licence';
+    document.getElementById('licence-key').textContent=licence?licence.key:'';
+    document.getElementById('licence-valid').textContent=licence&&licence.validUntil?('Valid / paid through '+fmt(licence.validUntil)):'';
+    var plan=data.plan;
+    document.getElementById('billing-state').textContent=plan?(String(plan.type).toUpperCase()+' · '+String(plan.status).toUpperCase()):'No paid subscription';
+    document.getElementById('match-pass-balance').textContent='UNUSED MATCH PASSES: '+data.matchPasses.unused;
+    renderDevices(data.devices||[]);
+  }
+
+  async function load(){
+    try{var data=await api('/api/account/me',{method:'GET'});render(data);}
+    catch(e){if(e.status===401||e.status===403){authBox.hidden=false;content.hidden=true;return;}message.textContent='Account service is temporarily unavailable.';}
+  }
+
+  emailForm.addEventListener('submit',async function(event){event.preventDefault();loginEmail=emailInput.value.trim().toLowerCase();message.textContent='Sending login code…';try{await api('/api/account/request-code',{method:'POST',body:JSON.stringify({email:loginEmail})});emailForm.hidden=true;codeForm.hidden=false;codeInput.focus();message.textContent='If this email is linked to TAKEFRAME, a six-digit code has been sent.';}catch(e){message.textContent=e.message;}});
+  codeForm.addEventListener('submit',async function(event){event.preventDefault();message.textContent='Signing in…';try{await api('/api/account/verify-code',{method:'POST',body:JSON.stringify({email:loginEmail,token:codeInput.value.trim()})});message.textContent='';await load();}catch(e){message.textContent=e.message;}});
+  document.getElementById('logout').addEventListener('click',async function(){try{await api('/api/account/logout',{method:'POST',body:'{}'});}catch(e){}location.reload();});
+  load();
+})();
+</script>
 </body>
 </html>
