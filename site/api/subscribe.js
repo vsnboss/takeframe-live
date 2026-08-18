@@ -1,17 +1,12 @@
 const crypto = require('crypto');
+const db = require('./_lib/supabase');
+const revolut = require('./_lib/revolut');
 
-const API_VERSION = '2026-04-20';
 const PLAN_NAME = 'TAKEFRAME SUBSCRIPTION';
 const PLAN_CONFIG = {
   annual: { cycle: 'P1Y', amount: 169000 },
   monthly: { cycle: 'P1M', amount: 16900 },
 };
-
-function revolutBaseUrl() {
-  return process.env.REVOLUT_ENV === 'sandbox'
-    ? 'https://sandbox-merchant.revolut.com/api'
-    : 'https://merchant.revolut.com/api';
-}
 
 function originFor(req) {
   const host = req.headers['x-forwarded-host'] || req.headers.host;
@@ -24,30 +19,12 @@ function redirect(res, location) {
   return res.end();
 }
 
-async function api(secret, path, options = {}) {
-  const response = await fetch(`${revolutBaseUrl()}${path}`, {
-    ...options,
-    headers: {
-      'Authorization': `Bearer ${secret}`,
-      'Revolut-Api-Version': API_VERSION,
-      ...(options.body ? { 'Content-Type': 'application/json' } : {}),
-      ...(options.headers || {}),
-    },
-  });
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Revolut ${path} failed (${response.status}): ${body.slice(0, 500)}`);
-  }
-  if (response.status === 204) return null;
-  return response.json();
-}
-
-async function findCustomerByEmail(secret, email) {
+async function findCustomerByEmail(email) {
   let token = null;
   do {
     const params = new URLSearchParams({ limit: '100' });
     if (token) params.set('page_token', token);
-    const page = await api(secret, `/customers?${params.toString()}`);
+    const page = await revolut.request(`/customers?${params.toString()}`);
     const customer = (page.customers || []).find((item) =>
       String(item.email || '').toLowerCase() === email.toLowerCase());
     if (customer) return customer;
@@ -56,13 +33,21 @@ async function findCustomerByEmail(secret, email) {
   return null;
 }
 
-async function getOrCreateCustomer(secret, email) {
-  const existing = await findCustomerByEmail(secret, email);
+async function getOrCreateRevolutCustomer(email) {
+  const existing = await findCustomerByEmail(email);
   if (existing) return existing;
-  return api(secret, '/customers', {
+  return revolut.request('/customers', {
     method: 'POST',
     body: JSON.stringify({ email }),
   });
+}
+
+async function syncLocalCustomer(customer, email) {
+  return db.upsert('customers', {
+    email: email.toLowerCase(),
+    revolut_customer_id: customer.id,
+    status: 'active',
+  }, 'email');
 }
 
 function variationFor(plan, config) {
@@ -73,18 +58,18 @@ function variationFor(plan, config) {
       phase.currency === 'EUR'));
 }
 
-async function getOrCreateTakeframePlan(secret) {
+async function getOrCreateTakeframePlan() {
   let token = null;
   do {
     const params = new URLSearchParams({ limit: '100' });
     if (token) params.set('page_token', token);
-    const page = await api(secret, `/subscription-plans?${params.toString()}`);
+    const page = await revolut.request(`/subscription-plans?${params.toString()}`);
     const existing = (page.subscription_plans || []).find((item) => item.name === PLAN_NAME);
     if (existing) return existing;
     token = page.next_page_token || null;
   } while (token);
 
-  return api(secret, '/subscription-plans', {
+  return revolut.request('/subscription-plans', {
     method: 'POST',
     body: JSON.stringify({
       name: PLAN_NAME,
@@ -96,9 +81,79 @@ async function getOrCreateTakeframePlan(secret) {
   });
 }
 
+async function createSubscriptionCheckout({ planKey, email, customer, localCustomer, origin }) {
+  const config = PLAN_CONFIG[planKey];
+  const subscriptionPlan = await getOrCreateTakeframePlan();
+  const variation = variationFor(subscriptionPlan, config);
+  if (!variation) throw new Error(`TAKEFRAME subscription plan is missing ${planKey} variation`);
+
+  const externalReference = `tf-sub-${planKey}-${crypto.randomUUID()}`;
+  const subscription = await revolut.request('/subscriptions', {
+    method: 'POST',
+    headers: { 'Idempotency-Key': crypto.randomUUID() },
+    body: JSON.stringify({
+      plan_variation_id: variation.id,
+      customer_id: customer.id,
+      setup_order_redirect_url: `${origin}/welcome?plan=${encodeURIComponent(planKey)}`,
+      external_reference: externalReference,
+    }),
+  });
+
+  await db.upsert('subscriptions', {
+    customer_id: localCustomer.id,
+    provider: 'revolut',
+    provider_subscription_id: subscription.id,
+    provider_plan_id: subscription.plan_id || subscriptionPlan.id,
+    provider_variation_id: subscription.plan_variation_id || variation.id,
+    setup_order_id: subscription.setup_order_id || null,
+    external_reference: externalReference,
+    plan: planKey,
+    status: subscription.state || 'pending',
+    start_date: subscription.start_date || null,
+    provider_payload: subscription,
+  }, 'provider_subscription_id');
+
+  if (!subscription.setup_order_id) throw new Error('Subscription response missing setup_order_id');
+  const setupOrder = await revolut.retrieveOrder(subscription.setup_order_id);
+  if (!setupOrder.checkout_url) throw new Error('Setup order response missing checkout_url');
+  return setupOrder.checkout_url;
+}
+
+async function createMatchPassCheckout({ customer, localCustomer, origin }) {
+  const externalReference = `tf-mp-${crypto.randomUUID()}`;
+  const order = await revolut.request('/orders', {
+    method: 'POST',
+    headers: { 'Idempotency-Key': crypto.randomUUID() },
+    body: JSON.stringify({
+      amount: 7900,
+      currency: 'EUR',
+      customer_id: customer.id,
+      merchant_order_ext_ref: externalReference,
+      description: 'TAKEFRAME Match Pass',
+      redirect_url: `${origin}/welcome?plan=match-pass`,
+      metadata: { product: 'takeframe', plan: 'match-pass' },
+    }),
+  });
+
+  await db.upsert('orders', {
+    customer_id: localCustomer.id,
+    provider: 'revolut',
+    provider_order_id: order.id,
+    external_reference: externalReference,
+    plan: 'match-pass',
+    amount_cents: 7900,
+    currency: 'EUR',
+    status: order.state || 'pending',
+    provider_payload: order,
+  }, 'provider_order_id');
+
+  if (!order.checkout_url) throw new Error('Revolut order response missing checkout_url');
+  return order.checkout_url;
+}
+
 async function readForm(req) {
   const chunks = [];
-  for await (const chunk of req) chunks.push(chunk);
+  for await (const chunk of req) chunks.push(Buffer.from(chunk));
   return new URLSearchParams(Buffer.concat(chunks).toString('utf8'));
 }
 
@@ -108,45 +163,29 @@ module.exports = async (req, res) => {
     return res.end('Method Not Allowed');
   }
 
-  const secret = process.env.REVOLUT_SECRET_KEY;
-  if (!secret) return redirect(res, '/pricing?checkout=unavailable');
-
   try {
     const form = await readForm(req);
     const planKey = String(form.get('plan') || '').toLowerCase();
     const email = String(form.get('email') || '').trim().toLowerCase();
-    const config = PLAN_CONFIG[planKey];
 
-    if (!config) return redirect(res, '/pricing?checkout=unknown-plan');
-    if (!/^\S+@\S+\.\S+$/.test(email)) return redirect(res, `/subscribe?plan=${planKey}&error=email`);
+    if (!PLAN_CONFIG[planKey] && planKey !== 'match-pass') {
+      return redirect(res, '/pricing?checkout=unknown-plan');
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return redirect(res, `/subscribe?plan=${encodeURIComponent(planKey)}&error=email`);
+    }
 
-    const [customer, subscriptionPlan] = await Promise.all([
-      getOrCreateCustomer(secret, email),
-      getOrCreateTakeframePlan(secret),
-    ]);
-
-    const variation = variationFor(subscriptionPlan, config);
-    if (!variation) throw new Error(`TAKEFRAME subscription plan is missing ${planKey} variation`);
-
+    const customer = await getOrCreateRevolutCustomer(email);
+    const localCustomer = await syncLocalCustomer(customer, email);
     const origin = originFor(req);
-    const subscription = await api(secret, '/subscriptions', {
-      method: 'POST',
-      headers: { 'Idempotency-Key': crypto.randomUUID() },
-      body: JSON.stringify({
-        plan_variation_id: variation.id,
-        customer_id: customer.id,
-        setup_order_redirect_url: `${origin}/welcome?plan=${encodeURIComponent(planKey)}`,
-        external_reference: `takeframe-${planKey}-${crypto.randomUUID()}`,
-      }),
-    });
 
-    if (!subscription.setup_order_id) throw new Error('Subscription response missing setup_order_id');
-    const setupOrder = await api(secret, `/orders/${encodeURIComponent(subscription.setup_order_id)}`);
-    if (!setupOrder.checkout_url) throw new Error('Setup order response missing checkout_url');
+    const checkoutUrl = planKey === 'match-pass'
+      ? await createMatchPassCheckout({ customer, localCustomer, origin })
+      : await createSubscriptionCheckout({ planKey, email, customer, localCustomer, origin });
 
-    return redirect(res, setupOrder.checkout_url);
+    return redirect(res, checkoutUrl);
   } catch (error) {
-    console.error('revolut subscription checkout error', error);
+    console.error('TAKEFRAME commercial checkout error', error);
     return redirect(res, '/pricing?checkout=error');
   }
 };
