@@ -1,193 +1,197 @@
-# TAKEFRAME — website design
+# TAKEFRAME — website and commercial runtime
 
-Commercial website design for **TAKEFRAME**, VSN's professional football
-broadcast graphics and live-production system.
+Production website and commercial backend for **TAKEFRAME**, VSN's professional football broadcast graphics and live-production system.
 
-## Layout
+This repository owns `takeframe.live`: the public website, pricing/checkout flow, My TAKEFRAME account area, Revolut Merchant integration, commercial source of truth, and public licensing APIs. It does **not** contain the TAKEFRAME Windows broadcast application.
+
+## Design source
 
 ```
 design/
-  Main.dc.html      Homepage — desktop artboard (1440 × 14994)
-  Mobile.dc.html    Homepage — mobile artboard (390 × 4706)
-  canvas.json       Artboard layout, titles and handover notes
-  img/              Downsampled webp derivatives used by the artboards
-assets/media/       Original TAKEFRAME product media (source of truth)
+  Main.dc.html      Homepage — desktop artboard
+  Mobile.dc.html    Homepage — mobile artboard
+  canvas.json       Artboard layout and handover notes
+  img/              Derived webp assets
+assets/media/       Original TAKEFRAME product media
+assets/logos/       Official TAKEFRAME logo assets
 ```
 
-`design/img/*.webp` are derived from `assets/media/` and `assets/logos/`.
-`match-ready.webp` is cropped to 1780px wide to exclude a transient OS colour
-picker that was open when the original screenshot was taken.
-`takeframe-lockup.webp` is the official horizontal lockup, tight-cropped to its
-alpha bounds and exported at 640px wide.
+The production website lives in `site/`. The approved visual/pricing baseline is intentionally kept separate from commercial backend work.
 
-## Logo assets
-
-`assets/logos/` holds the supplied originals (transparent PNG unless noted):
-
-| File | Use |
-| --- | --- |
-| `lockup.png` | Horizontal lockup — **used in the header and footer** |
-| `lockup-live.png` / `lockup-live-alt.png` / `lockup-live-wide.png` | Lockup with the red LIVE badge |
-| `mark.png` | Icon only — arrow and frame |
-| `app-icon.png` | Rounded-square app icon |
-| `badge-circular.png` | Circular badge |
-| `lockup-mono-white.png` | Mono white, for busy or single-colour backgrounds |
-| `lockup-on-light.png` | Navy wordmark for light backgrounds (opaque) |
-| `lockup-stacked.png`, `lockup-presentation.png` | Presentation renders |
-
-The site uses the plain **TAKEFRAME** lockup rather than the LIVE variant,
-because the product brief names the product TAKEFRAME.
-
-## Design system
-
-Taken from the shipping TAKEFRAME Control UI rather than invented:
-
-Surfaces come from the shipping Control UI; the accent colours are sampled
-from the official logo files in `assets/logos/`.
-
-| Token | Value | Use |
-| --- | --- | --- |
-| background | `#04070B` / `#06090E` | Page and alternating bands |
-| panel | `#080C12` | Cards, tables, chain steps |
-| brand | `#00B0F0` | Accent, canonical/approved state — logo arrow core |
-| take | `#0080E0` | TAKE — logo arrow deep facet |
-| on air | `#E4001B` | PROGRAM, OUT, ARMED — logo corner tick / LIVE badge |
-| amber | `#F0A81E` | NEEDS REVIEW |
-
-Type: **Saira Condensed** (display), **IBM Plex Sans** (body), **IBM Plex Mono**
-(labels and technical readouts), loaded from Google Fonts.
-
-## Claim discipline
-
-Copy is limited to verified capability: NDI and OMT output, Windows operator
-application, local-first operation, Preview/Program/Take playout, up to five
-substitution exchanges, penalty shoot-out controller, two-leg aggregate,
-provider-**ready** adapter architecture. No named data provider, no SDI or
-fill/key, no cloud playout, no certification claims.
-
-## Rebuilding the canvas
-
-The published canvas is generated, not committed. Re-seed with the `design`
-skill's helper:
-
-```
-node <skill>/seed-canvas.mjs \
-  --template <skill>/payload.template.html \
-  --out design/takeframe-website.html \
-  --title "TAKEFRAME Website" \
-  --artboard design/Main.dc.html --artboard design/Mobile.dc.html \
-  --canvas design/canvas.json \
-  --image design/img/<each>.webp
-```
-
-## Still to supply
-
-- `[SALES EMAIL]` and `[PHONE NUMBER]` in the contact block
-- `[SHOWREEL VIDEO]` — the match showreel slot under section 01
-- A vector (SVG/EPS) of the lockup would beat the supplied PNGs for crispness
-  at large sizes and for print
-
-## The website
-
-`site/` is the real, deployable website built from the design — static HTML and
-CSS, no framework, no build step.
+## Production website
 
 ```
 site/
-  index.html          Homepage
-  pricing.html        Pricing, licence model, FAQ
-  welcome.html        Post-purchase onboarding (plan-aware via ?plan=)
-  account.html        My TAKEFRAME — licence and billing admin
-  api/checkout.js     Server-side Lemon Squeezy checkout creation
-  api/webhook.js      Signature-verified Lemon Squeezy webhook receiver
-  styles.css          Design tokens + responsive layout
-  fonts.css           Self-hosted @font-face rules
-  vercel.json         Cache and security headers
-  robots.txt
-  assets/             Images (webp, two widths for srcset), OG image, favicons
-  assets/fonts/       Saira Condensed + IBM Plex woff2 (latin, latin-ext)
+  index.html
+  pricing.html
+  subscribe.html
+  welcome.html
+  account.html
+  styles.css
+  fonts.css
+  assets/
+  api/
 ```
 
-Notes:
+The site is static HTML/CSS with Vercel serverless functions. The Vercel project is deployed from the **repository root**; root `api/` entrypoints and `vercel.json` bridge the public routes to the implementation in `site/api/`.
 
-- **Fonts are self-hosted**, not loaded from Google Fonts. Broadcast facilities
-  often run locked-down networks, and it removes a render-blocking third-party
-  request. Both families are open-licensed (SIL OFL).
-- Images ship at 900px and 1600px with `srcset`; everything below the fold is
-  lazy-loaded. The page makes **no external requests at all**.
-- Verified with no horizontal overflow at 320, 390, 600, 768, 1024, 1280, 1440
-  and 1920px.
+## Commercial model
 
-Preview locally with any static server, e.g. `python3 -m http.server` in `site/`.
+TAKEFRAME has no perpetual licence and no paid feature tiers. Every paid plan carries the full product.
 
+| Plan | Price | Commercial rule |
+| --- | ---: | --- |
+| Evaluation | €0 | 7 days, no card, watermarked output |
+| Match Pass | €79 once | One unused Match Pass credit; 72-hour timer starts only when activated for a match |
+| Monthly | €169/month | Full TAKEFRAME subscription |
+| Annual | €1,690/year | Full TAKEFRAME subscription |
 
-## Commerce
+Standard paid authority allows **2 registered Windows production computers** and **1 simultaneous clean production**. Custom league concurrency is handled commercially rather than as a public pricing tier.
 
-TAKEFRAME is sold as subscription or match-pass entitlement only — there is no
-perpetual licence anywhere in the copy, and every paid plan carries the full
-product. Public prices: Annual €1,690/yr, Monthly €169/mo, Match Pass €79, plus
-a free 7-day watermarked evaluation. VAT is calculated at checkout.
+## Production commerce architecture
 
-### How a purchase flows
-
+```text
+pricing / subscribe
+        ↓
+TAKEFRAME commerce API
+        ↓
+Revolut Business Merchant API
+        ↓
+verified Revolut webhook
+        ↓
+TAKEFRAME Supabase commercial DB
+        ↓
+signed Ed25519 entitlement
+        ↓
+TAKEFRAME app licensing API
 ```
-pricing page  →  /api/checkout?plan=…  →  Lemon Squeezy checkout
-                                              ↓
-                              /api/webhook (signature verified)
-                                              ↓
-                                   VSN licensing service
-                                              ↓
-                                /welcome?plan=…  (onboarding)
+
+The browser redirect after checkout is never entitlement authority. Paid state is granted only from verified server-side provider state.
+
+For subscriptions, a new TAKEFRAME licence requires an **active Revolut subscription plus a current billing cycle backed by an authoritative Revolut order in `completed` state**. A `pending` subscription cannot create a paid licence.
+
+For Match Pass, an `ORDER_COMPLETED` authoritative re-read creates exactly one unused credit. Match Pass binding and its 72-hour clock are performed atomically when the pass is first activated by the app.
+
+## Revolut Merchant
+
+Production uses the current Merchant API host:
+
+```text
+https://merchant.revolut.com/api
 ```
 
-The browser only ever sends a plan slug (`annual`, `monthly`, `match-pass`,
-`evaluation`). Store and variant identifiers and the API key stay server-side,
-so no commercial configuration is exposed in client JavaScript. `/api/checkout`
-validates the slug against an allowlist before calling the commerce API.
+and Merchant API version `2026-04-20`.
 
-`/api/webhook` verifies the HMAC-SHA256 signature over the **raw** body with a
-timing-safe compare, then hands the entitlement to the VSN licensing service.
-Licence generation happens there — never in the browser, and never on the live
-graphics path.
+Paid checkout fails closed if a production Vercel deployment is configured for Revolut Sandbox.
 
-### Environment variables
+Before creating the first paid customer/order/subscription, the commerce API ensures that the production webhook exists at:
 
-Set these on the Vercel project. The four marked secret must never reach the
-client.
+```text
+https://takeframe.live/api/webhook
+```
+
+The webhook signing secret returned by Revolut is stored directly in **Supabase Vault**. It is not exposed to browser code and is not stored as a Vercel environment variable.
+
+Webhook processing is signature-verified over the raw request body, idempotent, retryable after failure, and always re-reads authoritative Revolut order/subscription state before mutating TAKEFRAME commercial authority.
+
+## Supabase commercial source of truth
+
+The TAKEFRAME Supabase project stores only the commercial/licensing state needed by the product rather than acting as a general CRM.
+
+Core entities:
+
+```text
+customers
+orders
+subscriptions
+licenses
+devices
+match_passes
+production_leases
+entitlements
+webhook_events
+audit_events
+```
+
+Runtime/security support includes:
+
+```text
+licensing_signing_keys
+licensing_runtime_config
+payment_provider_webhooks
+```
+
+All commercial tables have RLS enabled and are server-only by default. Public browser access to the commercial tables is not used.
+
+Important database invariants include:
+
+- customer email is unique for deterministic server upserts
+- one setup order resolves to at most one TAKEFRAME subscription
+- an active licence must have a concrete `valid_until`
+- devices, entitlements, and production leases have exactly one licence/Match-Pass authority where applicable
+- device registration is atomic under the authority lock so the 2-device limit cannot be raced
+- Match Pass activation is atomic so one credit cannot be bound to two matches
+- production concurrency is enforced atomically by database RPCs
+
+## Signed entitlement authority
+
+Entitlements use Ed25519 signatures. The private signing key is held in **Supabase Vault** and is retrievable only through service-role-only runtime authority. The matching public key is the verification authority for the TAKEFRAME application.
+
+Signed payloads include the licence/pass authority, plan, device, device/concurrency limits, clean-output/watermark state, match binding where applicable, issue/valid/offline windows, and signing `keyId`.
+
+The server does not persist a fake notion of being online. Offline authority is bounded by the signed `offlineUntil` value.
+
+## Public licensing API
+
+Canonical external routes:
+
+```text
+POST /v1/licenses/activate
+POST /v1/licenses/refresh
+POST /v1/licenses/deactivate
+GET  /v1/licenses/status
+
+POST /v1/match-passes/activate
+
+POST /v1/productions/acquire
+POST /v1/productions/heartbeat
+POST /v1/productions/release
+```
+
+The repository-root Vercel routing maps `/v1/...` to the serverless API implementation.
+
+## My TAKEFRAME
+
+`/account` is a real authenticated customer area, not a placeholder. Passwordless email OTP authentication is provided by Supabase Auth and the session is held in secure server-side cookies.
+
+Authenticated customers can see their current plan/licence status, paid-through state, TAKEFRAME licence key, unused Match Pass balance, registered production machines, and can deactivate a device. Server-side ownership is re-checked before customer data or device mutations are returned.
+
+Unknown email addresses receive the same login-request response as known addresses to avoid account enumeration.
+
+## Required Vercel environment variables
+
+Production requires:
 
 | Variable | Secret | Purpose |
 | --- | :---: | --- |
-| `LEMONSQUEEZY_API_KEY` | ● | Creating checkouts |
-| `LEMONSQUEEZY_STORE_ID` | | Store the checkout belongs to |
-| `LEMONSQUEEZY_VARIANT_ANNUAL` | | Variant for the annual plan |
-| `LEMONSQUEEZY_VARIANT_MONTHLY` | | Variant for the monthly plan |
-| `LEMONSQUEEZY_VARIANT_MATCH_PASS` | | Variant for the match pass |
-| `LEMONSQUEEZY_VARIANT_EVALUATION` | | Variant for the free evaluation |
-| `LEMONSQUEEZY_WEBHOOK_SECRET` | ● | Verifying webhook signatures |
-| `LICENSING_SERVICE_URL` | | Where entitlements are handed off |
-| `LICENSING_SERVICE_TOKEN` | ● | Auth for that handoff |
+| `REVOLUT_SECRET_KEY` | yes | Revolut Merchant production API authentication |
+| `REVOLUT_ENV` | no | Must be `production` on the production deployment |
+| `SUPABASE_URL` | no | TAKEFRAME Supabase project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | yes | Server-only commercial/Auth access |
 
-Point the Lemon Squeezy webhook at `https://<domain>/api/webhook`.
+Ed25519 private signing authority and the Revolut webhook signing secret are deliberately **not** Vercel environment variables; they live in Supabase Vault.
 
-Until these are set, the checkout CTAs redirect to `/pricing?checkout=unavailable`
-and the page shows a plain notice rather than failing silently.
+## Security rules
 
-**The Vercel project's Root Directory must be `site`** — that is where `api/`
-lives, and serverless functions are only picked up from the project root. The
-repository-root `vercel.json` is a fallback that serves `site/` statically if the
-project root is ever the repository itself; functions would not run in that case.
+- Never grant entitlement from `/welcome` or any browser redirect.
+- Never expose Revolut or Supabase server secrets to client JavaScript.
+- Never use provider order/subscription IDs as TAKEFRAME licence keys.
+- Never issue a paid subscription licence without verified paid authority.
+- Never let Match Pass activation or device/concurrency limits rely on read-then-write application logic when an atomic DB operation is required.
+- Never remotely terminate an already-running broadcast because a payment state changed mid-show.
 
-### Still to wire
+## Claim discipline
 
-- Lemon Squeezy products and the env vars above.
-- The VSN licensing service endpoint (entitlements, registered machines,
-  Match Pass activation, evaluation state, signed offline licences).
-- `account.html` currently describes where licence and billing live rather than
-  showing live data; it becomes a real view once the licensing service exists.
+Public product copy remains limited to verified capability: Windows operator application, local-first operation, Preview/Program/Take playout, NDI/OMT workflow output and the other capabilities explicitly approved in the website baseline. Do not introduce partner/certification/integration claims without evidence.
 
-## Claim discipline in the commercial copy
-
-Third-party production systems are described as **workflow compatible over
-NDI®/OMT**, never as integrations or partnerships. No third-party logos are
-used — text wordmarks only — pending brand permission. NDI® carries its
-trademark attribution and a link to ndi.video in the footer of every page.
+Third-party production systems are described as workflow-compatible where appropriate, not as partnerships. No third-party logos are used without permission.
