@@ -9,6 +9,7 @@
 const crypto = require('crypto');
 const db = require('./_lib/supabase');
 const revolut = require('./_lib/revolut');
+const revolutWebhooks = require('./_lib/revolut-webhooks');
 
 const SIGNATURE_VERSION = 'v1';
 const MAX_TIMESTAMP_SKEW_MS = 5 * 60 * 1000;
@@ -114,9 +115,7 @@ async function syncCustomer(revolutCustomerId) {
   if (!revolutCustomerId) return null;
   const remote = await revolut.retrieveCustomer(revolutCustomerId);
   const email = String(remote.email || '').trim().toLowerCase();
-  if (!email) {
-    return db.selectOne('customers', { revolut_customer_id: revolutCustomerId });
-  }
+  if (!email) return db.selectOne('customers', { revolut_customer_id: revolutCustomerId });
   return db.upsert('customers', {
     email,
     revolut_customer_id: remote.id,
@@ -128,7 +127,6 @@ async function syncOrder(orderId) {
   const remote = await revolut.retrieveOrder(orderId);
   const existing = await db.selectOne('orders', { provider_order_id: remote.id });
   let customerId = existing && existing.customer_id;
-
   const revolutCustomerId = remote.customer_id || (remote.customer && remote.customer.id) || null;
   if (revolutCustomerId) {
     const customer = await syncCustomer(revolutCustomerId);
@@ -138,7 +136,6 @@ async function syncOrder(orderId) {
   const plan = orderPlanFrom(remote, existing);
   const externalReference = remote.merchant_order_ext_ref || (existing && existing.external_reference) || null;
   const completed = remote.state === 'completed';
-
   const localOrder = await db.upsert('orders', {
     customer_id: customerId || null,
     provider: 'revolut',
@@ -154,7 +151,6 @@ async function syncOrder(orderId) {
 
   if (completed && plan === 'match-pass') {
     if (!localOrder.customer_id) throw new Error(`Completed Match Pass order ${remote.id} has no TAKEFRAME customer`);
-
     const credit = await db.upsert('match_passes', {
       customer_id: localOrder.customer_id,
       source_order_id: localOrder.id,
@@ -164,7 +160,6 @@ async function syncOrder(orderId) {
       expires_at: null,
       consumed_at: null,
     }, 'source_order_id');
-
     await db.insert('audit_events', {
       actor_type: 'revolut_webhook',
       actor_id: remote.id,
@@ -174,14 +169,12 @@ async function syncOrder(orderId) {
       data: { order_id: localOrder.id, provider_order_id: remote.id },
     });
   }
-
   return localOrder;
 }
 
 function localLicenseState(subscriptionState, paidThrough) {
   const paidUntilMs = paidThrough ? Date.parse(paidThrough) : NaN;
   const stillPaid = Number.isFinite(paidUntilMs) && paidUntilMs > Date.now();
-
   if (subscriptionState === 'active' || subscriptionState === 'pending') return 'active';
   if ((subscriptionState === 'cancelled' || subscriptionState === 'finished') && stillPaid) return 'active';
   if (subscriptionState === 'overdue') return stillPaid ? 'active' : 'grace';
@@ -209,10 +202,7 @@ async function syncSubscription(subscriptionId) {
       console.warn('could not retrieve subscription cycle', remote.id, error.message);
     }
   }
-  const paidThrough = cycle && cycle.end_date
-    ? cycle.end_date
-    : (existing && existing.paid_through) || null;
-
+  const paidThrough = cycle && cycle.end_date ? cycle.end_date : (existing && existing.paid_through) || null;
   const localSubscription = await db.upsert('subscriptions', {
     customer_id: localCustomer.id,
     provider: 'revolut',
@@ -225,9 +215,7 @@ async function syncSubscription(subscriptionId) {
     status: remote.state,
     start_date: remote.start_date || null,
     paid_through: paidThrough,
-    cancelled_at: remote.state === 'cancelled'
-      ? (remote.updated_at || new Date().toISOString())
-      : (existing && existing.cancelled_at) || null,
+    cancelled_at: remote.state === 'cancelled' ? (remote.updated_at || new Date().toISOString()) : (existing && existing.cancelled_at) || null,
     provider_payload: cycle ? { subscription: remote, current_cycle: cycle } : remote,
   }, 'provider_subscription_id');
 
@@ -246,7 +234,6 @@ async function syncSubscription(subscriptionId) {
     valid_from: remote.start_date || (existingLicense && existingLicense.valid_from) || new Date().toISOString(),
     valid_until: paidThrough,
   };
-
   const license = existingLicense
     ? (await db.patch('licenses', { id: existingLicense.id }, licenseValues))[0]
     : await db.insert('licenses', licenseValues);
@@ -257,13 +244,8 @@ async function syncSubscription(subscriptionId) {
     action: `subscription.${remote.state}`,
     entity_type: 'license',
     entity_id: license && license.id,
-    data: {
-      subscription_id: localSubscription.id,
-      paid_through: paidThrough,
-      licence_status: desiredLicenseState,
-    },
+    data: { subscription_id: localSubscription.id, paid_through: paidThrough, licence_status: desiredLicenseState },
   });
-
   return localSubscription;
 }
 
@@ -273,13 +255,11 @@ async function processCommercialEvent(event) {
     await syncOrder(event.order_id);
     return 'processed';
   }
-
   if (SUBSCRIPTION_EVENTS.has(event.event)) {
     if (!event.subscription_id) throw new Error(`${event.event} missing subscription_id`);
     await syncSubscription(event.subscription_id);
     return 'processed';
   }
-
   return 'ignored';
 }
 
@@ -290,9 +270,11 @@ module.exports = async (req, res) => {
     return res.end('Method Not Allowed');
   }
 
-  const secret = process.env.REVOLUT_WEBHOOK_SIGNING_SECRET;
-  if (!secret) {
-    console.error('REVOLUT_WEBHOOK_SIGNING_SECRET is not configured');
+  let secret;
+  try {
+    secret = await revolutWebhooks.signingSecret();
+  } catch (error) {
+    console.error('Revolut webhook signing secret unavailable', error);
     res.statusCode = 503;
     return res.end('Webhook not configured');
   }
@@ -300,7 +282,7 @@ module.exports = async (req, res) => {
   let rawBody;
   try {
     rawBody = await readRaw(req);
-  } catch (error) {
+  } catch {
     res.statusCode = 400;
     return res.end('Bad payload');
   }
@@ -336,7 +318,6 @@ module.exports = async (req, res) => {
 
   const eventKey = eventKeyFor(event, rawBody);
   let eventId = null;
-
   try {
     const claimRows = await db.rpc('claim_webhook_event', {
       p_event_key: eventKey,
@@ -348,19 +329,13 @@ module.exports = async (req, res) => {
     const claim = Array.isArray(claimRows) ? claimRows[0] : claimRows;
     if (!claim || !claim.event_id) throw new Error('Webhook event claim returned no id');
     eventId = claim.event_id;
-
     if (!claim.should_process) {
       res.statusCode = 204;
       return res.end();
     }
 
     const status = await processCommercialEvent(event);
-    await db.rpc('finish_webhook_event', {
-      p_event_id: eventId,
-      p_status: status,
-      p_error: null,
-    });
-
+    await db.rpc('finish_webhook_event', { p_event_id: eventId, p_status: status, p_error: null });
     res.statusCode = 204;
     return res.end();
   } catch (error) {
@@ -376,8 +351,6 @@ module.exports = async (req, res) => {
         console.error('failed to mark webhook event failed', finishError);
       }
     }
-    // Non-2xx deliberately asks Revolut to retry. Never acknowledge a failed
-    // commercial state transition.
     res.statusCode = 500;
     return res.end('Commercial sync failed');
   }
