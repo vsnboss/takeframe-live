@@ -6,9 +6,21 @@ const REFRESH_COOKIE = 'tf_refresh';
 
 function config() {
   const url = String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '');
+  const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
   if (!url || !key) throw new Error('Supabase auth is not configured');
   return { url, key };
+}
+
+function authHeaders(key, accessToken) {
+  const headers = { apikey: key };
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  } else if (key.startsWith('eyJ')) {
+    // Legacy service_role keys are JWTs. Modern sb_secret_* server keys are
+    // API keys and must not be sent as Bearer JWTs.
+    headers.Authorization = `Bearer ${key}`;
+  }
+  return headers;
 }
 
 async function authRequest(path, { method = 'GET', body, accessToken } = {}) {
@@ -16,8 +28,7 @@ async function authRequest(path, { method = 'GET', body, accessToken } = {}) {
   const response = await fetch(`${url}/auth/v1${path}`, {
     method,
     headers: {
-      apikey: key,
-      Authorization: `Bearer ${accessToken || key}`,
+      ...authHeaders(key, accessToken),
       ...(body ? { 'Content-Type': 'application/json' } : {}),
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
