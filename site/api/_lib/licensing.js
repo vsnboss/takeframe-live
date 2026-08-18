@@ -130,6 +130,14 @@ function validateMatchId(value) {
   return matchId;
 }
 
+function rpcRow(value) {
+  return Array.isArray(value) ? value[0] || null : value || null;
+}
+
+function hasRpcMessage(error, text) {
+  return String(error && error.message || error || '').toLowerCase().includes(text.toLowerCase());
+}
+
 async function activeDevicesFor(field, authorityId) {
   const params = new URLSearchParams({
     select: '*',
@@ -143,37 +151,26 @@ async function activeDevicesFor(field, authorityId) {
 
 async function ensureAuthorityDevice({ field, authorityId, maxDevices, deviceId, deviceName }) {
   const normalizedId = validateDeviceId(deviceId);
-  const existing = await db.selectOne('devices', { [field]: authorityId, device_id: normalizedId });
-
-  if (existing && !existing.deactivated_at) {
-    const updated = await db.patch('devices', { id: existing.id }, {
-      device_name: deviceName || existing.device_name || null,
-      last_seen_at: new Date().toISOString(),
+  try {
+    const result = await db.rpc('ensure_authority_device', {
+      p_license_id: field === 'license_id' ? authorityId : null,
+      p_match_pass_id: field === 'match_pass_id' ? authorityId : null,
+      p_device_identity: normalizedId,
+      p_device_name: deviceName || null,
+      p_max_devices: Number(maxDevices),
     });
-    return updated[0] || existing;
+    const device = rpcRow(result);
+    if (!device || !device.id) throw new Error('Atomic device registration returned no device');
+    return device;
+  } catch (error) {
+    if (hasRpcMessage(error, 'device limit reached')) {
+      throw httpError(409, 'device_limit_reached', `This entitlement allows ${maxDevices} registered devices`);
+    }
+    if (hasRpcMessage(error, 'invalid device identity')) {
+      throw httpError(400, 'invalid_device_id', 'deviceId must be between 8 and 256 characters');
+    }
+    throw error;
   }
-
-  const active = await activeDevicesFor(field, authorityId);
-  if (active.length >= maxDevices) {
-    throw httpError(409, 'device_limit_reached', `This entitlement allows ${maxDevices} registered devices`);
-  }
-
-  if (existing) {
-    const rows = await db.patch('devices', { id: existing.id }, {
-      device_name: deviceName || existing.device_name || null,
-      deactivated_at: null,
-      last_seen_at: new Date().toISOString(),
-    });
-    return rows[0];
-  }
-
-  return db.insert('devices', {
-    [field]: authorityId,
-    device_id: normalizedId,
-    device_name: deviceName || null,
-    platform: 'windows',
-    last_seen_at: new Date().toISOString(),
-  });
 }
 
 async function ensureLicenseDevice(license, input) {
@@ -280,27 +277,32 @@ async function licenseStatus({ licenseKey, deviceId }) {
 }
 
 async function activateMatchPass({ passKey, matchId, deviceId, deviceName }) {
-  let pass = await matchPassByKey(passKey);
+  const originalPass = await matchPassByKey(passKey);
   const canonicalMatchId = validateMatchId(matchId);
-  const now = new Date();
+  let pass;
 
-  if (pass.status === 'unused') {
-    const expiresAt = new Date(now.getTime() + 72 * 60 * 60 * 1000).toISOString();
-    const rows = await db.patch('match_passes', { id: pass.id }, {
-      status: 'activated', match_id: canonicalMatchId, activated_at: now.toISOString(), expires_at: expiresAt,
-    });
-    pass = rows[0];
-  } else if (pass.status === 'activated') {
-    if (pass.match_id !== canonicalMatchId) throw httpError(409, 'match_pass_locked', 'Match Pass is already bound to another match');
-  } else {
-    throw httpError(403, 'match_pass_inactive', `Match Pass is ${pass.status}`);
+  try {
+    pass = rpcRow(await db.rpc('activate_match_pass_atomic', {
+      p_pass_id: originalPass.id,
+      p_match_id: canonicalMatchId,
+    }));
+  } catch (error) {
+    if (hasRpcMessage(error, 'match pass locked')) {
+      throw httpError(409, 'match_pass_locked', 'Match Pass is already bound to another match');
+    }
+    if (hasRpcMessage(error, 'match pass expired')) {
+      throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
+    }
+    if (hasRpcMessage(error, 'match pass inactive')) {
+      throw httpError(403, 'match_pass_inactive', 'Match Pass is not active');
+    }
+    if (hasRpcMessage(error, 'match pass not found')) {
+      throw httpError(404, 'match_pass_not_found', 'TAKEFRAME Match Pass not found');
+    }
+    throw error;
   }
 
-  if (!pass || Date.parse(pass.expires_at) <= Date.now()) {
-    if (pass) await db.patch('match_passes', { id: pass.id }, { status: 'expired' });
-    throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
-  }
-
+  if (!pass || !pass.id) throw new Error('Atomic Match Pass activation returned no pass');
   const device = await ensureMatchPassDevice(pass, { deviceId, deviceName });
   const entitlement = await issueMatchPassEntitlement(pass, device);
   await db.insert('audit_events', {
