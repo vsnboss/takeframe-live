@@ -104,10 +104,18 @@ function subscriptionPlanFrom(reference, existing) {
   return null;
 }
 
+function merchantOrderReference(order) {
+  return order && (
+    (order.merchant_order_data && order.merchant_order_data.reference) ||
+    order.merchant_order_ext_ref ||
+    null
+  );
+}
+
 function orderPlanFrom(order, existing) {
   if (existing && existing.plan) return existing.plan;
   if (order && order.metadata && order.metadata.plan) return order.metadata.plan;
-  if (String(order && order.merchant_order_ext_ref || '').startsWith('tf-mp-')) return 'match-pass';
+  if (String(merchantOrderReference(order) || '').startsWith('tf-mp-')) return 'match-pass';
   return null;
 }
 
@@ -139,7 +147,7 @@ async function syncOrder(orderId) {
   }
 
   const plan = orderPlanFrom(remote, existing);
-  const externalReference = remote.merchant_order_ext_ref || (existing && existing.external_reference) || null;
+  const externalReference = merchantOrderReference(remote) || (existing && existing.external_reference) || null;
   const completed = remote.state === 'completed';
   const localOrder = await db.upsert('orders', {
     customer_id: customerId || null,
@@ -271,9 +279,6 @@ async function syncSubscription(subscriptionId) {
   const existingLicense = await db.selectOne('licenses', { subscription_id: localSubscription.id });
   const mayCreatePaidLicense = remote.state === 'active' && payment.verified && isFuture(paidThrough);
 
-  // A new subscription licence requires hard proof of a completed Revolut order
-  // for the current paid cycle. Pending state, a missing cycle, or a failed
-  // billing-order lookup can never create entitlement authority.
   if (!existingLicense && !mayCreatePaidLicense) {
     await db.insert('audit_events', {
       actor_type: 'revolut_webhook',
@@ -305,9 +310,6 @@ async function syncSubscription(subscriptionId) {
     valid_until: paidThrough,
   };
 
-  // Never create or retain an ACTIVE licence without a concrete paid-through
-  // timestamp. Existing licences fail closed to suspended if payment proof is
-  // temporarily unavailable and there is no previously verified paid period.
   if (licenseValues.status === 'active' && !isFuture(licenseValues.valid_until)) {
     licenseValues.status = 'suspended';
   }
@@ -352,9 +354,6 @@ async function processCommercialEvent(event) {
       await syncSubscription(event.subscription_id);
       return 'processed';
     }
-    // Defensive compatibility: if Revolut delivers a subscription lifecycle
-    // callback carrying the related order rather than a subscription id, use
-    // the locally stored setup-order relationship to find the subscription.
     if (event.order_id) {
       const result = await syncSetupSubscriptionForCompletedOrder(event.order_id);
       if (result) return 'processed';
@@ -465,6 +464,7 @@ module.exports._test = {
   eventKeyFor,
   isFuture,
   localLicenseState,
+  merchantOrderReference,
   objectIdFor,
   orderPlanFrom,
   parseV1Signatures,
