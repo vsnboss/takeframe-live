@@ -1,10 +1,21 @@
 const db = require('./supabase');
 const revolut = require('./revolut');
 
+// Keep this list to the commercial events TAKEFRAME actually consumes. Revolut
+// currently allows these order/payment/subscription lifecycle events and caps
+// webhook registrations, so one webhook owns the complete TAKEFRAME payment
+// lifecycle.
 const WEBHOOK_EVENTS = [
   'ORDER_AUTHORISED',
   'ORDER_COMPLETED',
   'ORDER_CANCELLED',
+  'ORDER_FAILED',
+  'ORDER_PAYMENT_DECLINED',
+  'ORDER_PAYMENT_FAILED',
+  'SUBSCRIPTION_INITIATED',
+  'SUBSCRIPTION_FINISHED',
+  'SUBSCRIPTION_CANCELLED',
+  'SUBSCRIPTION_OVERDUE',
 ];
 
 function webhookUrlFor(origin) {
@@ -38,6 +49,8 @@ async function ensureWebhook(origin) {
   const targetUrl = webhookUrlFor(origin);
   const env = revolut.environment();
 
+  // Fast path after the first successful bootstrap: the secret is kept in
+  // Supabase Vault and never copied into Vercel/browser configuration.
   const local = await storedConfig();
   if (
     local &&
@@ -54,14 +67,12 @@ async function ensureWebhook(origin) {
 
   let webhook;
   if (existing) {
-    if (!sameEvents(existing.events, WEBHOOK_EVENTS)) {
-      webhook = await revolut.request(`/webhooks/${encodeURIComponent(existing.id)}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ url: targetUrl, events: WEBHOOK_EVENTS }),
-      });
-    } else {
-      webhook = await revolut.request(`/webhooks/${encodeURIComponent(existing.id)}`);
-    }
+    webhook = sameEvents(existing.events, WEBHOOK_EVENTS)
+      ? await revolut.request(`/webhooks/${encodeURIComponent(existing.id)}`)
+      : await revolut.request(`/webhooks/${encodeURIComponent(existing.id)}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ url: targetUrl, events: WEBHOOK_EVENTS }),
+        });
   } else {
     webhook = await revolut.request('/webhooks', {
       method: 'POST',
