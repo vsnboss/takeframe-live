@@ -1,0 +1,914 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <style>
+    body { margin: 0; background: #04070B; }
+    a { color: #3EE9A8; text-decoration: none; }
+    a:hover { color: #7DF3C6; }
+    .tf-disp { font-family: 'Saira Condensed', 'Arial Narrow', sans-serif; }
+    .tf-mono { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; }
+    .tf-body { font-family: 'IBM Plex Sans', system-ui, 'Helvetica Neue', sans-serif; }
+    .tf-crop::before, .tf-crop::after {
+      content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+      border-color: var(--mint, #3EE9A8); opacity: .55;
+    }
+    .tf-crop::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+    .tf-crop::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+  </style>
+</helmet>
+
+<div class="tf-body" style="--mint: {{accent}}; width: 1440px; background: #04070B; color: #EAF0F6; overflow: hidden; position: relative;">
+
+  <!-- ================= HEADER ================= -->
+  <div style="position: relative; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 40px; height: 76px; padding: 0 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: rgba(4,7,11,.92);">
+    <div style="display: flex; align-items: center; gap: 13px;">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <path d="M2 2H12V5.6H5.6V12H2V2Z" fill="var(--mint, #3EE9A8)"></path>
+        <path d="M28 28H18V24.4H24.4V18H28V28Z" fill="var(--mint, #3EE9A8)" opacity="0.45"></path>
+        <path d="M10.5 9.5L22 15L10.5 20.5V9.5Z" fill="var(--mint, #3EE9A8)"></path>
+      </svg>
+      <div style="display: flex; flex-direction: column; gap: 1px;">
+        <div class="tf-disp" style="font-size: 21px; font-weight: 700; letter-spacing: .085em; line-height: 1;">TAKEFRAME</div>
+        <div class="tf-mono" style="font-size: 8.5px; letter-spacing: .3em; color: #5E6E7E; line-height: 1;">FOOTBALL GRAPHICS OS</div>
+      </div>
+    </div>
+    <div class="tf-mono" style="display: flex; align-items: center; gap: 32px; font-size: 11px; letter-spacing: .16em; color: #93A2B2;">
+      <a href="#system" style="color: #93A2B2;">THE SYSTEM</a>
+      <a href="#graphics" style="color: #93A2B2;">GRAPHICS</a>
+      <a href="#playout" style="color: #93A2B2;">PLAYOUT</a>
+      <a href="#data" style="color: #93A2B2;">LIVE DATA</a>
+      <a href="#who" style="color: #93A2B2;">WHO IT'S FOR</a>
+    </div>
+    <a href="#demo" class="tf-mono" style="display: flex; align-items: center; height: 38px; padding: 0 22px; background: var(--mint, #3EE9A8); color: #04070B; font-size: 11px; font-weight: 500; letter-spacing: .16em;">BOOK A DEMO</a>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <div style="position: relative; padding: 96px 60px 0; overflow: hidden;">
+    <div style="position: absolute; top: -280px; left: 44%; width: 900px; height: 700px; background: radial-gradient(ellipse at center, rgba(62,233,168,.13), rgba(62,233,168,0) 62%); pointer-events: none;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 620px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, transparent 1px 120px); pointer-events: none;"></div>
+
+    <div style="position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: start;">
+
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 30px; padding-top: 26px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 26px; height: 2px; background: var(--mint, #3EE9A8);"></div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .26em; color: var(--mint, #3EE9A8);">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS</div>
+        </div>
+
+        <h1 class="tf-disp" style="margin: 0; font-size: 96px; font-weight: 700; line-height: .93; letter-spacing: -.012em; text-wrap: balance;">Run the match.<br>Take the graphics.</h1>
+
+        <p style="margin: 0; max-width: 520px; font-size: 18px; line-height: 1.62; color: #93A2B2; text-wrap: pretty;">Prepare teams, control live match events and send a complete professional football graphics package to air &mdash; from one production system, on one operator workstation.</p>
+
+        <div style="display: flex; align-items: center; gap: 14px; padding-top: 4px;">
+          <a href="#demo" class="tf-mono" style="display: flex; align-items: center; height: 52px; padding: 0 30px; background: var(--mint, #3EE9A8); color: #04070B; font-size: 12px; font-weight: 500; letter-spacing: .17em;">BOOK A DEMO</a>
+          <a href="#showreel" class="tf-mono" style="display: flex; align-items: center; gap: 11px; height: 52px; padding: 0 26px; border: 1px solid rgba(255,255,255,.17); color: #EAF0F6; font-size: 12px; letter-spacing: .17em;">
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><path d="M1 1L10 6.5L1 12V1Z" fill="currentColor"></path></svg>
+            SEE TAKEFRAME IN ACTION
+          </a>
+        </div>
+      </div>
+
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 0; padding-top: 8px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 10px;">
+          <div class="tf-mono" style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+            <span style="width: 6px; height: 6px; background: var(--mint, #3EE9A8); border-radius: 50%;"></span>TAKEFRAME CONTROL &middot; LIVE
+          </div>
+          <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">SHA 1&ndash;0 OSI &middot; 1ST HALF</div>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11); background: #0B1119;">
+          <img src="./control-live.webp" alt="TAKEFRAME Control &mdash; live match workspace showing Program, Preview, match actions and match phases" style="display: block; width: 100%;">
+        </div>
+        <div style="display: flex; justify-content: flex-end; margin-top: -44px; padding-right: 0;">
+          <div class="tf-crop" style="position: relative; width: 70%; border: 1px solid rgba(255,255,255,.16); box-shadow: 0 30px 66px rgba(0,0,0,.8);">
+            <img src="./yellow-card.webp" alt="On-air yellow card graphic for 16 Irakli Azarov with scorebug" style="display: block; width: 100%;">
+            <div class="tf-mono" style="position: absolute; top: 10px; left: 10px; display: flex; align-items: center; gap: 7px; padding: 6px 10px; background: rgba(4,7,11,.82); font-size: 9.5px; letter-spacing: .2em; color: #FF5C7A;">
+              <span style="width: 6px; height: 6px; background: #E8123F; border-radius: 50%;"></span>PROGRAM &middot; ON AIR
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- proof strip -->
+    <div class="tf-mono" style="position: relative; display: flex; align-items: center; gap: 0; margin-top: 92px; border-top: 1px solid rgba(255,255,255,.075); border-bottom: 1px solid rgba(255,255,255,.075);">
+      <div style="flex-grow: 1; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">NDI</div>
+      <div style="flex-grow: 1; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">OMT</div>
+      <div style="flex-grow: 1.6; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">LIVE MATCH CONTROL</div>
+      <div style="flex-grow: 1.1; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">MATCH DATA</div>
+      <div style="flex-grow: 1; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">STATISTICS</div>
+      <div style="flex-grow: 1.5; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">PENALTY SHOOT-OUTS</div>
+      <div style="flex-grow: 1.2; padding: 20px 0; font-size: 10.5px; letter-spacing: .2em; color: #5E6E7E;">AGGREGATE TIES</div>
+    </div>
+  </div>
+
+  <!-- ================= 01 · CONTROL -> ON AIR ================= -->
+  <div id="showreel" style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">01</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">CONTROL &rarr; ON AIR</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">One operator action.<br>The right graphic on air.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">The operator confirms a yellow card against 16 Irakli Azarov. TAKEFRAME already holds the player identity, the shirt number, the portrait, the club crest, the match minute and the current score &mdash; so the card graphic is built from the match, not typed into a template.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--mint, #3EE9A8); border-radius: 50%;"></span>TAKEFRAME CONTROL</span>
+          <span style="color: #3E4C5A;">OPERATOR WORKSTATION</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./control-live.webp" alt="Live workspace: Program and Preview panes, Program Safety with ARMED, match actions and match phases" style="display: block; width: 100%;">
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6E7E8E;">Program and Preview side by side, Program Safety armed, match actions and match phases within one reach.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: #E8123F; border-radius: 50%;"></span><span style="color: #E8123F;">PROGRAM OUTPUT</span></span>
+          <span style="color: #3E4C5A;">1080p &middot; NDI</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./yellow-card.webp" alt="Broadcast yellow card lower third with player portrait, shirt number and persistent scorebug" style="display: block; width: 100%;">
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6E7E8E;">The card lower third and the persistent scorebug read the same match state &mdash; one score, one clock, one truth.</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 20px; margin-top: 26px; padding: 22px 26px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="flex-shrink: 0;" aria-hidden="true"><rect x="1" y="3" width="16" height="12" stroke="var(--mint, #3EE9A8)" stroke-width="1.4"></rect><path d="M7.4 6.6L11.6 9L7.4 11.4V6.6Z" fill="var(--mint, #3EE9A8)"></path></svg>
+      <p class="tf-mono" style="margin: 0; flex-grow: 1; font-size: 11.5px; letter-spacing: .1em; color: #93A2B2;">FULL MATCH SHOWREEL &mdash; PREPARATION, LIVE CONTROL AND PROGRAM OUTPUT</p>
+      <span class="tf-mono" style="padding: 6px 11px; border: 1px dashed rgba(255,255,255,.22); font-size: 10px; letter-spacing: .16em; color: #6E7E8E;">[SHOWREEL VIDEO]</span>
+    </div>
+  </div>
+
+  <!-- ================= 02 · ONE SOURCE OF TRUTH ================= -->
+  <div id="system" style="position: relative; padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: #06090E;">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 60px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">02</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">CANONICAL MATCH STATE</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">One match.<br>One source of truth.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">Graphics are projections of the match &mdash; not a dozen separate documents that each hold their own version of reality. The match state drives the graphics, so a confirmed event moves everything that depends on it.</p>
+      </div>
+    </div>
+
+    <!-- signal chain -->
+    <div style="display: flex; align-items: stretch; gap: 0; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">STEP 01</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 600; letter-spacing: .04em; color: #93A2B2;">SOURCE DATA</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">STEP 02</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 600; letter-spacing: .04em; color: #93A2B2;">OPERATOR REVIEW</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1.35; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px; background: rgba(62,233,168,.055); border-top: 2px solid var(--mint, #3EE9A8);">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: var(--mint, #3EE9A8);">STEP 03 &middot; CANONICAL</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 700; letter-spacing: .04em; color: #EAF0F6;">APPROVED MATCH TRUTH</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1.15; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">STEP 04</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 600; letter-spacing: .04em; color: #93A2B2;">GRAPHIC PROJECTION</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">STEP 05</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 600; letter-spacing: .04em; color: #93A2B2;">PREVIEW &rarr; PROGRAM</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: .8; display: flex; flex-direction: column; gap: 9px; padding: 26px 22px; background: rgba(232,18,63,.06); border-top: 2px solid #E8123F;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #E8123F;">OUTPUT</div>
+        <div class="tf-disp" style="font-size: 20px; font-weight: 700; letter-spacing: .04em; color: #EAF0F6;">NDI / OMT</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 13px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 600; line-height: 1.1; letter-spacing: -.005em;">Update the match,<br>not every graphic.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #7E8E9E;">Correct a shirt number once and every graphic that identifies that player is already correct &mdash; scorebug, lower third, team sheet, statistics board.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 13px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 600; line-height: 1.1; letter-spacing: -.005em;">Select the scorer once.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #7E8E9E;">TAKEFRAME carries that identity through the match &mdash; into the goal graphic, the event history, the half-time scorers and the full-time board.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 13px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 600; line-height: 1.1; letter-spacing: -.005em;">One score.<br>One clock.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.62; color: #7E8E9E;">The operator does not maintain one clock in the controller and another inside the graphic. The same match state drives both.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 03 · PREPARE THE MATCH ================= -->
+  <div style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">03</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">BEFORE KICK-OFF</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Prepare the match.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">Competition, stadium, venue, kick-off, crests, shirt colours, coaches, officials, squads and both Starting 11s &mdash; assembled, reviewed and approved before a single graphic goes near air.</p>
+      </div>
+    </div>
+
+    <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+      <img src="./match-ready.webp" alt="TAKEFRAME Control match readiness screen with verified, needs-review and missing facts" style="display: block; width: 100%;">
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="grid-column: span 4; display: flex; align-items: center; gap: 18px; padding: 26px 26px; border: 1px solid rgba(62,233,168,.28); background: rgba(62,233,168,.05);">
+        <div class="tf-disp" style="font-size: 46px; font-weight: 700; line-height: 1; color: var(--mint, #3EE9A8);">12</div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .18em; color: #EAF0F6;">VERIFIED</div>
+          <div style="font-size: 14px; color: #7E8E9E;">Accepted by the operator</div>
+        </div>
+      </div>
+      <div style="grid-column: span 4; display: flex; align-items: center; gap: 18px; padding: 26px 26px; border: 1px solid rgba(240,168,30,.3); background: rgba(240,168,30,.05);">
+        <div class="tf-disp" style="font-size: 46px; font-weight: 700; line-height: 1; color: #F0A81E;">1</div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .18em; color: #EAF0F6;">NEEDS REVIEW</div>
+          <div style="font-size: 14px; color: #7E8E9E;">Your sources disagree &mdash; you decide</div>
+        </div>
+      </div>
+      <div style="grid-column: span 4; display: flex; align-items: center; gap: 18px; padding: 26px 26px; border: 1px solid rgba(255,255,255,.11); background: #080C12;">
+        <div class="tf-disp" style="font-size: 46px; font-weight: 700; line-height: 1; color: #5E6E7E;">3</div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .18em; color: #EAF0F6;">MISSING</div>
+          <div style="font-size: 14px; color: #7E8E9E;">No source supplied these</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 24px; align-items: center; padding: 40px 40px; border-left: 2px solid var(--mint, #3EE9A8); background: #080C12;">
+      <div style="grid-column: span 7;">
+        <div class="tf-disp" style="font-size: 34px; font-weight: 600; line-height: 1.12; letter-spacing: -.005em;">Source intelligence proposes.<br>The operator owns the final broadcast truth.</div>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #7E8E9E;">TAKEFRAME can gather match facts, squads, crests and portraits and present them for review &mdash; but it never treats a source as broadcast authority. Evidence stays visible; the approved value is what goes on air. A missing fact is not a fault: the graphics that need it report why they cannot run, and nothing is invented to fill the gap.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="tf-mono" style="display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;"><span style="color: var(--mint, #3EE9A8);">05</span>TEAM SHEET</div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./team-sheet.webp" alt="Team sheet workspace with Starting 11 list, substitutes, squad and drag-and-drop formation pitch" style="display: block; width: 100%;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 7px; padding-top: 4px;">
+          <div class="tf-disp" style="font-size: 24px; font-weight: 600; letter-spacing: .01em;">Starting 11, substitutes, formation</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Build the team sheet by drag and drop, position the formation on the pitch, and confirm the submitted line-up. During the match the live line-up is derived from that Starting 11 plus every confirmed substitution &mdash; the submitted sheet stays historical match truth.</p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="tf-mono" style="display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;"><span style="color: var(--mint, #3EE9A8);">06</span>PLAYER IDENTIFICATION</div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./player-id.webp" alt="Player identification workspace with portrait, shirt number, club crest and Preview, Take and Out controls" style="display: block; width: 100%;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 7px; padding-top: 4px;">
+          <div class="tf-disp" style="font-size: 24px; font-weight: 600; letter-spacing: .01em;">Real portraits, real crests</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Player portraits are managed as identity assets and bound to canonical player records; club crests are treated the same way. Where a graphic has a club identity position, it carries the real crest &mdash; not a text placeholder.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tf-mono" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; margin-top: 24px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.075);">
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">COMPETITION</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">STADIUM</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">VENUE</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">KICK-OFF TIME</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">MATCH DATE</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">CLUB CRESTS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">BROADCAST NAMES</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">SHORT CODES</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">SHIRT COLOURS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">HEAD COACHES</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">MATCH OFFICIALS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">PLAYER SQUADS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">SHIRT NUMBERS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">POSITIONS</div>
+      <div style="padding: 15px 16px; background: #04070B; font-size: 10.5px; letter-spacing: .13em; color: #6E7E8E;">TEAM FORMATION</div>
+    </div>
+  </div>
+
+  <!-- ================= 04 · CONTROL THE MATCH ================= -->
+  <div style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: #06090E;">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">04</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">LIVE OPERATION</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Control the match.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">The live workspace is built around football actions, not graphic layers. The operator executes the event; TAKEFRAME resolves what that event means for the score, the clock, the line-up and every graphic that depends on them.</p>
+      </div>
+    </div>
+
+    <div class="tf-mono" style="display: flex; align-items: center; gap: 10px; padding-bottom: 14px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">MATCH ACTIONS</div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(255,255,255,.12); background: linear-gradient(160deg, #10161F, #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="13" r="10" stroke="#EAF0F6" stroke-width="1.6"></circle><path d="M13 8L16.5 10.6L15.2 14.8H10.8L9.5 10.6L13 8Z" fill="#EAF0F6"></path></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">GOAL</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(240,200,32,.4); background: linear-gradient(160deg, rgba(240,200,32,.12), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="8" y="4" width="10" height="18" rx="1.4" fill="#F0C820"></rect></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">YELLOW CARD</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(240,150,32,.4); background: linear-gradient(160deg, rgba(240,150,32,.12), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="4" y="4" width="10" height="18" rx="1.4" fill="#F0C820"></rect><rect x="12" y="4" width="10" height="18" rx="1.4" fill="#E8123F" stroke="#0A0F16" stroke-width="1.2"></rect></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">SECOND YELLOW</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(232,18,63,.42); background: linear-gradient(160deg, rgba(232,18,63,.12), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="8" y="4" width="10" height="18" rx="1.4" fill="#E8123F"></rect></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">RED CARD</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(62,233,168,.36); background: linear-gradient(160deg, rgba(62,233,168,.1), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M9 21V7M9 7L5.5 10.5M9 7L12.5 10.5" stroke="var(--mint, #3EE9A8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 5V19M17 19L13.5 15.5M17 19L20.5 15.5" stroke="#E8123F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">SUBSTITUTION</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(47,155,245,.36); background: linear-gradient(160deg, rgba(47,155,245,.1), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="4" y="4" width="18" height="18" rx="2" stroke="#2F9BF5" stroke-width="1.6"></rect><path d="M13 9V17M9 13H17" stroke="#2F9BF5" stroke-width="1.8" stroke-linecap="round"></path></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">ADDED TIME</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(139,92,246,.38); background: linear-gradient(160deg, rgba(139,92,246,.11), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="3" y="6" width="20" height="14" rx="2" stroke="#8B5CF6" stroke-width="1.6"></rect><path d="M8 10.5L10.5 15.5L13 10.5" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5 15.5V10.5H17.5A1.6 1.6 0 0 1 17.5 13.7H15.5L18 15.5" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">VAR</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 22px 22px; border: 1px solid rgba(47,155,245,.28); background: linear-gradient(160deg, rgba(47,155,245,.07), #0A0F16);">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><rect x="8" y="3" width="10" height="20" rx="2.4" stroke="#2F9BF5" stroke-width="1.6"></rect><path d="M8 9H18" stroke="#2F9BF5" stroke-width="1.6"></path></svg>
+        <div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .045em;">BREAK</div>
+      </div>
+    </div>
+
+    <div class="tf-mono" style="display: flex; align-items: center; gap: 10px; padding: 40px 0 14px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">MATCH PHASES</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">KICK-OFF</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">HALF-TIME</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">SECOND-HALF KICK-OFF</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">FULL-TIME</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">EXTRA-TIME FIRST HALF</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">HALF-TIME IN EXTRA TIME</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">EXTRA-TIME SECOND HALF</div>
+      <div class="tf-mono" style="padding: 13px 18px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .14em; color: #C0CCD8;">PENALTY SHOOT-OUT</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 40px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 22px; padding: 34px 34px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: var(--mint, #3EE9A8);">SCOREBUG &amp; MATCH CLOCK</div>
+        <div class="tf-disp" style="font-size: 32px; font-weight: 600; line-height: 1.12;">The match clock is canonical.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.64; color: #7E8E9E;">Start, pause, correct the time, control the period, add additional time, correct the score &mdash; the persistent scorebug carries teams, club identity, score, clock, period, match status, team colours and the aggregate score where a tie calls for it.</p>
+        <div style="display: flex; gap: 12px; padding-top: 2px;">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 7px; padding: 18px 18px; border: 1px solid rgba(255,255,255,.09); background: #04070B;">
+            <div class="tf-mono" style="font-size: 10px; letter-spacing: .16em; color: #F0A81E;">SCORE CORRECTION</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #7E8E9E;">Changes the score. Nothing else.</div>
+          </div>
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 7px; padding: 18px 18px; border: 1px solid rgba(62,233,168,.28); background: rgba(62,233,168,.045);">
+            <div class="tf-mono" style="font-size: 10px; letter-spacing: .16em; color: var(--mint, #3EE9A8);">GOAL EVENT</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #7E8E9E;">Creates a football event with a scorer identity, and can take the goal graphic to air.</div>
+          </div>
+        </div>
+        <p class="tf-mono" style="margin: 0; font-size: 11px; line-height: 1.7; letter-spacing: .06em; color: #5E6E7E;">DELIBERATELY DIFFERENT ACTIONS &mdash; A GOAL IS NOT A BUTTON THAT ADDS ONE.</p>
+      </div>
+
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 22px; padding: 34px 34px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: var(--mint, #3EE9A8);">MULTI-PLAYER SUBSTITUTIONS</div>
+        <div class="tf-disp" style="font-size: 32px; font-weight: 600; line-height: 1.12;">Three changes at one stoppage &mdash; one broadcast action.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.64; color: #7E8E9E;">Prepare up to five player exchanges in a single substitution transaction. Every exchange tracks the real player off and the real player on, invalid duplicate selections are prevented, and the derived live line-up updates with it.</p>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div class="tf-disp" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(62,233,168,.14); color: var(--mint, #3EE9A8); font-size: 18px; font-weight: 700;">1</div>
+          <div class="tf-disp" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(62,233,168,.14); color: var(--mint, #3EE9A8); font-size: 18px; font-weight: 700;">2</div>
+          <div class="tf-disp" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(62,233,168,.14); color: var(--mint, #3EE9A8); font-size: 18px; font-weight: 700;">3</div>
+          <div class="tf-disp" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(62,233,168,.14); color: var(--mint, #3EE9A8); font-size: 18px; font-weight: 700;">4</div>
+          <div class="tf-disp" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(62,233,168,.14); color: var(--mint, #3EE9A8); font-size: 18px; font-weight: 700;">5</div>
+          <div class="tf-mono" style="padding-left: 8px; font-size: 10.5px; letter-spacing: .14em; color: #5E6E7E;">EXCHANGES IN ONE GRAPHIC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 05 · GRAPHICS PACKAGE ================= -->
+  <div id="graphics" style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">05</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">ON-AIR OUTPUT</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">A complete<br>graphics language.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">Not a folder of unrelated templates &mdash; one coordinated package covering the whole broadcast, every scene reading from the same match. A selection of what goes to Program:</p>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 11px;">
+      <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+        <span>MATCH PRESENTATION</span><span style="color: #3E4C5A;">FULL-FRAME</span>
+      </div>
+      <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+        <img src="./match-opener.webp" alt="Match presentation opener: Shakhtar Donetsk versus NK Osijek, friendly match at Opus Arena" style="display: block; width: 100%;">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span>STARTING 11</span><span style="color: #3E4C5A;">FULL-FRAME</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./starting-11.webp" alt="Starting 11 graphic showing both confirmed team sheets with shirt numbers, positions and head coaches" style="display: block; width: 100%;">
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span>FORMATION</span><span style="color: #3E4C5A;">FULL-FRAME</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./formation.webp" alt="Final formation graphic for NK Osijek in 4-2-3-1 with players positioned on the pitch" style="display: block; width: 100%;">
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span>FORMATION &middot; DEFENCE</span><span style="color: #3E4C5A;">PLAYER PORTRAITS</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./formation-players.webp" alt="Defence unit graphic with four player portraits, shirt numbers and positions" style="display: block; width: 100%;">
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span>VAR CHECK</span><span style="color: #3E4C5A;">OVERLAY + SCOREBUG</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./var-check.webp" alt="VAR check overlay reading possible offside, with the persistent scorebug above" style="display: block; width: 100%;">
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.09);">
+      <div style="grid-column: span 3;">
+        <div class="tf-disp" style="font-size: 26px; font-weight: 600; line-height: 1.15;">Also in the package</div>
+        <p style="margin: 12px 0 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Every scene below is driven by the same canonical match.</p>
+      </div>
+      <div class="tf-mono" style="grid-column: span 9; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px 24px; font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">
+        <div>MATCH IDENTIFICATION</div>
+        <div>COMPETITION IDENTIFICATION</div>
+        <div>PLAYER IDENTIFICATION</div>
+        <div>PLAYER LOWER THIRD</div>
+        <div>GOAL</div>
+        <div>GOAL SCORER</div>
+        <div>YELLOW CARD</div>
+        <div>SECOND YELLOW CARD</div>
+        <div>RED CARD</div>
+        <div>SUBSTITUTION</div>
+        <div>INJURY</div>
+        <div>PENALTY AWARDED</div>
+        <div>PENALTY MISSED</div>
+        <div>SCOREBUG</div>
+        <div>HALF-TIME</div>
+        <div>FULL-TIME</div>
+        <div>MATCH STATISTICS</div>
+        <div>POSSESSION</div>
+        <div>SHOTS &middot; SHOTS ON TARGET</div>
+        <div>CORNERS &middot; FOULS &middot; CARDS</div>
+        <div>PASSING STATISTICS</div>
+        <div>HALF-TIME STATISTICS</div>
+        <div>FULL-TIME STATISTICS</div>
+        <div>KNOCKOUT / AGGREGATE TIE</div>
+        <div>PENALTY SHOOT-OUT</div>
+        <div>MAN OF THE MATCH</div>
+        <div>HEAD COACH IDENTIFICATION</div>
+        <div>MATCH OFFICIALS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 06 · LIVE DATA & STATISTICS ================= -->
+  <div id="data" style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: #06090E;">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">06</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">MATCH STATISTICS</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Live data,<br>on your terms.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">A full statistics workspace the operator can drive by hand, and a provider-neutral ingestion model built to map professional feeds into the same canonical statistics model.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+      <div style="grid-column: span 5; display: flex; flex-direction: column; justify-content: center; gap: 26px; padding: 38px 36px; border-left: 2px solid var(--mint, #3EE9A8); background: #080C12;">
+        <div class="tf-disp" style="font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: .01em;">UNKNOWN<br>IS NOT ZERO.</div>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.64; color: #93A2B2;">If TAKEFRAME does not have a statistic, it does not invent one. A board with no data says so rather than showing a confident nought &mdash; because a wrong number on air is worse than an absent one.</p>
+      </div>
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 16px;">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">STATISTIC CATEGORIES</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">POSSESSION</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">SHOTS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">SHOTS ON TARGET</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">CORNERS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">FOULS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">OFFSIDES</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">SAVES</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">YELLOW CARDS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">SECOND YELLOWS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">RED CARDS</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">PASSES</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">PASS ACCURACY</div>
+          <div class="tf-mono" style="padding: 13px 17px; border: 1px solid rgba(255,255,255,.11); background: #080C12; font-size: 11px; letter-spacing: .13em; color: #C0CCD8;">DUELS</div>
+        </div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Every category can be driven manually by the operator when no feed is available &mdash; the statistics desk never depends on a provider being connected.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 24px; padding: 40px 40px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+      <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 14px;">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: var(--mint, #3EE9A8);">PROVIDER-READY ARCHITECTURE</div>
+        <div class="tf-disp" style="font-size: 30px; font-weight: 600; line-height: 1.14;">Designed for professional sports-data integrations.</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: #7E8E9E;">A provider-neutral adapter architecture maps live feeds into TAKEFRAME&rsquo;s canonical statistics model. External data is treated as source evidence &mdash; the operator-approved value remains the broadcast truth.</p>
+      </div>
+      <div style="grid-column: span 8; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 24px;">
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">PROVIDER IDENTITY</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Every value knows where it came from.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">FIXTURE IDENTITY</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Feeds bind to the right match.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">TEAM ID MAPPING</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Provider clubs map to your clubs.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">SNAPSHOTS &amp; DELTAS</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Full state or partial updates.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">IDEMPOTENCY</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">A repeated update changes nothing twice.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">OUT-OF-ORDER GUARD</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">A late packet cannot rewind the match.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">CONFLICT HANDLING</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Two providers disagreeing is a decision, not a race.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: #EAF0F6;">SOURCE PROVENANCE</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Evidence stays attached to the value.</div></div>
+        <div style="display: flex; flex-direction: column; gap: 5px;"><div class="tf-mono" style="font-size: 11px; letter-spacing: .1em; color: var(--mint, #3EE9A8);">OPERATOR ACCEPTANCE</div><div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Nothing reaches Program unapproved.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 07 · KNOCKOUT FOOTBALL ================= -->
+  <div style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">07</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">TWO LEGS &middot; EXTRA TIME &middot; PENALTIES</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Knockout football,<br>kept straight.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">First leg, second leg, aggregate and penalties remain separate &mdash; and correct. The operator does not recalculate the tie after every goal, and a shoot-out never contaminates the football score.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 0; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-mono" style="padding: 18px 28px; border-bottom: 1px solid rgba(255,255,255,.075); font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">AGGREGATE &mdash; CALCULATED LIVE</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 28px; border-bottom: 1px solid rgba(255,255,255,.055);">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .16em; color: #6E7E8E;">FIRST LEG</div>
+          <div class="tf-disp" style="display: flex; align-items: center; gap: 16px; font-size: 26px; font-weight: 600; color: #93A2B2;">
+            <span>OSIJEK</span><span style="color: #EAF0F6;">1 &ndash; 2</span><span>SHAKHTAR</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 28px; border-bottom: 1px solid rgba(255,255,255,.055);">
+          <div class="tf-mono" style="display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .16em; color: #E8123F;"><span style="width: 6px; height: 6px; background: #E8123F; border-radius: 50%;"></span>SECOND LEG &middot; LIVE</div>
+          <div class="tf-disp" style="display: flex; align-items: center; gap: 16px; font-size: 26px; font-weight: 600; color: #93A2B2;">
+            <span>SHAKHTAR</span><span style="color: #EAF0F6;">1 &ndash; 1</span><span>OSIJEK</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 26px 28px; background: rgba(62,233,168,.055);">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .16em; color: var(--mint, #3EE9A8);">AGGREGATE</div>
+          <div class="tf-disp" style="display: flex; align-items: center; gap: 16px; font-size: 34px; font-weight: 700; color: #EAF0F6;">
+            <span>SHAKHTAR</span><span style="color: var(--mint, #3EE9A8);">3 &ndash; 2</span><span>OSIJEK</span>
+          </div>
+        </div>
+        <div style="padding: 20px 28px; border-top: 1px solid rgba(255,255,255,.075);">
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Configure the first-leg host and score once. From there the tie total follows the live match on its own, and the knockout tie-status graphic presents first leg, current leg, aggregate, tie state and the penalty result where one applies.</p>
+        </div>
+      </div>
+
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+          <div class="tf-mono" style="padding: 18px 26px; border-bottom: 1px solid rgba(255,255,255,.075); font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">TWO FACTS, NEVER MERGED</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 24px 26px; border-bottom: 1px solid rgba(255,255,255,.055);">
+            <div class="tf-mono" style="font-size: 10px; letter-spacing: .18em; color: #6E7E8E;">AFTER EXTRA TIME</div>
+            <div class="tf-disp" style="font-size: 42px; font-weight: 700; line-height: 1; color: #EAF0F6;">0 &ndash; 0</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 24px 26px;">
+            <div class="tf-mono" style="font-size: 10px; letter-spacing: .18em; color: var(--mint, #3EE9A8);">PENALTIES</div>
+            <div class="tf-disp" style="font-size: 42px; font-weight: 700; line-height: 1; color: var(--mint, #3EE9A8);">5 &ndash; 6</div>
+          </div>
+          <div style="padding: 18px 26px; border-top: 1px solid rgba(255,255,255,.075);">
+            <p class="tf-mono" style="margin: 0; font-size: 10.5px; line-height: 1.7; letter-spacing: .06em; color: #5E6E7E;">SHOOT-OUT KICKS ARE NOT ADDED TO THE AGGREGATE FOOTBALL SCORE.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: 28px 26px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+          <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">PENALTY SHOOT-OUT CONTROLLER</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="tf-mono" style="padding: 9px 13px; border: 1px solid rgba(62,233,168,.35); background: rgba(62,233,168,.07); font-size: 10.5px; letter-spacing: .12em; color: var(--mint, #3EE9A8);">SCORED</span>
+            <span class="tf-mono" style="padding: 9px 13px; border: 1px solid rgba(255,255,255,.13); font-size: 10.5px; letter-spacing: .12em; color: #C0CCD8;">SAVED</span>
+            <span class="tf-mono" style="padding: 9px 13px; border: 1px solid rgba(255,255,255,.13); font-size: 10.5px; letter-spacing: .12em; color: #C0CCD8;">MISSED</span>
+            <span class="tf-mono" style="padding: 9px 13px; border: 1px solid rgba(255,255,255,.13); font-size: 10.5px; letter-spacing: .12em; color: #C0CCD8;">POST</span>
+            <span class="tf-mono" style="padding: 9px 13px; border: 1px solid rgba(255,255,255,.13); font-size: 10.5px; letter-spacing: .12em; color: #C0CCD8;">CROSSBAR</span>
+          </div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Choose who shoots first, select each kicker, record every attempt, run sudden death, correct a previous attempt and confirm the winner &mdash; with intro, tracker, current kicker, result and winner graphics to match.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 08 · PLAYOUT ================= -->
+  <div id="playout" style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: #06090E;">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">08</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">PREVIEW &middot; PROGRAM &middot; TAKE</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Preview it. Take it.<br>Update it. Out.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">Proper playout, in proper broadcast terms. Nothing reaches air by accident, and the operator can always see what is on it.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.075);">
+      <div style="display: flex; flex-direction: column; gap: 11px; padding: 32px 28px; background: #080C12;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 700; letter-spacing: .05em; color: #C0CCD8;">PREVIEW</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">The graphic prepared for inspection before transmission. Clear Preview at any time without touching Program.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px; padding: 32px 28px; background: rgba(47,155,245,.07); border-top: 2px solid #2F9BF5;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 700; letter-spacing: .05em; color: #2F9BF5;">TAKE</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Move the prepared graphic to Program. One deliberate action, one result.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px; padding: 32px 28px; background: #080C12;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 700; letter-spacing: .05em; color: #C0CCD8;">UPDATE</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Change the data of a live graphic without replaying its entire entrance, where the scene supports it.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 11px; padding: 32px 28px; background: rgba(232,18,63,.07); border-top: 2px solid #E8123F;">
+        <div class="tf-disp" style="font-size: 27px; font-weight: 700; letter-spacing: .05em; color: #E8123F;">OUT</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Remove the graphic from Program using its normal exit behaviour.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px; padding: 36px 34px; border: 1px solid rgba(232,18,63,.28); background: linear-gradient(160deg, rgba(232,18,63,.07), #080C12);">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: #E8123F;">PROGRAM SAFETY</div>
+        <div class="tf-disp" style="font-size: 34px; font-weight: 600; line-height: 1.12;">Know what is on air.</div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.64; color: #93A2B2;">The operator decides whether the system is authorised to command Program at all. Disarmed, the live output cannot be casually altered; armed, every take is deliberate. This safety layer is what separates a production system from an overlay application.</p>
+        <div style="display: flex; gap: 10px; padding-top: 2px;">
+          <span class="tf-mono" style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(232,18,63,.55); background: rgba(232,18,63,.12); font-size: 11px; letter-spacing: .16em; color: #FF5C7A;"><span style="width: 7px; height: 7px; background: #E8123F; border-radius: 50%;"></span>ARMED</span>
+          <span class="tf-mono" style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,255,255,.15); font-size: 11px; letter-spacing: .16em; color: #93A2B2;">DISARMED</span>
+          <span class="tf-mono" style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,255,255,.15); font-size: 11px; letter-spacing: .16em; color: #93A2B2;">PROGRAM CLEAR</span>
+        </div>
+      </div>
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 12px;">
+        <div class="tf-mono" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .22em; color: #5E6E7E;">
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: #E8123F; border-radius: 50%;"></span><span style="color: #E8123F;">PROGRAM</span></span>
+          <span style="color: #3E4C5A;">VAR CHECK &middot; POSSIBLE OFFSIDE</span>
+        </div>
+        <div class="tf-crop" style="position: relative; border: 1px solid rgba(255,255,255,.11);">
+          <img src="./var-check.webp" alt="VAR check graphic on Program with the persistent scorebug" style="display: block; width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 09 · CONNECTIVITY ================= -->
+  <div style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">09</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">PROFESSIONAL IP VIDEO OUTPUT</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">NDI and OMT,<br>straight into production.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">TAKEFRAME graphics render at broadcast resolution and arrive in your production environment as live graphics sources &mdash; not a shared screen, but part of the signal path.</p>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: stretch; gap: 0; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; padding: 34px 26px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">01</div>
+        <div class="tf-disp" style="font-size: 22px; font-weight: 600; letter-spacing: .035em; color: #C0CCD8;">TAKEFRAME CONTROL</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Operator workstation</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; padding: 34px 26px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">02</div>
+        <div class="tf-disp" style="font-size: 22px; font-weight: 600; letter-spacing: .035em; color: #C0CCD8;">GRAPHICS ENGINE</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Broadcast-resolution render</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; padding: 34px 26px; background: rgba(62,233,168,.055); border-top: 2px solid var(--mint, #3EE9A8);">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: var(--mint, #3EE9A8);">03 &middot; OUTPUT</div>
+        <div class="tf-disp" style="font-size: 22px; font-weight: 700; letter-spacing: .035em; color: #EAF0F6;">NDI / OMT</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Multiple professional IP paths</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; padding: 34px 26px;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #3E4C5A;">04</div>
+        <div class="tf-disp" style="font-size: 22px; font-weight: 600; letter-spacing: .035em; color: #C0CCD8;">PRODUCTION SYSTEM</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">Your switcher or software mixer</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,.09);"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; padding: 34px 26px; background: rgba(232,18,63,.06); border-top: 2px solid #E8123F;">
+        <div class="tf-mono" style="font-size: 9.5px; letter-spacing: .2em; color: #E8123F;">05</div>
+        <div class="tf-disp" style="font-size: 22px; font-weight: 700; letter-spacing: .035em; color: #EAF0F6;">PROGRAM OUTPUT</div>
+        <div style="font-size: 13.5px; line-height: 1.5; color: #6E7E8E;">To air</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 30px; font-weight: 700; letter-spacing: .04em;">NDI</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">A validated production output. TAKEFRAME appears on the network as a live graphics source your production system can key, mix and route like any other.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 30px; font-weight: 700; letter-spacing: .04em;">OMT</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">A second professional IP output path, available alongside NDI so the graphics chain fits the network you already run.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+        <div class="tf-disp" style="font-size: 30px; font-weight: 700; letter-spacing: .04em;">SOFTWARE-FIRST</div>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Built for modern software-based broadcast workflows &mdash; vMix, OBS, graphics laptops and production networks &mdash; without a rack of dedicated hardware.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 10 · BUILT FOR OPERATORS ================= -->
+  <div style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075); background: #06090E;">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">10</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">THE OPERATOR WORKSTATION</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Built for live pressure.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">A dedicated Windows operator application that behaves like production software &mdash; and keeps working when the network does not.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 18px; padding: 40px 38px; border-left: 2px solid var(--mint, #3EE9A8); background: #080C12;">
+        <div class="tf-mono" style="font-size: 10px; letter-spacing: .22em; color: var(--mint, #3EE9A8);">LOCAL-FIRST</div>
+        <div class="tf-disp" style="font-size: 40px; font-weight: 600; line-height: 1.08;">Your broadcast does not depend on someone else&rsquo;s uptime.</div>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.64; color: #93A2B2;">TAKEFRAME runs on the production machine and holds its own match and session state. No cloud service has to stay reachable for the second half to go to air. That is not nostalgia for desktop software &mdash; it is broadcast reliability.</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; padding-top: 6px;">
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">PREDICTABLE OPERATION</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">LOW NETWORK DEPENDENCY</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">FAST RESPONSE</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">CONTROL OF MATCH DATA</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">PERSISTENT MATCH STATE</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .12em; color: #7E8E9E;">PORTABLE OPERATION</div>
+        </div>
+      </div>
+      <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+          <div class="tf-disp" style="font-size: 26px; font-weight: 600; line-height: 1.15;">A desktop application, not a browser tab</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Keyboard text entry, copy, cut and paste, native right-click, select-all, drag-and-drop line-up editing and professional control surfaces &mdash; everything an operator expects from software they run a match on.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(255,255,255,.09); background: #080C12;">
+          <div class="tf-disp" style="font-size: 26px; font-weight: 600; line-height: 1.15;">Predictable under pressure</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Confirmed actions, canonical state, Preview before air, controlled Take, controlled Out, clear operator feedback &mdash; and no invented data anywhere in the chain.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; border: 1px solid rgba(62,233,168,.24); background: rgba(62,233,168,.045);">
+          <div class="tf-disp" style="font-size: 26px; font-weight: 600; line-height: 1.15;">Intelligent preparation. Human broadcast authority.</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #7E8E9E;">Automation earns its place in preparation &mdash; finding data, mapping sources, assisting verification. It does not run your match. The operator decides what goes on air.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 11 · WHO IT'S FOR ================= -->
+  <div id="who" style="padding: 120px 60px; border-bottom: 1px solid rgba(255,255,255,.075);">
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: end; padding-bottom: 52px;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div class="tf-mono" style="display: flex; align-items: center; justify-content: center; width: 26px; height: 20px; background: rgba(62,233,168,.13); color: var(--mint, #3EE9A8); font-size: 10px; letter-spacing: .08em;">11</div>
+          <div class="tf-mono" style="font-size: 11px; letter-spacing: .24em; color: #5E6E7E;">WHO IT&rsquo;S FOR</div>
+          <div style="flex-grow: 1; height: 1px; background: rgba(255,255,255,.09);"></div>
+        </div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 62px; font-weight: 700; line-height: .98; letter-spacing: -.01em;">Broadcast capability<br>for the teams who cover football.</h2>
+      </div>
+      <div style="grid-column: span 5;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.66; color: #93A2B2; text-wrap: pretty;">TAKEFRAME sits between simple streaming overlays and large-scale broadcast graphics infrastructure &mdash; giving a smaller production team capability that normally requires a much larger graphics operation.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.075);">
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Football clubs</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Producing their own matches in-house</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Leagues</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Consistent graphics across every fixture</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Federations</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">National and youth competition coverage</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Broadcasters</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Regional and national television</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Streaming broadcasters</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Digital sports channels and platforms</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Production companies</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Match-day graphics as a service</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">OB teams</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Outside broadcast, travelling light</div></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 30px 26px; background: #04070B;"><div class="tf-disp" style="font-size: 21px; font-weight: 600; letter-spacing: .02em;">Rights holders</div><div style="font-size: 14px; line-height: 1.55; color: #6E7E8E;">Stadium production and distribution</div></div>
+    </div>
+  </div>
+
+  <!-- ================= CTA ================= -->
+  <div id="demo" style="position: relative; padding: 132px 60px; overflow: hidden; background: #06090E;">
+    <div style="position: absolute; top: -220px; left: 50%; width: 1000px; height: 620px; margin-left: -500px; background: radial-gradient(ellipse at center, rgba(62,233,168,.11), rgba(62,233,168,0) 64%); pointer-events: none;"></div>
+    <div style="position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; align-items: center;">
+      <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 26px;">
+        <div class="tf-mono" style="font-size: 11px; letter-spacing: .26em; color: var(--mint, #3EE9A8);">SEE IT RUN A REAL MATCH</div>
+        <h2 class="tf-disp" style="margin: 0; font-size: 74px; font-weight: 700; line-height: .96; letter-spacing: -.012em;">From match data<br>to live television.</h2>
+        <p style="margin: 0; max-width: 540px; font-size: 17.5px; line-height: 1.62; color: #93A2B2; text-wrap: pretty;">We will walk your production team through a full match &mdash; preparation, live control, the graphics package and NDI or OMT output into your own workflow.</p>
+        <div style="display: flex; align-items: center; gap: 14px; padding-top: 6px;">
+          <a href="#demo" class="tf-mono" style="display: flex; align-items: center; height: 54px; padding: 0 32px; background: var(--mint, #3EE9A8); color: #04070B; font-size: 12px; font-weight: 500; letter-spacing: .17em;">BOOK A DEMO</a>
+          <a href="#showreel" class="tf-mono" style="display: flex; align-items: center; height: 54px; padding: 0 28px; border: 1px solid rgba(255,255,255,.17); color: #EAF0F6; font-size: 12px; letter-spacing: .17em;">TALK TO VSN</a>
+        </div>
+      </div>
+      <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.075);">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; background: #04070B;">
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .16em; color: #6E7E8E;">SALES</div>
+          <div class="tf-mono" style="padding: 5px 10px; border: 1px dashed rgba(255,255,255,.22); font-size: 10.5px; letter-spacing: .1em; color: #93A2B2;">[SALES EMAIL]</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; background: #04070B;">
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .16em; color: #6E7E8E;">TELEPHONE</div>
+          <div class="tf-mono" style="padding: 5px 10px; border: 1px dashed rgba(255,255,255,.22); font-size: 10.5px; letter-spacing: .1em; color: #93A2B2;">[PHONE NUMBER]</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; background: #04070B;">
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .16em; color: #6E7E8E;">PLATFORM</div>
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .1em; color: #EAF0F6;">WINDOWS OPERATOR APPLICATION</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; background: #04070B;">
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .16em; color: #6E7E8E;">OUTPUT</div>
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .1em; color: #EAF0F6;">NDI &middot; OMT</div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 26px; background: #04070B;">
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .16em; color: #6E7E8E;">DEPLOYMENT</div>
+          <div class="tf-mono" style="font-size: 10.5px; letter-spacing: .1em; color: #EAF0F6;">LOCAL-FIRST</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 34px 60px; border-top: 1px solid rgba(255,255,255,.075);">
+    <div style="display: flex; align-items: center; gap: 13px;">
+      <svg width="24" height="24" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <path d="M2 2H12V5.6H5.6V12H2V2Z" fill="var(--mint, #3EE9A8)"></path>
+        <path d="M28 28H18V24.4H24.4V18H28V28Z" fill="var(--mint, #3EE9A8)" opacity="0.45"></path>
+        <path d="M10.5 9.5L22 15L10.5 20.5V9.5Z" fill="var(--mint, #3EE9A8)"></path>
+      </svg>
+      <div class="tf-disp" style="font-size: 16px; font-weight: 700; letter-spacing: .085em;">TAKEFRAME</div>
+      <div class="tf-mono" style="font-size: 10px; letter-spacing: .18em; color: #5E6E7E;">BY VSN</div>
+    </div>
+    <div class="tf-mono" style="font-size: 10px; letter-spacing: .16em; color: #3E4C5A;">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS SYSTEM</div>
+    <div class="tf-mono" style="display: flex; align-items: center; gap: 26px; font-size: 10px; letter-spacing: .16em; color: #5E6E7E;">
+      <a href="#demo" style="color: #5E6E7E;">CONTACT</a>
+      <a href="#system" style="color: #5E6E7E;">THE SYSTEM</a>
+      <span style="color: #2E3A46;">&copy; 2026 VSN</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#3EE9A8","options":["#3EE9A8","#2F9BF5","#F0A81E","#E8123F"],"section":"Brand"},"$preview":{"width":1440,"height":9200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#3EE9A8' };
+  }
+}
+</script>
+</body>
+</html>
