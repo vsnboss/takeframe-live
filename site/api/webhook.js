@@ -111,6 +111,11 @@ function orderPlanFrom(order, existing) {
   return null;
 }
 
+function isFuture(value) {
+  const ms = value ? Date.parse(value) : NaN;
+  return Number.isFinite(ms) && ms > Date.now();
+}
+
 async function syncCustomer(revolutCustomerId) {
   if (!revolutCustomerId) return null;
   const remote = await revolut.retrieveCustomer(revolutCustomerId);
@@ -169,16 +174,62 @@ async function syncOrder(orderId) {
       data: { order_id: localOrder.id, provider_order_id: remote.id },
     });
   }
-  return localOrder;
+  return { localOrder, remote };
 }
 
 function localLicenseState(subscriptionState, paidThrough) {
-  const paidUntilMs = paidThrough ? Date.parse(paidThrough) : NaN;
-  const stillPaid = Number.isFinite(paidUntilMs) && paidUntilMs > Date.now();
-  if (subscriptionState === 'active' || subscriptionState === 'pending') return 'active';
-  if ((subscriptionState === 'cancelled' || subscriptionState === 'finished') && stillPaid) return 'active';
-  if (subscriptionState === 'overdue') return stillPaid ? 'active' : 'grace';
+  const stillPaid = isFuture(paidThrough);
+  if (stillPaid && ['active', 'cancelled', 'finished', 'overdue', 'paused'].includes(subscriptionState)) return 'active';
+  if (subscriptionState === 'overdue') return 'grace';
+  if (subscriptionState === 'pending') return 'suspended';
   return stillPaid ? 'active' : 'expired';
+}
+
+async function verifiedCurrentCycle(remote, existing) {
+  if (!remote.current_cycle_id) {
+    return {
+      cycle: null,
+      billingOrder: null,
+      verified: false,
+      paidThrough: existing && existing.paid_through || null,
+    };
+  }
+
+  let cycle;
+  try {
+    cycle = await revolut.retrieveCurrentCycle(remote);
+  } catch (error) {
+    console.warn('could not retrieve subscription cycle', remote.id, error.message);
+    return {
+      cycle: null,
+      billingOrder: null,
+      verified: false,
+      paidThrough: existing && existing.paid_through || null,
+    };
+  }
+
+  let billingOrder = null;
+  if (cycle && cycle.order_id) {
+    try {
+      billingOrder = await revolut.retrieveOrder(cycle.order_id);
+    } catch (error) {
+      console.warn('could not retrieve subscription billing order', remote.id, cycle.order_id, error.message);
+    }
+  }
+
+  const verified = Boolean(
+    cycle &&
+    cycle.end_date &&
+    billingOrder &&
+    billingOrder.state === 'completed'
+  );
+
+  return {
+    cycle,
+    billingOrder,
+    verified,
+    paidThrough: verified ? cycle.end_date : (existing && existing.paid_through) || null,
+  };
 }
 
 async function syncSubscription(subscriptionId) {
@@ -194,15 +245,8 @@ async function syncSubscription(subscriptionId) {
   }
   if (!localCustomer) throw new Error(`Subscription ${remote.id} has no TAKEFRAME customer`);
 
-  let cycle = null;
-  if (remote.current_cycle_id) {
-    try {
-      cycle = await revolut.retrieveCurrentCycle(remote);
-    } catch (error) {
-      console.warn('could not retrieve subscription cycle', remote.id, error.message);
-    }
-  }
-  const paidThrough = cycle && cycle.end_date ? cycle.end_date : (existing && existing.paid_through) || null;
+  const payment = await verifiedCurrentCycle(remote, existing);
+  const paidThrough = payment.paidThrough;
   const localSubscription = await db.upsert('subscriptions', {
     customer_id: localCustomer.id,
     provider: 'revolut',
@@ -216,11 +260,37 @@ async function syncSubscription(subscriptionId) {
     start_date: remote.start_date || null,
     paid_through: paidThrough,
     cancelled_at: remote.state === 'cancelled' ? (remote.updated_at || new Date().toISOString()) : (existing && existing.cancelled_at) || null,
-    provider_payload: cycle ? { subscription: remote, current_cycle: cycle } : remote,
+    provider_payload: payment.cycle ? {
+      subscription: remote,
+      current_cycle: payment.cycle,
+      billing_order: payment.billingOrder,
+      payment_verified: payment.verified,
+    } : remote,
   }, 'provider_subscription_id');
 
-  const desiredLicenseState = localLicenseState(remote.state, paidThrough);
   const existingLicense = await db.selectOne('licenses', { subscription_id: localSubscription.id });
+  const mayCreatePaidLicense = remote.state === 'active' && payment.verified && isFuture(paidThrough);
+
+  // A new subscription licence requires hard proof of a completed Revolut order
+  // for the current paid cycle. Pending state, a missing cycle, or a failed
+  // billing-order lookup can never create entitlement authority.
+  if (!existingLicense && !mayCreatePaidLicense) {
+    await db.insert('audit_events', {
+      actor_type: 'revolut_webhook',
+      actor_id: remote.id,
+      action: `subscription.${remote.state}.no_entitlement`,
+      entity_type: 'subscription',
+      entity_id: localSubscription.id,
+      data: {
+        subscription_id: localSubscription.id,
+        paid_through: paidThrough,
+        payment_verified: payment.verified,
+      },
+    });
+    return { localSubscription, license: null, paymentVerified: payment.verified };
+  }
+
+  const desiredLicenseState = localLicenseState(remote.state, paidThrough);
   const licenseValues = {
     customer_id: localCustomer.id,
     subscription_id: localSubscription.id,
@@ -234,6 +304,14 @@ async function syncSubscription(subscriptionId) {
     valid_from: remote.start_date || (existingLicense && existingLicense.valid_from) || new Date().toISOString(),
     valid_until: paidThrough,
   };
+
+  // Never create or retain an ACTIVE licence without a concrete paid-through
+  // timestamp. Existing licences fail closed to suspended if payment proof is
+  // temporarily unavailable and there is no previously verified paid period.
+  if (licenseValues.status === 'active' && !isFuture(licenseValues.valid_until)) {
+    licenseValues.status = 'suspended';
+  }
+
   const license = existingLicense
     ? (await db.patch('licenses', { id: existingLicense.id }, licenseValues))[0]
     : await db.insert('licenses', licenseValues);
@@ -244,21 +322,44 @@ async function syncSubscription(subscriptionId) {
     action: `subscription.${remote.state}`,
     entity_type: 'license',
     entity_id: license && license.id,
-    data: { subscription_id: localSubscription.id, paid_through: paidThrough, licence_status: desiredLicenseState },
+    data: {
+      subscription_id: localSubscription.id,
+      paid_through: paidThrough,
+      licence_status: license && license.status,
+      payment_verified: payment.verified,
+    },
   });
-  return localSubscription;
+  return { localSubscription, license, paymentVerified: payment.verified };
+}
+
+async function syncSetupSubscriptionForCompletedOrder(orderId) {
+  const localSubscription = await db.selectOne('subscriptions', { setup_order_id: orderId });
+  if (!localSubscription || !localSubscription.provider_subscription_id) return null;
+  return syncSubscription(localSubscription.provider_subscription_id);
 }
 
 async function processCommercialEvent(event) {
   if (ORDER_EVENTS.has(event.event)) {
     if (!event.order_id) throw new Error(`${event.event} missing order_id`);
-    await syncOrder(event.order_id);
+    const order = await syncOrder(event.order_id);
+    if (event.event === 'ORDER_COMPLETED' && order.remote.state === 'completed') {
+      await syncSetupSubscriptionForCompletedOrder(event.order_id);
+    }
     return 'processed';
   }
   if (SUBSCRIPTION_EVENTS.has(event.event)) {
-    if (!event.subscription_id) throw new Error(`${event.event} missing subscription_id`);
-    await syncSubscription(event.subscription_id);
-    return 'processed';
+    if (event.subscription_id) {
+      await syncSubscription(event.subscription_id);
+      return 'processed';
+    }
+    // Defensive compatibility: if Revolut delivers a subscription lifecycle
+    // callback carrying the related order rather than a subscription id, use
+    // the locally stored setup-order relationship to find the subscription.
+    if (event.order_id) {
+      const result = await syncSetupSubscriptionForCompletedOrder(event.order_id);
+      if (result) return 'processed';
+    }
+    throw new Error(`${event.event} missing subscription authority id`);
   }
   return 'ignored';
 }
@@ -362,6 +463,7 @@ module.exports._test = {
   MAX_TIMESTAMP_SKEW_MS,
   RELEVANT_EVENTS,
   eventKeyFor,
+  isFuture,
   localLicenseState,
   objectIdFor,
   orderPlanFrom,
