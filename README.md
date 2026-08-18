@@ -86,3 +86,31 @@ node <skill>/seed-canvas.mjs \
 - `[SHOWREEL VIDEO]` — the match showreel slot under section 01
 - A vector (SVG/EPS) of the lockup would beat the supplied PNGs for crispness
   at large sizes and for print
+
+## The website
+
+`site/` is the real, deployable website built from the design — static HTML and
+CSS, no framework, no build step.
+
+```
+site/
+  index.html          Single-page site
+  styles.css          Design tokens + responsive layout
+  fonts.css           Self-hosted @font-face rules
+  vercel.json         Cache and security headers
+  robots.txt
+  assets/             Images (webp, two widths for srcset), OG image, favicons
+  assets/fonts/       Saira Condensed + IBM Plex woff2 (latin, latin-ext)
+```
+
+Notes:
+
+- **Fonts are self-hosted**, not loaded from Google Fonts. Broadcast facilities
+  often run locked-down networks, and it removes a render-blocking third-party
+  request. Both families are open-licensed (SIL OFL).
+- Images ship at 900px and 1600px with `srcset`; everything below the fold is
+  lazy-loaded. The page makes **no external requests at all**.
+- Verified with no horizontal overflow at 320, 390, 600, 768, 1024, 1280, 1440
+  and 1920px.
+
+Preview locally with any static server, e.g. `python3 -m http.server` in `site/`.
