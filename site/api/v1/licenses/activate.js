@@ -1,5 +1,5 @@
-const licensing = require('../../../_lib/licensing');
-const { errorResponse, json, readJson } = require('../../../_lib/http');
+const licensing = require('../../_lib/licensing');
+const { errorResponse, json, readJson } = require('../../_lib/http');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return json(res, 405, { error: 'method_not_allowed' });
