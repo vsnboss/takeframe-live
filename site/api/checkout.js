@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const API_VERSION = '2026-03-12';
+const API_VERSION = '2026-04-20';
 const PLANS = new Set(['annual', 'monthly', 'match-pass', 'evaluation']);
 
 function revolutBaseUrl() {
