@@ -1,13 +1,24 @@
 const API_VERSION = '2026-04-20';
 
+function environment() {
+  const value = String(process.env.REVOLUT_ENV || '').trim().toLowerCase();
+  if (value !== 'production' && value !== 'sandbox') {
+    throw new Error('REVOLUT_ENV must be explicitly set to production or sandbox');
+  }
+  if (process.env.VERCEL_ENV === 'production' && value !== 'production') {
+    throw new Error('Refusing to use Revolut Sandbox from a production Vercel deployment');
+  }
+  return value;
+}
+
 function baseUrl() {
-  return process.env.REVOLUT_ENV === 'sandbox'
+  return environment() === 'sandbox'
     ? 'https://sandbox-merchant.revolut.com/api'
     : 'https://merchant.revolut.com/api';
 }
 
 async function request(path, options = {}) {
-  const secret = process.env.REVOLUT_SECRET_KEY;
+  const secret = String(process.env.REVOLUT_SECRET_KEY || '').trim();
   if (!secret) throw new Error('REVOLUT_SECRET_KEY not configured');
 
   const response = await fetch(`${baseUrl()}${path}`, {
@@ -48,6 +59,7 @@ async function retrieveCustomer(id) {
 module.exports = {
   API_VERSION,
   baseUrl,
+  environment,
   request,
   retrieveCustomer,
   retrieveCurrentCycle,
