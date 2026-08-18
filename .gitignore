@@ -2,3 +2,5 @@
 design/takeframe-website.html
 design/preview.html
 design/preview-mobile.html
+# Generated single-file build (rebuild from site/ sources)
+site/takeframe-standalone.html
