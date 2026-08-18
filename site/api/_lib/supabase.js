@@ -1,8 +1,17 @@
 function config() {
   const url = String(process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
   if (!url || !key) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not configured');
   return { url, key };
+}
+
+function authHeaders(key) {
+  const headers = { apikey: key };
+  // Legacy service_role keys are JWTs and may be sent as Bearer tokens. Modern
+  // sb_secret_* keys are not JWTs and Supabase requires them on the apikey
+  // header only.
+  if (key.startsWith('eyJ')) headers.Authorization = `Bearer ${key}`;
+  return headers;
 }
 
 async function request(path, options = {}) {
@@ -10,8 +19,7 @@ async function request(path, options = {}) {
   const response = await fetch(`${url}/rest/v1${path}`, {
     ...options,
     headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
+      ...authHeaders(key),
       ...(options.body ? { 'Content-Type': 'application/json' } : {}),
       ...(options.headers || {}),
     },
