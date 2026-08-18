@@ -42,12 +42,54 @@ async function getOrCreateRevolutCustomer(email) {
   });
 }
 
-async function syncLocalCustomer(customer, email) {
-  return db.upsert('customers', {
+async function upsertLocalCustomer(email, revolutCustomerId = null) {
+  const row = {
     email: email.toLowerCase(),
-    revolut_customer_id: customer.id,
     status: 'active',
-  }, 'email');
+  };
+  if (revolutCustomerId) row.revolut_customer_id = revolutCustomerId;
+  return db.upsert('customers', row, 'email');
+}
+
+async function provisionEvaluation(email) {
+  const customer = await upsertLocalCustomer(email);
+  const existing = await db.selectOne('licenses', {
+    customer_id: customer.id,
+    kind: 'evaluation',
+  });
+
+  // One evaluation identity per customer. An expired trial is intentionally not
+  // reset by submitting the same email again.
+  if (existing) return existing;
+
+  const validFrom = new Date();
+  const validUntil = new Date(validFrom.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+  const license = await db.insert('licenses', {
+    customer_id: customer.id,
+    kind: 'evaluation',
+    plan: 'evaluation',
+    status: 'active',
+    max_devices: 2,
+    max_concurrent_productions: 1,
+    clean_output: false,
+    watermark_mode: 'evaluation',
+    valid_from: validFrom.toISOString(),
+    valid_until: validUntil.toISOString(),
+  });
+
+  await db.insert('audit_events', {
+    actor_type: 'system',
+    action: 'evaluation.created',
+    entity_type: 'license',
+    entity_id: license.id,
+    data: {
+      customer_id: customer.id,
+      valid_until: validUntil.toISOString(),
+    },
+  });
+
+  return license;
 }
 
 function variationFor(plan, config) {
@@ -81,7 +123,7 @@ async function getOrCreateTakeframePlan() {
   });
 }
 
-async function createSubscriptionCheckout({ planKey, email, customer, localCustomer, origin }) {
+async function createSubscriptionCheckout({ planKey, customer, localCustomer, origin }) {
   const config = PLAN_CONFIG[planKey];
   const subscriptionPlan = await getOrCreateTakeframePlan();
   const variation = variationFor(subscriptionPlan, config);
@@ -168,20 +210,25 @@ module.exports = async (req, res) => {
     const planKey = String(form.get('plan') || '').toLowerCase();
     const email = String(form.get('email') || '').trim().toLowerCase();
 
-    if (!PLAN_CONFIG[planKey] && planKey !== 'match-pass') {
+    if (!PLAN_CONFIG[planKey] && planKey !== 'match-pass' && planKey !== 'evaluation') {
       return redirect(res, '/pricing?checkout=unknown-plan');
     }
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       return redirect(res, `/subscribe?plan=${encodeURIComponent(planKey)}&error=email`);
     }
 
+    if (planKey === 'evaluation') {
+      await provisionEvaluation(email);
+      return redirect(res, '/welcome?plan=evaluation');
+    }
+
     const customer = await getOrCreateRevolutCustomer(email);
-    const localCustomer = await syncLocalCustomer(customer, email);
+    const localCustomer = await upsertLocalCustomer(email, customer.id);
     const origin = originFor(req);
 
     const checkoutUrl = planKey === 'match-pass'
       ? await createMatchPassCheckout({ customer, localCustomer, origin })
-      : await createSubscriptionCheckout({ planKey, email, customer, localCustomer, origin });
+      : await createSubscriptionCheckout({ planKey, customer, localCustomer, origin });
 
     return redirect(res, checkoutUrl);
   } catch (error) {
