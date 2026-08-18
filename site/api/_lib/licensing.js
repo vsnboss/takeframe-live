@@ -2,19 +2,19 @@ const crypto = require('crypto');
 const db = require('./supabase');
 const { httpError } = require('./http');
 
-function signingConfig() {
-  const pem = String(process.env.TAKEFRAME_ENTITLEMENT_PRIVATE_KEY || '').replace(/\\n/g, '\n');
-  const keyId = String(process.env.TAKEFRAME_ENTITLEMENT_KEY_ID || '').trim();
-  if (!pem || !keyId) throw new Error('Entitlement signing key is not configured');
-  return { privateKey: crypto.createPrivateKey(pem), keyId };
-}
-
-function offlineHours() {
-  const hours = Number(process.env.TAKEFRAME_OFFLINE_HOURS);
-  if (!Number.isFinite(hours) || hours <= 0) {
-    throw new Error('TAKEFRAME_OFFLINE_HOURS must be configured to a positive number');
+async function signingConfig() {
+  const rows = await db.rpc('get_active_entitlement_signer');
+  const signer = Array.isArray(rows) ? rows[0] : rows;
+  if (!signer || !signer.key_id || !signer.private_key_pem) {
+    throw new Error('Active TAKEFRAME entitlement signer is not configured');
   }
-  return hours;
+  return {
+    privateKey: crypto.createPrivateKey(signer.private_key_pem),
+    publicKeyPem: signer.public_key_pem,
+    keyId: signer.key_id,
+    offlineHours: Number(signer.offline_hours),
+    leaseTtlSeconds: Number(signer.lease_ttl_seconds),
+  };
 }
 
 function minIso(...values) {
@@ -26,16 +26,19 @@ function minIso(...values) {
   return new Date(Math.min(...valid.map((date) => date.getTime()))).toISOString();
 }
 
-function signedWindow(validUntil, now = new Date()) {
-  const requestedOfflineUntil = new Date(now.getTime() + offlineHours() * 60 * 60 * 1000).toISOString();
+function signedWindow(validUntil, offlineHours, now = new Date()) {
+  if (!Number.isFinite(offlineHours) || offlineHours <= 0) {
+    throw new Error('Invalid TAKEFRAME offline entitlement window');
+  }
+  const requestedOfflineUntil = new Date(now.getTime() + offlineHours * 60 * 60 * 1000).toISOString();
   return {
     issuedAt: now.toISOString(),
     offlineUntil: minIso(requestedOfflineUntil, validUntil) || requestedOfflineUntil,
   };
 }
 
-function licenseEntitlementPayload({ license, device, matchId = null, now = new Date() }) {
-  const window = signedWindow(license.valid_until, now);
+function licenseEntitlementPayload({ license, device, signer, matchId = null, now = new Date() }) {
+  const window = signedWindow(license.valid_until, signer.offlineHours, now);
   return {
     version: 1,
     product: 'takeframe',
@@ -50,12 +53,12 @@ function licenseEntitlementPayload({ license, device, matchId = null, now = new 
     issuedAt: window.issuedAt,
     validUntil: license.valid_until,
     offlineUntil: window.offlineUntil,
-    keyId: signingConfig().keyId,
+    keyId: signer.keyId,
   };
 }
 
-function matchPassEntitlementPayload({ pass, device, now = new Date() }) {
-  const window = signedWindow(pass.expires_at, now);
+function matchPassEntitlementPayload({ pass, device, signer, now = new Date() }) {
+  const window = signedWindow(pass.expires_at, signer.offlineHours, now);
   return {
     version: 1,
     product: 'takeframe',
@@ -70,15 +73,14 @@ function matchPassEntitlementPayload({ pass, device, now = new Date() }) {
     issuedAt: window.issuedAt,
     validUntil: pass.expires_at,
     offlineUntil: window.offlineUntil,
-    keyId: signingConfig().keyId,
+    keyId: signer.keyId,
   };
 }
 
-function signPayload(payload) {
-  const { privateKey, keyId } = signingConfig();
-  if (payload.keyId !== keyId) throw new Error('Entitlement key id mismatch');
+function signPayload(payload, signer) {
+  if (payload.keyId !== signer.keyId) throw new Error('Entitlement key id mismatch');
   const serialized = JSON.stringify(payload);
-  const signature = crypto.sign(null, Buffer.from(serialized, 'utf8'), privateKey).toString('base64url');
+  const signature = crypto.sign(null, Buffer.from(serialized, 'utf8'), signer.privateKey).toString('base64url');
   return { payload, signature };
 }
 
@@ -141,10 +143,7 @@ async function activeDevicesFor(field, authorityId) {
 
 async function ensureAuthorityDevice({ field, authorityId, maxDevices, deviceId, deviceName }) {
   const normalizedId = validateDeviceId(deviceId);
-  const existing = await db.selectOne('devices', {
-    [field]: authorityId,
-    device_id: normalizedId,
-  });
+  const existing = await db.selectOne('devices', { [field]: authorityId, device_id: normalizedId });
 
   if (existing && !existing.deactivated_at) {
     const updated = await db.patch('devices', { id: existing.id }, {
@@ -178,20 +177,17 @@ async function ensureAuthorityDevice({ field, authorityId, maxDevices, deviceId,
 }
 
 async function ensureLicenseDevice(license, input) {
-  return ensureAuthorityDevice({
-    field: 'license_id', authorityId: license.id, maxDevices: license.max_devices, ...input,
-  });
+  return ensureAuthorityDevice({ field: 'license_id', authorityId: license.id, maxDevices: license.max_devices, ...input });
 }
 
 async function ensureMatchPassDevice(pass, input) {
-  return ensureAuthorityDevice({
-    field: 'match_pass_id', authorityId: pass.id, maxDevices: 2, ...input,
-  });
+  return ensureAuthorityDevice({ field: 'match_pass_id', authorityId: pass.id, maxDevices: 2, ...input });
 }
 
 async function issueLicenseEntitlement(license, device, matchId = null) {
   assertLicenseAuthority(license);
-  const signed = signPayload(licenseEntitlementPayload({ license, device, matchId }));
+  const signer = await signingConfig();
+  const signed = signPayload(licenseEntitlementPayload({ license, device, matchId, signer }), signer);
   await db.insert('entitlements', {
     license_id: license.id,
     device_id: device.id,
@@ -214,7 +210,8 @@ async function issueMatchPassEntitlement(pass, device) {
     await db.patch('match_passes', { id: pass.id }, { status: 'expired' });
     throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
   }
-  const signed = signPayload(matchPassEntitlementPayload({ pass, device }));
+  const signer = await signingConfig();
+  const signed = signPayload(matchPassEntitlementPayload({ pass, device, signer }), signer);
   await db.insert('entitlements', {
     match_pass_id: pass.id,
     device_id: device.id,
@@ -268,9 +265,7 @@ async function deactivateLicense({ licenseKey, deviceId }) {
 async function licenseStatus({ licenseKey, deviceId }) {
   const license = await licenseByKey(licenseKey);
   let device = null;
-  if (deviceId) {
-    device = await db.selectOne('devices', { license_id: license.id, device_id: validateDeviceId(deviceId) });
-  }
+  if (deviceId) device = await db.selectOne('devices', { license_id: license.id, device_id: validateDeviceId(deviceId) });
   const devices = await activeDevicesFor('license_id', license.id);
   return {
     licenseId: license.id,
@@ -292,16 +287,11 @@ async function activateMatchPass({ passKey, matchId, deviceId, deviceName }) {
   if (pass.status === 'unused') {
     const expiresAt = new Date(now.getTime() + 72 * 60 * 60 * 1000).toISOString();
     const rows = await db.patch('match_passes', { id: pass.id }, {
-      status: 'activated',
-      match_id: canonicalMatchId,
-      activated_at: now.toISOString(),
-      expires_at: expiresAt,
+      status: 'activated', match_id: canonicalMatchId, activated_at: now.toISOString(), expires_at: expiresAt,
     });
     pass = rows[0];
   } else if (pass.status === 'activated') {
-    if (pass.match_id !== canonicalMatchId) {
-      throw httpError(409, 'match_pass_locked', 'Match Pass is already bound to another match');
-    }
+    if (pass.match_id !== canonicalMatchId) throw httpError(409, 'match_pass_locked', 'Match Pass is already bound to another match');
   } else {
     throw httpError(403, 'match_pass_inactive', `Match Pass is ${pass.status}`);
   }
@@ -338,11 +328,7 @@ async function authorityFromKey(key, deviceId) {
   const license = await licenseByKey(value);
   const device = await db.selectOne('devices', { license_id: license.id, device_id: normalizedDeviceId });
   if (!device || device.deactivated_at) throw httpError(403, 'device_not_registered', 'Device is not registered');
-  return {
-    type: 'license', license, device,
-    maxConcurrentProductions: license.max_concurrent_productions,
-    matchId: null,
-  };
+  return { type: 'license', license, device, maxConcurrentProductions: license.max_concurrent_productions, matchId: null };
 }
 
 module.exports = {
@@ -356,4 +342,5 @@ module.exports = {
   licenseStatus,
   matchPassByKey,
   refreshLicense,
+  signingConfig,
 };
