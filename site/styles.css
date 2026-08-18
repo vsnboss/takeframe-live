@@ -64,6 +64,7 @@ h1,h2,h3,p{margin:0}
 .btn-s:hover{border-color:var(--brand);color:var(--ink)}
 .btn-hdr{height:38px;padding:0 22px;font-size:11px}
 .btn-lg{height:52px;padding:0 30px}
+.hdr-act{display:flex;align-items:center;gap:10px}
 .burger{display:none;width:46px;height:46px;align-items:center;justify-content:center;background:none;border:1px solid var(--line-2);color:var(--ink);cursor:pointer;padding:0}
 .mnav{display:none;flex-direction:column;gap:2px;padding-bottom:18px}
 .mnav a{padding:14px 2px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--ink-2);border-bottom:1px solid var(--line)}
@@ -213,7 +214,7 @@ h2.disp{font-size:clamp(32px,4.4vw,62px)}
 .who .d{font-size:14px;line-height:1.55;color:var(--ink-3)}
 
 /* ---------- cta / footer ---------- */
-.cta{position:relative;padding-block:clamp(72px,9vw,132px);background:var(--bg-alt);overflow:hidden}
+.cta{position:relative;padding-block:clamp(72px,9vw,132px);background:var(--bg);overflow:hidden}
 .cta-glow{position:absolute;top:-220px;left:50%;width:1000px;height:620px;margin-left:-500px;background:radial-gradient(ellipse at center,rgba(0,176,240,.11),rgba(0,176,240,0) 64%);pointer-events:none}
 .cta-in{position:relative;display:grid;grid-template-columns:7fr 5fr;gap:clamp(32px,4vw,48px);align-items:center}
 .cta h2{font-size:clamp(38px,5.2vw,74px);line-height:.96}
@@ -238,7 +239,7 @@ h2.disp{font-size:clamp(32px,4.4vw,62px)}
 @media (max-width:1024px){
   .hdr-in{height:68px}
   .nav{display:none}
-  .btn-hdr{display:none}
+  .hdr-act{display:none}
   .burger{display:flex}
   .hero-in{grid-template-columns:1fr;gap:36px}
   .hero-copy{padding-top:0}
@@ -277,3 +278,90 @@ h2.disp{font-size:clamp(32px,4.4vw,62px)}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* ================= COMMERCIAL / CONNECTIVITY ================= */
+
+/* production-stack diagram — CSS grid so it reflows instead of shrinking */
+.stack{display:grid;grid-template-columns:minmax(0,4fr) auto minmax(0,4fr) auto minmax(0,3fr);
+  gap:clamp(10px,1.4vw,18px);align-items:center;margin-top:var(--gap)}
+.stack-col{display:flex;flex-direction:column;gap:8px}
+.src{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;
+  border:1px solid var(--line-2);background:var(--panel);font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.14em;color:var(--ink-3)}
+.src-tf{border-color:var(--brand);background:rgba(0,176,240,.08);color:var(--ink)}
+.src-tf b{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.06em}
+.src-tf .via{color:var(--brand);font-size:9.5px;letter-spacing:.16em}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-5)}
+.arrow svg{width:22px;height:12px}
+.hub{display:flex;flex-direction:column;gap:10px;padding:clamp(20px,2.4vw,28px) clamp(16px,2vw,24px);
+  border:1px solid var(--line-2);background:linear-gradient(160deg,#10161F,#0A0F16);text-align:center}
+.hub .t{font-family:var(--disp);font-weight:700;font-size:clamp(18px,1.9vw,23px);letter-spacing:.04em}
+.hub .s{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--ink-4);line-height:1.7}
+.outp{display:flex;flex-direction:column;gap:8px;padding:clamp(20px,2.4vw,28px) clamp(16px,2vw,22px);
+  border:1px solid rgba(228,0,27,.3);background:rgba(228,0,27,.06);text-align:center}
+.outp .t{font-family:var(--disp);font-weight:700;font-size:clamp(17px,1.8vw,22px);letter-spacing:.04em}
+.outp .s{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--ink-4)}
+
+/* integration tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+.tile{display:flex;flex-direction:column;gap:9px;padding:clamp(20px,2.3vw,26px) clamp(18px,2vw,24px);background:var(--panel)}
+.tile .n{font-family:var(--disp);font-weight:700;font-size:clamp(19px,1.9vw,23px);letter-spacing:.03em}
+.tile .via{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--brand)}
+.tile .d{font-size:13.5px;line-height:1.55;color:var(--ink-3)}
+.legal{font-size:12.5px;line-height:1.65;color:var(--ink-5);max-width:900px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;gap:20px;
+  padding:clamp(26px,3vw,36px) clamp(22px,2.6vw,30px);
+  border:1px solid var(--line-2);background:var(--panel)}
+.plan-best{border-color:rgba(0,176,240,.42);background:linear-gradient(170deg,rgba(0,176,240,.06),var(--panel) 55%)}
+.badge{position:absolute;top:-1px;right:-1px;padding:7px 13px;background:var(--brand);color:#04070B;
+  font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.18em}
+.plan .pn{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--ink-3)}
+.plan .amt{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.plan .amt b{font-family:var(--disp);font-weight:700;font-size:clamp(42px,4.6vw,58px);line-height:.9;letter-spacing:-.015em}
+.plan .amt span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-3)}
+.plan .sub{font-size:14.5px;line-height:1.6;color:var(--ink-3)}
+.plan .btn{width:100%;height:50px;margin-top:auto}
+.inc{display:flex;flex-direction:column;gap:9px;padding-top:4px;border-top:1px solid var(--line)}
+.inc li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;color:var(--ink-2);list-style:none}
+.inc svg{flex:none;width:13px;height:13px;margin-top:4px;color:var(--brand)}
+ul.inc{margin:0;padding:16px 0 0}
+.alw{display:flex;flex-direction:column;gap:7px;padding:16px 0 0;border-top:1px solid var(--line)}
+.alw div{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3)}
+.alw b{color:var(--ink);font-weight:500}
+
+.band{display:grid;grid-template-columns:7fr 5fr;gap:var(--gap) clamp(24px,4vw,48px);align-items:center;
+  padding:clamp(26px,3.2vw,38px);border:1px solid var(--line-2);background:var(--panel)}
+.band-brand{border-left:2px solid var(--brand)}
+.band h3{font-family:var(--disp);font-weight:600;font-size:clamp(22px,2.6vw,32px);line-height:1.12;margin:0}
+.band .act{display:flex;flex-wrap:wrap;gap:12px;justify-self:end}
+@media (max-width:900px){.band .act{justify-self:start}}
+
+/* faq */
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.faq>div{display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.6vw,30px) clamp(20px,2.2vw,26px);background:var(--panel)}
+.faq .q{font-family:var(--disp);font-weight:600;font-size:clamp(17px,1.7vw,21px);line-height:1.2;letter-spacing:.005em}
+.faq .a{font-size:14.5px;line-height:1.62;color:var(--ink-3)}
+
+/* onboarding / account */
+.steps{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.steps>div{display:flex;align-items:flex-start;gap:16px;padding:20px clamp(18px,2vw,24px);background:var(--panel)}
+.steps .i{flex:none;display:flex;align-items:center;justify-content:center;width:26px;height:26px;
+  background:rgba(0,176,240,.14);color:var(--brand);font-family:var(--mono);font-size:11px}
+.steps .t{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.rows{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.rows>div{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;
+  padding:20px clamp(18px,2vw,24px);background:var(--panel)}
+.rows .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-3)}
+.rows .v{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink)}
+.state{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line-2);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink-3)}
+
+@media (max-width:1180px){ .nav{gap:18px;font-size:10px} }
+@media (max-width:1024px){ .plans{grid-template-columns:1fr} .faq{grid-template-columns:1fr}
+  .band{grid-template-columns:1fr}
+  .stack{grid-template-columns:1fr;gap:12px}
+  .stack .arrow{transform:rotate(90deg);height:22px} }

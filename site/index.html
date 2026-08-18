@@ -34,24 +34,28 @@
         <span class="brand-sub">FOOTBALL<br>GRAPHICS OS</span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="#system">THE SYSTEM</a>
+        <a href="#system">PRODUCT</a>
         <a href="#graphics">GRAPHICS</a>
-        <a href="#playout">PLAYOUT</a>
-        <a href="#data">LIVE DATA</a>
-        <a href="#who">WHO IT'S FOR</a>
+        <a href="#playout">WORKFLOW</a>
+        <a href="#connectivity">CONNECTIVITY</a>
+        <a href="/pricing">PRICING</a>
       </nav>
-      <a class="btn btn-p btn-hdr" href="#demo">BOOK A DEMO</a>
+      <div class="hdr-act">
+        <a class="btn btn-s btn-hdr" href="#demo">BOOK A DEMO</a>
+        <a class="btn btn-p btn-hdr" href="/pricing">BUY TAKEFRAME</a>
+      </div>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu">
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true"><path d="M0 1H20M0 7H20M0 13H20" stroke="currentColor" stroke-width="1.6"/></svg>
       </button>
     </div>
     <nav class="mnav" id="mnav" aria-label="Primary mobile">
-      <a href="#system">THE SYSTEM</a>
+      <a href="#system">PRODUCT</a>
       <a href="#graphics">GRAPHICS</a>
-      <a href="#playout">PLAYOUT</a>
-      <a href="#data">LIVE DATA</a>
-      <a href="#who">WHO IT'S FOR</a>
-      <a class="btn btn-p" href="#demo">BOOK A DEMO</a>
+      <a href="#playout">WORKFLOW</a>
+      <a href="#connectivity">CONNECTIVITY</a>
+      <a href="/pricing">PRICING</a>
+      <a class="btn btn-p" href="/pricing">BUY TAKEFRAME</a>
+      <a class="btn btn-s" href="#demo">BOOK A DEMO</a>
     </nav>
   </div>
 </header>
@@ -121,12 +125,78 @@
   </div>
 </section>
 
-<!-- ============ 02 SOURCE OF TRUTH ============ -->
-<section class="sec sec-alt" id="system">
+<!-- ============ 02 PRODUCTION CONNECTIVITY ============ -->
+<section class="sec sec-alt" id="connectivity">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">02</span><span class="elabel">CANONICAL MATCH STATE</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">02</span><span class="elabel">PRODUCTION CONNECTIVITY</span><i class="erule" aria-hidden="true"></i></p>
+        <h2 class="disp">Fits into the workflow<br>you already use.</h2>
+      </div>
+      <p class="lead">TAKEFRAME produces professional IP graphics output for modern live-production environments. Route Program into software and production systems over NDI&reg; and OMT, while TAKEFRAME stays dedicated to match data, football logic and graphics playout.</p>
+    </div>
+
+    <div class="chain chain-5">
+      <div><span class="step">01</span><span class="name">TAKEFRAME CONTROL</span><span class="sub">Operator workstation</span></div>
+      <div><span class="step">02</span><span class="name">TAKEFRAME PROGRAM</span><span class="sub">Broadcast-resolution render</span></div>
+      <div class="on"><span class="step">03 &middot; TRANSPORT</span><span class="name">NDI&reg; / OMT</span><span class="sub">Professional IP video</span></div>
+      <div><span class="step">04</span><span class="name">PRODUCTION SYSTEM</span><span class="sub">Your switcher or software mixer</span></div>
+      <div class="out"><span class="step">05</span><span class="name">PROGRAM OUTPUT</span><span class="sub">To air</span></div>
+    </div>
+
+    <div class="split" style="display:grid;grid-template-columns:5fr 7fr;gap:var(--gap) clamp(24px,4vw,48px);margin-top:48px;align-items:start">
+      <div>
+        <h3 class="disp" style="font-weight:600;font-size:clamp(22px,2.4vw,30px);line-height:1.14">TAKEFRAME does not replace your switcher.</h3>
+        <p class="note" style="margin-top:12px">It owns the football: match data, graphics, Preview and Program. Your production system combines that graphic output with cameras, replays, audio and everything else on the way to air.</p>
+      </div>
+      <div class="stack">
+        <div class="stack-col">
+          <div class="src">CAMERAS</div>
+          <div class="src">REPLAY</div>
+          <div class="src">AUDIO</div>
+          <div class="src">OTHER SOURCES</div>
+          <div class="src src-tf"><b>TAKEFRAME</b><span class="via">NDI&reg; / OMT</span></div>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 22 12" fill="none" aria-hidden="true"><path d="M0 6h19M14 1l5 5-5 5" stroke="currentColor" stroke-width="1.4"/></svg></span>
+        <div class="hub">
+          <span class="t">PRODUCTION SYSTEM</span>
+          <span class="s">vMix &middot; Ross Video &middot; TriCaster<br>Wirecast &middot; OBS Studio</span>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 22 12" fill="none" aria-hidden="true"><path d="M0 6h19M14 1l5 5-5 5" stroke="currentColor" stroke-width="1.4"/></svg></span>
+        <div class="outp">
+          <span class="t">PROGRAM</span>
+          <span class="s">BROADCAST &middot; STREAM</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="elabel" style="padding:48px 0 14px">WORKS WITH</p>
+    <div class="tiles">
+      <div class="tile"><span class="n">vMix</span><span class="via">NDI&reg; + OMT</span><span class="d">TAKEFRAME Program output can be brought into a vMix production as an IP video source.</span></div>
+      <div class="tile"><span class="n">Ross Video</span><span class="via">NDI&reg; WORKFLOWS</span><span class="d">Designed to fit NDI-enabled Ross Video production workflows, including NDI-capable Carbonite Code and Graphite environments.</span></div>
+      <div class="tile"><span class="n">Vizrt / TriCaster</span><span class="via">NDI&reg; WORKFLOWS</span><span class="d">TAKEFRAME can appear as an NDI graphics source within compatible TriCaster production workflows.</span></div>
+      <div class="tile"><span class="n">Wirecast</span><span class="via">NDI&reg; WORKFLOWS</span><span class="d">TAKEFRAME NDI output can be used as a source within compatible Wirecast production workflows.</span></div>
+      <div class="tile"><span class="n">OBS Studio</span><span class="via">NDI&reg;-BASED WORKFLOWS</span><span class="d">Works with OBS-based workflows using appropriate NDI connectivity.</span></div>
+      <div class="tile"><span class="n">NDI&reg;</span><span class="via">TRANSPORT</span><span class="d">Professional IP video transport, and a validated TAKEFRAME output.</span></div>
+      <div class="tile"><span class="n">OMT</span><span class="via">TRANSPORT</span><span class="d">A second professional IP output path, validated alongside NDI.</span></div>
+    </div>
+    <p class="note" style="padding-top:16px">And the broader NDI&reg; ecosystem &mdash; any compatible NDI receiver. TAKEFRAME&rsquo;s IP-video output lets it fit a wide range of NDI-capable software and hardware production environments.</p>
+
+    <div class="g3" style="margin-top:32px">
+      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">NDI&reg;</h3><p>A validated production output. TAKEFRAME appears on the network as a live graphics source your production system can key, mix and route like any other.</p></article>
+      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">OMT</h3><p>A second professional IP output path, available alongside NDI so the graphics chain fits the network you already run.</p></article>
+      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">SOFTWARE-FIRST</h3><p>Built for modern software-based broadcast workflows &mdash; vMix, OBS, graphics laptops and production networks &mdash; without a rack of dedicated hardware.</p></article>
+    </div>
+    <p class="legal" style="margin-top:32px">Third-party product and company names are trademarks of their respective owners. References here indicate workflow compatibility over standard IP video transport and do not imply endorsement or partnership unless expressly stated.</p>
+  </div>
+</section>
+
+<!-- ============ 03 CANONICAL MATCH STATE ============ -->
+<section class="sec" id="system">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="num">03</span><span class="elabel">CANONICAL MATCH STATE</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">One match.<br>One source of truth.</h2>
       </div>
       <p class="lead">Graphics are projections of the match &mdash; not a dozen separate documents that each hold their own version of reality. The match state drives the graphics, so a confirmed event moves everything that depends on it.</p>
@@ -147,12 +217,12 @@
   </div>
 </section>
 
-<!-- ============ 03 PREPARE ============ -->
-<section class="sec">
+<!-- ============ 04 PREPARE ============ -->
+<section class="sec sec-alt">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">03</span><span class="elabel">BEFORE KICK-OFF</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">04</span><span class="elabel">BEFORE KICK-OFF</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">Prepare the match.</h2>
       </div>
       <p class="lead">Competition, stadium, venue, kick-off, crests, shirt colours, coaches, officials, squads and both Starting 11s &mdash; assembled, reviewed and approved before a single graphic goes near air.</p>
@@ -189,12 +259,12 @@
   </div>
 </section>
 
-<!-- ============ 04 CONTROL THE MATCH ============ -->
-<section class="sec sec-alt">
+<!-- ============ 05 CONTROL THE MATCH ============ -->
+<section class="sec">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">04</span><span class="elabel">LIVE OPERATION</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">05</span><span class="elabel">LIVE OPERATION</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">Control the match.</h2>
       </div>
       <p class="lead">The live workspace is built around football actions, not graphic layers. The operator executes the event; TAKEFRAME resolves what that event means for the score, the clock, the line-up and every graphic that depends on them.</p>
@@ -244,12 +314,12 @@
   </div>
 </section>
 
-<!-- ============ 05 GRAPHICS PACKAGE ============ -->
-<section class="sec" id="graphics">
+<!-- ============ 06 GRAPHICS PACKAGE ============ -->
+<section class="sec sec-alt" id="graphics">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">05</span><span class="elabel">ON-AIR OUTPUT</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">06</span><span class="elabel">ON-AIR OUTPUT</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">A complete<br>graphics language.</h2>
       </div>
       <p class="lead">Not a folder of unrelated templates &mdash; one coordinated package covering the whole broadcast, every scene reading from the same match. A selection of what goes to Program:</p>
@@ -285,12 +355,12 @@
   </div>
 </section>
 
-<!-- ============ 06 LIVE DATA ============ -->
-<section class="sec sec-alt" id="data">
+<!-- ============ 07 LIVE DATA ============ -->
+<section class="sec" id="data">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">06</span><span class="elabel">MATCH STATISTICS</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">07</span><span class="elabel">MATCH STATISTICS</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">Live data,<br>on your terms.</h2>
       </div>
       <p class="lead">A full statistics workspace the operator can drive by hand, and a provider-neutral ingestion model built to map professional feeds into the same canonical statistics model.</p>
@@ -333,12 +403,12 @@
   </div>
 </section>
 
-<!-- ============ 07 KNOCKOUT ============ -->
-<section class="sec">
+<!-- ============ 08 KNOCKOUT ============ -->
+<section class="sec sec-alt">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">07</span><span class="elabel">TWO LEGS &middot; EXTRA TIME &middot; PENALTIES</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">08</span><span class="elabel">TWO LEGS &middot; EXTRA TIME &middot; PENALTIES</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">Knockout football,<br>kept straight.</h2>
       </div>
       <p class="lead">First leg, second leg, aggregate and penalties remain separate &mdash; and correct. The operator does not recalculate the tie after every goal, and a shoot-out never contaminates the football score.</p>
@@ -371,12 +441,12 @@
   </div>
 </section>
 
-<!-- ============ 08 PLAYOUT ============ -->
-<section class="sec sec-alt" id="playout">
+<!-- ============ 09 PLAYOUT ============ -->
+<section class="sec" id="playout">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <p class="eyebrow"><span class="num">08</span><span class="elabel">PREVIEW &middot; PROGRAM &middot; TAKE</span><i class="erule" aria-hidden="true"></i></p>
+        <p class="eyebrow"><span class="num">09</span><span class="elabel">PREVIEW &middot; PROGRAM &middot; TAKE</span><i class="erule" aria-hidden="true"></i></p>
         <h2 class="disp">Preview it. Take it.<br>Update it. Out.</h2>
       </div>
       <p class="lead">Proper playout, in proper broadcast terms. Nothing reaches air by accident, and the operator can always see what is on it.</p>
@@ -402,31 +472,6 @@
         <p class="tag"><span class="l"><i class="dot dot-air" aria-hidden="true"></i><span class="air">PROGRAM</span></span><span class="r">VAR CHECK &middot; POSSIBLE OFFSIDE</span></p>
         <div class="shot"><img src="/assets/var-check-900.webp" srcset="/assets/var-check-900.webp 900w, /assets/var-check-1600.webp 1600w" sizes="(max-width:900px) 92vw, 55vw" width="1600" height="897" loading="lazy" alt="VAR check graphic on Program with the persistent scorebug"></div>
       </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 09 CONNECTIVITY ============ -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow"><span class="num">09</span><span class="elabel">PROFESSIONAL IP VIDEO OUTPUT</span><i class="erule" aria-hidden="true"></i></p>
-        <h2 class="disp">NDI and OMT,<br>straight into production.</h2>
-      </div>
-      <p class="lead">TAKEFRAME graphics render at broadcast resolution and arrive in your production environment as live graphics sources &mdash; not a shared screen, but part of the signal path.</p>
-    </div>
-    <div class="chain chain-5">
-      <div><span class="step">01</span><span class="name">TAKEFRAME CONTROL</span><span class="sub">Operator workstation</span></div>
-      <div><span class="step">02</span><span class="name">GRAPHICS ENGINE</span><span class="sub">Broadcast-resolution render</span></div>
-      <div class="on"><span class="step">03 &middot; OUTPUT</span><span class="name">NDI / OMT</span><span class="sub">Multiple professional IP paths</span></div>
-      <div><span class="step">04</span><span class="name">PRODUCTION SYSTEM</span><span class="sub">Your switcher or software mixer</span></div>
-      <div class="out"><span class="step">05</span><span class="name">PROGRAM OUTPUT</span><span class="sub">To air</span></div>
-    </div>
-    <div class="g3" style="margin-top:var(--gap)">
-      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">NDI</h3><p>A validated production output. TAKEFRAME appears on the network as a live graphics source your production system can key, mix and route like any other.</p></article>
-      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">OMT</h3><p>A second professional IP output path, available alongside NDI so the graphics chain fits the network you already run.</p></article>
-      <article class="card"><h3 class="disp" style="font-weight:700;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em">SOFTWARE-FIRST</h3><p>Built for modern software-based broadcast workflows &mdash; vMix, OBS, graphics laptops and production networks &mdash; without a rack of dedicated hardware.</p></article>
     </div>
   </div>
 </section>
@@ -487,6 +532,50 @@
   </div>
 </section>
 
+<!-- ============ 12 PRICING ============ -->
+<section class="sec sec-alt" id="pricing-preview">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow"><span class="num">12</span><span class="elabel">COMMERCIAL</span><i class="erule" aria-hidden="true"></i></p>
+        <h2 class="disp">Professional football graphics.<br>Buy it the way you produce.</h2>
+      </div>
+      <p class="lead">Full TAKEFRAME on every paid plan. No graphics packs behind higher tiers, no penalty-shoot-out upgrade, no statistics upgrade. You choose how long you need the system, not which football features you get.</p>
+    </div>
+    <div class="plans">
+      <div class="plan plan-best">
+        <span class="badge">BEST VALUE</span>
+        <span class="pn">TAKEFRAME ANNUAL</span>
+        <span class="amt"><b>&euro;1,690</b><span>/ YEAR</span></span>
+        <p class="sub">Full TAKEFRAME for a season. Saves against twelve monthly subscriptions.</p>
+        <a class="btn btn-p" href="/api/checkout?plan=annual">START ANNUAL</a>
+      </div>
+      <div class="plan">
+        <span class="pn">TAKEFRAME MONTHLY</span>
+        <span class="amt"><b>&euro;169</b><span>/ MONTH</span></span>
+        <p class="sub">The same complete product, month to month.</p>
+        <a class="btn btn-s" href="/api/checkout?plan=monthly">START MONTHLY</a>
+      </div>
+      <div class="plan">
+        <span class="pn">TAKEFRAME MATCH PASS</span>
+        <span class="amt"><b>&euro;79</b><span>/ MATCH</span></span>
+        <p class="sub">One production match, with a 72-hour window that starts when you activate it.</p>
+        <a class="btn btn-s" href="/api/checkout?plan=match-pass">BUY MATCH PASS</a>
+      </div>
+    </div>
+    <div class="band band-brand" style="margin-top:var(--gap)">
+      <div>
+        <h3>7-day free evaluation</h3>
+        <p class="note" style="margin-top:10px">Full TAKEFRAME &middot; watermarked output &middot; no card required.</p>
+      </div>
+      <div class="act">
+        <a class="btn btn-p btn-lg" href="/api/checkout?plan=evaluation">START FREE EVALUATION</a>
+        <a class="btn btn-s btn-lg" href="/pricing">VIEW PRICING</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CTA ============ -->
 <section class="cta" id="demo">
   <div class="cta-glow" aria-hidden="true"></div>
@@ -523,10 +612,14 @@
       </div>
       <span class="ftr-mid">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS SYSTEM</span>
       <nav class="ftr-links" aria-label="Footer">
+        <a href="/pricing">PRICING</a>
+        <a href="#connectivity">CONNECTIVITY</a>
         <a href="#demo">CONTACT</a>
-        <a href="#system">THE SYSTEM</a>
         <span>&copy; 2026 VSN</span>
       </nav>
+    </div>
+    <div style="padding-bottom:34px">
+      <p class="legal">NDI&reg; is a registered trademark of Vizrt Group. See <a href="https://ndi.video" rel="noopener">ndi.video</a>. Third-party product and company names are trademarks of their respective owners; references on this site indicate workflow compatibility over standard IP video transport and do not imply endorsement or partnership unless expressly stated.</p>
     </div>
   </div>
 </footer>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to TAKEFRAME</title>
+<meta name="description" content="Your TAKEFRAME entitlement is ready. Download, install and prepare your first match.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#04070B">
+<link rel="icon" href="/assets/favicon.png" sizes="256x256">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/SairaCondensed-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/IBMPlexSans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <div class="hdr-in">
+      <a class="brand" href="/" aria-label="TAKEFRAME home">
+        <img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME">
+        <span class="brand-sub">FOOTBALL<br>GRAPHICS OS</span>
+      </a>
+      <div class="hdr-act">
+        <a class="btn btn-s btn-hdr" href="/pricing">PRICING</a>
+        <a class="btn btn-p btn-hdr" href="/account">MY TAKEFRAME</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main id="main">
+
+<section class="sec" style="border-bottom:none">
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:820px">
+      <p class="kicker"><i aria-hidden="true"></i><span id="w-eyebrow">TAKEFRAME</span></p>
+      <h1 class="disp" id="w-title" style="font-size:clamp(38px,5.4vw,76px)">Welcome to TAKEFRAME</h1>
+      <p class="lead" id="w-sub">Your licence is ready.</p>
+    </div>
+
+    <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--gap);margin-top:48px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:var(--gap)">
+        <p class="elabel">NEXT</p>
+        <div class="steps">
+          <div><span class="i">1</span><span class="t">Download TAKEFRAME for Windows. The link and your licence key are in the confirmation email we have just sent.</span></div>
+          <div><span class="i">2</span><span class="t">Install it on your graphics computer.</span></div>
+          <div><span class="i">3</span><span class="t">Enter your licence key the first time TAKEFRAME opens.</span></div>
+          <div><span class="i">4</span><span class="t" id="w-step4">Prepare your first match &mdash; competition, clubs, squads and both Starting 11s.</span></div>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-p btn-lg" href="/account">OPEN MY TAKEFRAME</a>
+          <a class="btn btn-s btn-lg" href="/#system">HOW IT WORKS</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--gap)">
+        <p class="elabel">YOUR ENTITLEMENT</p>
+        <div class="rows" id="w-rows"></div>
+        <p class="note" id="w-note"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var plans = {
+    'annual': {
+      eyebrow:'TAKEFRAME ANNUAL', title:'Welcome to TAKEFRAME', sub:'Your Annual licence is ready.',
+      rows:[['PLAN','TAKEFRAME ANNUAL'],['CONCURRENT PRODUCTIONS','1'],['PRODUCTION MACHINES','2'],['OUTPUT','NDI\u00ae \u00b7 OMT']],
+      note:'Updates are included for as long as the subscription stays active.'
+    },
+    'monthly': {
+      eyebrow:'TAKEFRAME MONTHLY', title:'Welcome to TAKEFRAME', sub:'Your Monthly licence is ready.',
+      rows:[['PLAN','TAKEFRAME MONTHLY'],['CONCURRENT PRODUCTIONS','1'],['PRODUCTION MACHINES','2'],['OUTPUT','NDI\u00ae \u00b7 OMT']],
+      note:'Updates are included for as long as the subscription stays active.'
+    },
+    'match-pass': {
+      eyebrow:'TAKEFRAME MATCH PASS', title:'Your Match Pass is ready', sub:'One match available.',
+      rows:[['MATCH PASSES','1 AVAILABLE'],['STATUS','UNUSED'],['WINDOW','72 HOURS FROM ACTIVATION'],['OUTPUT','NDI\u00ae \u00b7 OMT']],
+      note:'The 72-hour production window does not start until you activate this Match Pass inside TAKEFRAME for the match you are producing.',
+      step4:'Activate the Match Pass for your match when you are ready to produce it.'
+    },
+    'evaluation': {
+      eyebrow:'TAKEFRAME EVALUATION', title:'Your 7-day evaluation is ready', sub:'The full product, for seven days.',
+      rows:[['PLAN','EVALUATION'],['DURATION','7 DAYS'],['FEATURES','COMPLETE PRODUCT'],['OUTPUT','WATERMARKED']],
+      note:'Every football workflow is available, including NDI\u00ae and OMT output. Program output carries a TAKEFRAME EVALUATION watermark.'
+    }
+  };
+  var key = new URLSearchParams(location.search).get('plan');
+  var p = plans[key] || plans['annual'];
+  document.getElementById('w-eyebrow').textContent = p.eyebrow;
+  document.getElementById('w-title').textContent = p.title;
+  document.getElementById('w-sub').textContent = p.sub;
+  document.getElementById('w-note').textContent = p.note;
+  if (p.step4) document.getElementById('w-step4').textContent = p.step4;
+  document.getElementById('w-rows').innerHTML = p.rows.map(function(r){
+    return '<div><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>';
+  }).join('');
+})();
+</script>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="ftr">
+      <div class="ftr-brand">
+        <img src="/assets/lockup-400.webp" width="400" height="73" loading="lazy" alt="TAKEFRAME">
+        <span class="by">BY VSN</span>
+      </div>
+      <span class="ftr-mid">PROFESSIONAL FOOTBALL BROADCAST GRAPHICS SYSTEM</span>
+      <nav class="ftr-links" aria-label="Footer">
+        <a href="/pricing">PRICING</a>
+        <a href="/#connectivity">CONNECTIVITY</a>
+        <a href="/#demo">CONTACT</a>
+        <span>&copy; 2026 VSN</span>
+      </nav>
+    </div>
+    <div style="padding-bottom:34px">
+      <p class="legal">NDI&reg; is a registered trademark of Vizrt Group. See <a href="https://ndi.video" rel="noopener">ndi.video</a>. Third-party product and company names are trademarks of their respective owners.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

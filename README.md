@@ -94,7 +94,12 @@ CSS, no framework, no build step.
 
 ```
 site/
-  index.html          Single-page site
+  index.html          Homepage
+  pricing.html        Pricing, licence model, FAQ
+  welcome.html        Post-purchase onboarding (plan-aware via ?plan=)
+  account.html        My TAKEFRAME — licence and billing admin
+  api/checkout.js     Server-side Lemon Squeezy checkout creation
+  api/webhook.js      Signature-verified Lemon Squeezy webhook receiver
   styles.css          Design tokens + responsive layout
   fonts.css           Self-hosted @font-face rules
   vercel.json         Cache and security headers
@@ -114,3 +119,75 @@ Notes:
   and 1920px.
 
 Preview locally with any static server, e.g. `python3 -m http.server` in `site/`.
+
+
+## Commerce
+
+TAKEFRAME is sold as subscription or match-pass entitlement only — there is no
+perpetual licence anywhere in the copy, and every paid plan carries the full
+product. Public prices: Annual €1,690/yr, Monthly €169/mo, Match Pass €79, plus
+a free 7-day watermarked evaluation. VAT is calculated at checkout.
+
+### How a purchase flows
+
+```
+pricing page  →  /api/checkout?plan=…  →  Lemon Squeezy checkout
+                                              ↓
+                              /api/webhook (signature verified)
+                                              ↓
+                                   VSN licensing service
+                                              ↓
+                                /welcome?plan=…  (onboarding)
+```
+
+The browser only ever sends a plan slug (`annual`, `monthly`, `match-pass`,
+`evaluation`). Store and variant identifiers and the API key stay server-side,
+so no commercial configuration is exposed in client JavaScript. `/api/checkout`
+validates the slug against an allowlist before calling the commerce API.
+
+`/api/webhook` verifies the HMAC-SHA256 signature over the **raw** body with a
+timing-safe compare, then hands the entitlement to the VSN licensing service.
+Licence generation happens there — never in the browser, and never on the live
+graphics path.
+
+### Environment variables
+
+Set these on the Vercel project. The four marked secret must never reach the
+client.
+
+| Variable | Secret | Purpose |
+| --- | :---: | --- |
+| `LEMONSQUEEZY_API_KEY` | ● | Creating checkouts |
+| `LEMONSQUEEZY_STORE_ID` | | Store the checkout belongs to |
+| `LEMONSQUEEZY_VARIANT_ANNUAL` | | Variant for the annual plan |
+| `LEMONSQUEEZY_VARIANT_MONTHLY` | | Variant for the monthly plan |
+| `LEMONSQUEEZY_VARIANT_MATCH_PASS` | | Variant for the match pass |
+| `LEMONSQUEEZY_VARIANT_EVALUATION` | | Variant for the free evaluation |
+| `LEMONSQUEEZY_WEBHOOK_SECRET` | ● | Verifying webhook signatures |
+| `LICENSING_SERVICE_URL` | | Where entitlements are handed off |
+| `LICENSING_SERVICE_TOKEN` | ● | Auth for that handoff |
+
+Point the Lemon Squeezy webhook at `https://<domain>/api/webhook`.
+
+Until these are set, the checkout CTAs redirect to `/pricing?checkout=unavailable`
+and the page shows a plain notice rather than failing silently.
+
+**The Vercel project's Root Directory must be `site`** — that is where `api/`
+lives, and serverless functions are only picked up from the project root. The
+repository-root `vercel.json` is a fallback that serves `site/` statically if the
+project root is ever the repository itself; functions would not run in that case.
+
+### Still to wire
+
+- Lemon Squeezy products and the env vars above.
+- The VSN licensing service endpoint (entitlements, registered machines,
+  Match Pass activation, evaluation state, signed offline licences).
+- `account.html` currently describes where licence and billing live rather than
+  showing live data; it becomes a real view once the licensing service exists.
+
+## Claim discipline in the commercial copy
+
+Third-party production systems are described as **workflow compatible over
+NDI®/OMT**, never as integrations or partnerships. No third-party logos are
+used — text wordmarks only — pending brand permission. NDI® carries its
+trademark attribution and a link to ndi.video in the footer of every page.
