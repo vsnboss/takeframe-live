@@ -25,6 +25,14 @@ async function request(path, options = {}) {
   return JSON.parse(text);
 }
 
+function filterParams(filters, initial = {}) {
+  const params = new URLSearchParams(initial);
+  for (const [key, value] of Object.entries(filters || {})) {
+    params.set(key, `eq.${value}`);
+  }
+  return params;
+}
+
 async function upsert(table, row, conflict) {
   const params = conflict ? `?on_conflict=${encodeURIComponent(conflict)}` : '';
   const rows = await request(`/${table}${params}`, {
@@ -45,12 +53,25 @@ async function insert(table, row) {
 }
 
 async function selectOne(table, filters, select = '*') {
-  const params = new URLSearchParams({ select, limit: '1' });
-  for (const [key, value] of Object.entries(filters || {})) {
-    params.set(key, `eq.${value}`);
-  }
+  const params = filterParams(filters, { select, limit: '1' });
   const rows = await request(`/${table}?${params.toString()}`);
   return Array.isArray(rows) && rows.length ? rows[0] : null;
+}
+
+async function selectMany(table, filters, select = '*', limit = 100) {
+  const params = filterParams(filters, { select, limit: String(limit) });
+  const rows = await request(`/${table}?${params.toString()}`);
+  return Array.isArray(rows) ? rows : [];
+}
+
+async function patch(table, filters, changes) {
+  const params = filterParams(filters);
+  const rows = await request(`/${table}?${params.toString()}`, {
+    method: 'PATCH',
+    headers: { Prefer: 'return=representation' },
+    body: JSON.stringify(changes),
+  });
+  return Array.isArray(rows) ? rows : [];
 }
 
 async function rpc(name, args) {
@@ -60,4 +81,4 @@ async function rpc(name, args) {
   });
 }
 
-module.exports = { insert, request, rpc, selectOne, upsert };
+module.exports = { insert, patch, request, rpc, selectMany, selectOne, upsert };
