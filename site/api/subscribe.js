@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const db = require('./_lib/supabase');
 const revolut = require('./_lib/revolut');
+const revolutWebhooks = require('./_lib/revolut-webhooks');
 
 const PLAN_NAME = 'TAKEFRAME SUBSCRIPTION';
 const PLAN_CONFIG = {
@@ -57,14 +58,10 @@ async function provisionEvaluation(email) {
     customer_id: customer.id,
     kind: 'evaluation',
   });
-
-  // One evaluation identity per customer. An expired trial is intentionally not
-  // reset by submitting the same email again.
   if (existing) return existing;
 
   const validFrom = new Date();
   const validUntil = new Date(validFrom.getTime() + 7 * 24 * 60 * 60 * 1000);
-
   const license = await db.insert('licenses', {
     customer_id: customer.id,
     kind: 'evaluation',
@@ -83,12 +80,8 @@ async function provisionEvaluation(email) {
     action: 'evaluation.created',
     entity_type: 'license',
     entity_id: license.id,
-    data: {
-      customer_id: customer.id,
-      valid_until: validUntil.toISOString(),
-    },
+    data: { customer_id: customer.id, valid_until: validUntil.toISOString() },
   });
-
   return license;
 }
 
@@ -222,9 +215,14 @@ module.exports = async (req, res) => {
       return redirect(res, '/welcome?plan=evaluation');
     }
 
+    const origin = originFor(req);
+
+    // Paid checkout is not allowed to proceed until the authoritative Revolut
+    // webhook is configured and its signing secret is safely stored in Vault.
+    await revolutWebhooks.ensureWebhook(origin);
+
     const customer = await getOrCreateRevolutCustomer(email);
     const localCustomer = await upsertLocalCustomer(email, customer.id);
-    const origin = originFor(req);
 
     const checkoutUrl = planKey === 'match-pass'
       ? await createMatchPassCheckout({ customer, localCustomer, origin })
