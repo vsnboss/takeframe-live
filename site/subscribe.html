@@ -24,9 +24,14 @@
 <input type="hidden" name="plan" id="plan" value="">
 <label class="elabel" for="email">ACCOUNT EMAIL</label>
 <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@company.com" style="height:52px;padding:0 16px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit">
+<div id="promo-wrap" hidden style="display:flex;flex-direction:column;gap:10px">
+<label class="elabel" for="promo">PROMO CODE <span style="opacity:.55">— OPTIONAL</span></label>
+<input id="promo" name="promo" type="text" autocomplete="off" maxlength="32" placeholder="ENTER CODE" style="height:52px;padding:0 16px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit;text-transform:uppercase">
+<p class="note">Promotions are validated server-side and may be limited by plan, email, expiry or redemption count.</p>
+</div>
 <button class="btn btn-p btn-lg" id="submit" type="submit" style="align-self:flex-start">CONTINUE</button>
 <p class="note" id="plan-note"></p>
-<p class="note" id="error" hidden>Please enter a valid email address.</p>
+<p class="note" id="error" hidden></p>
 </form>
 </div></section>
 </main>
@@ -44,6 +49,10 @@
     evaluation:'TAKEFRAME Evaluation — free for 7 days, no card required, watermarked output.'
   };
   document.getElementById('plan-note').textContent = notes[plan];
+  if (plan === 'match-pass') {
+    document.getElementById('promo-wrap').hidden = false;
+    document.getElementById('promo').value = String(params.get('promo') || '').toUpperCase();
+  }
   if (plan === 'evaluation') {
     document.getElementById('title').textContent = 'Start your 7-day evaluation.';
     document.getElementById('lead').textContent = 'Enter the email address for your TAKEFRAME account. No card is required.';
@@ -52,7 +61,15 @@
     document.getElementById('lead').textContent = 'Enter the email address for your TAKEFRAME account. Revolut will securely collect payment details on the next screen.';
     document.getElementById('submit').textContent = 'CONTINUE TO REVOLUT';
   }
-  if (params.get('error') === 'email') document.getElementById('error').hidden = false;
+  var error = params.get('error');
+  var errorNode = document.getElementById('error');
+  if (error === 'email') {
+    errorNode.textContent = 'Please enter a valid email address.';
+    errorNode.hidden = false;
+  } else if (error === 'promo') {
+    errorNode.textContent = 'That promo code is invalid, expired, unavailable, or not valid for this email.';
+    errorNode.hidden = false;
+  }
 })();
 </script>
 </body>

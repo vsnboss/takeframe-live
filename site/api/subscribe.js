@@ -4,6 +4,7 @@ const revolut = require('./_lib/revolut');
 const revolutWebhooks = require('./_lib/revolut-webhooks');
 
 const PLAN_NAME = 'TAKEFRAME SUBSCRIPTION';
+const MATCH_PASS_LIST_AMOUNT = 7900;
 const PLAN_CONFIG = {
   annual: { cycle: 'P1Y', amount: 169000 },
   monthly: { cycle: 'P1M', amount: 16900 },
@@ -44,20 +45,14 @@ async function getOrCreateRevolutCustomer(email) {
 }
 
 async function upsertLocalCustomer(email, revolutCustomerId = null) {
-  const row = {
-    email: email.toLowerCase(),
-    status: 'active',
-  };
+  const row = { email: email.toLowerCase(), status: 'active' };
   if (revolutCustomerId) row.revolut_customer_id = revolutCustomerId;
   return db.upsert('customers', row, 'email');
 }
 
 async function provisionEvaluation(email) {
   const customer = await upsertLocalCustomer(email);
-  const existing = await db.selectOne('licenses', {
-    customer_id: customer.id,
-    kind: 'evaluation',
-  });
+  const existing = await db.selectOne('licenses', { customer_id: customer.id, kind: 'evaluation' });
   if (existing) return existing;
 
   const validFrom = new Date();
@@ -129,10 +124,7 @@ async function getOrCreateTakeframePlan() {
       ],
     }),
   });
-
-  if (!isExactTakeframePlan(created)) {
-    throw new Error('Revolut created an unexpected TAKEFRAME subscription plan');
-  }
+  if (!isExactTakeframePlan(created)) throw new Error('Revolut created an unexpected TAKEFRAME subscription plan');
   return created;
 }
 
@@ -174,33 +166,87 @@ async function createSubscriptionCheckout({ planKey, customer, localCustomer, or
   return setupOrder.checkout_url;
 }
 
-async function createMatchPassCheckout({ customer, localCustomer, origin }) {
+function promoRow(value) {
+  return Array.isArray(value) ? value[0] || null : value || null;
+}
+
+async function reservePromotion(code, email) {
+  const normalized = String(code || '').trim().toUpperCase();
+  if (!normalized) return null;
+  try {
+    const reservation = promoRow(await db.rpc('reserve_promotion', {
+      p_code: normalized,
+      p_email: email,
+      p_plan: 'match-pass',
+      p_original_amount_cents: MATCH_PASS_LIST_AMOUNT,
+      p_reservation_key: crypto.randomUUID(),
+    }));
+    if (!reservation || !reservation.redemption_id) throw new Error('Promotion reservation returned no id');
+    return reservation;
+  } catch (error) {
+    const promoError = new Error('promotion_invalid');
+    promoError.code = 'promotion_invalid';
+    promoError.cause = error;
+    throw promoError;
+  }
+}
+
+async function releasePromotion(reservation) {
+  if (!reservation || !reservation.redemption_id) return;
+  try {
+    await db.rpc('release_promotion_reservation', { p_redemption_id: reservation.redemption_id });
+  } catch (error) {
+    console.error('TAKEFRAME promotion release failed', error);
+  }
+}
+
+async function createMatchPassCheckout({ customer, localCustomer, origin, promotion }) {
   const externalReference = `tf-mp-${crypto.randomUUID()}`;
+  const amount = promotion ? Number(promotion.final_amount_cents) : MATCH_PASS_LIST_AMOUNT;
+  const discount = promotion ? Number(promotion.discount_cents) : 0;
+  const promoCode = promotion ? promotion.promotion_code : null;
+
   const order = await revolut.request('/orders', {
     method: 'POST',
     headers: { 'Idempotency-Key': crypto.randomUUID() },
     body: JSON.stringify({
-      amount: 7900,
+      amount,
       currency: 'EUR',
       customer: { id: customer.id },
       merchant_order_data: { reference: externalReference },
       description: 'TAKEFRAME Match Pass',
       redirect_url: `${origin}/welcome?plan=match-pass`,
-      metadata: { product: 'takeframe', plan: 'match-pass' },
+      metadata: {
+        product: 'takeframe',
+        plan: 'match-pass',
+        ...(promoCode ? { promotion_code: promoCode } : {}),
+      },
     }),
   });
 
-  await db.upsert('orders', {
+  const localOrder = await db.upsert('orders', {
     customer_id: localCustomer.id,
     provider: 'revolut',
     provider_order_id: order.id,
     external_reference: externalReference,
     plan: 'match-pass',
-    amount_cents: 7900,
+    amount_cents: amount,
+    list_amount_cents: MATCH_PASS_LIST_AMOUNT,
+    discount_cents: discount,
+    promotion_code: promoCode,
     currency: 'EUR',
     status: order.state || 'pending',
     provider_payload: order,
   }, 'provider_order_id');
+
+  if (promotion) {
+    await db.rpc('bind_promotion_redemption', {
+      p_redemption_id: promotion.redemption_id,
+      p_customer_id: localCustomer.id,
+      p_order_id: localOrder.id,
+      p_provider_order_id: order.id,
+    });
+  }
 
   if (!order.checkout_url) throw new Error('Revolut order response missing checkout_url');
   return order.checkout_url;
@@ -218,10 +264,13 @@ module.exports = async (req, res) => {
     return res.end('Method Not Allowed');
   }
 
+  let promotion = null;
+  let planKey = '';
   try {
     const form = await readForm(req);
-    const planKey = String(form.get('plan') || '').toLowerCase();
+    planKey = String(form.get('plan') || '').toLowerCase();
     const email = String(form.get('email') || '').trim().toLowerCase();
+    const promoCode = String(form.get('promo') || '').trim();
 
     if (!PLAN_CONFIG[planKey] && planKey !== 'match-pass' && planKey !== 'evaluation') {
       return redirect(res, '/pricing?checkout=unknown-plan');
@@ -229,27 +278,33 @@ module.exports = async (req, res) => {
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       return redirect(res, `/subscribe?plan=${encodeURIComponent(planKey)}&error=email`);
     }
+    if (promoCode && planKey !== 'match-pass') {
+      return redirect(res, `/subscribe?plan=${encodeURIComponent(planKey)}&error=promo`);
+    }
 
     if (planKey === 'evaluation') {
       await provisionEvaluation(email);
       return redirect(res, '/welcome?plan=evaluation');
     }
 
-    const origin = originFor(req);
+    if (planKey === 'match-pass' && promoCode) promotion = await reservePromotion(promoCode, email);
 
-    // Paid checkout is not allowed to proceed until the authoritative Revolut
-    // webhook is configured and its signing secret is safely stored in Vault.
+    const origin = originFor(req);
     await revolutWebhooks.ensureWebhook(origin);
 
     const customer = await getOrCreateRevolutCustomer(email);
     const localCustomer = await upsertLocalCustomer(email, customer.id);
 
     const checkoutUrl = planKey === 'match-pass'
-      ? await createMatchPassCheckout({ customer, localCustomer, origin })
+      ? await createMatchPassCheckout({ customer, localCustomer, origin, promotion })
       : await createSubscriptionCheckout({ planKey, customer, localCustomer, origin });
 
     return redirect(res, checkoutUrl);
   } catch (error) {
+    await releasePromotion(promotion);
+    if (error && error.code === 'promotion_invalid') {
+      return redirect(res, `/subscribe?plan=${encodeURIComponent(planKey || 'match-pass')}&error=promo`);
+    }
     console.error('TAKEFRAME commercial checkout error', error);
     return redirect(res, '/pricing?checkout=error');
   }
