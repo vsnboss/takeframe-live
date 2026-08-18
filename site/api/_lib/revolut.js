@@ -5,9 +5,15 @@ function environment() {
   if (value !== 'production' && value !== 'sandbox') {
     throw new Error('REVOLUT_ENV must be explicitly set to production or sandbox');
   }
-  if (process.env.VERCEL_ENV === 'production' && value !== 'production') {
+
+  const vercelEnv = String(process.env.VERCEL_ENV || '').trim().toLowerCase();
+  if (vercelEnv === 'production' && value !== 'production') {
     throw new Error('Refusing to use Revolut Sandbox from a production Vercel deployment');
   }
+  if (vercelEnv === 'preview' && value === 'production') {
+    throw new Error('Refusing to use real Revolut production payments from a Vercel Preview deployment');
+  }
+
   return value;
 }
 
