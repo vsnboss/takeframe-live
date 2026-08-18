@@ -93,18 +93,33 @@ function variationFor(plan, config) {
       phase.currency === 'EUR'));
 }
 
-async function getOrCreateTakeframePlan() {
+function isExactTakeframePlan(plan) {
+  return Boolean(
+    plan &&
+    plan.name === PLAN_NAME &&
+    variationFor(plan, PLAN_CONFIG.monthly) &&
+    variationFor(plan, PLAN_CONFIG.annual)
+  );
+}
+
+async function findExactTakeframePlan() {
   let token = null;
   do {
     const params = new URLSearchParams({ limit: '100' });
     if (token) params.set('page_token', token);
     const page = await revolut.request(`/subscription-plans?${params.toString()}`);
-    const existing = (page.subscription_plans || []).find((item) => item.name === PLAN_NAME);
-    if (existing) return existing;
+    const exact = (page.subscription_plans || []).find(isExactTakeframePlan);
+    if (exact) return exact;
     token = page.next_page_token || null;
   } while (token);
+  return null;
+}
 
-  return revolut.request('/subscription-plans', {
+async function getOrCreateTakeframePlan() {
+  const existing = await findExactTakeframePlan();
+  if (existing) return existing;
+
+  const created = await revolut.request('/subscription-plans', {
     method: 'POST',
     body: JSON.stringify({
       name: PLAN_NAME,
@@ -114,6 +129,11 @@ async function getOrCreateTakeframePlan() {
       ],
     }),
   });
+
+  if (!isExactTakeframePlan(created)) {
+    throw new Error('Revolut created an unexpected TAKEFRAME subscription plan');
+  }
+  return created;
 }
 
 async function createSubscriptionCheckout({ planKey, customer, localCustomer, origin }) {
