@@ -1,12 +1,48 @@
 {
   "artboards": [
-    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 14994, "title": "Homepage — Desktop", "expand": "fill" },
-    { "file": "Mobile.dc.html", "x": 1620, "y": 0, "w": 390, "h": 4706, "title": "Homepage — Mobile", "expand": "fill" }
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 14995,
+      "title": "Homepage — Desktop",
+      "expand": "fill"
+    },
+    {
+      "file": "Mobile.dc.html",
+      "x": 1620,
+      "y": 0,
+      "w": 390,
+      "h": 4706,
+      "title": "Homepage — Mobile",
+      "expand": "fill"
+    }
   ],
   "annotations": [
-    { "id": "placeholders", "x": 2130, "y": 0, "w": 300, "text": "To fill before launch:\n· [SALES EMAIL] and [PHONE NUMBER] in the contact block\n· [SHOWREEL VIDEO] — the match showreel slot under section 01" },
-    { "id": "brandmark", "x": 2130, "y": 260, "w": 300, "text": "The TAKEFRAME mark in the header and footer is drawn as SVG in the spirit of the in-app logo. Swap in the real logo vector when it is to hand." },
-    { "id": "claims", "x": 2130, "y": 520, "w": 300, "text": "Claims held to verified capability only: NDI + OMT, Windows operator app, local-first, provider-READY architecture. No named data provider, no SDI or fill/key, no certification claims." }
+    {
+      "id": "placeholders",
+      "x": 2130,
+      "y": 0,
+      "w": 300,
+      "text": "To fill before launch:\n· [SALES EMAIL] and [PHONE NUMBER] in the contact block\n· [SHOWREEL VIDEO] — the match showreel slot under section 01"
+    },
+    {
+      "id": "brandmark",
+      "x": 2130,
+      "y": 260,
+      "w": 300,
+      "text": "Branding uses the official TAKEFRAME lockup (transparent PNG, cropped and exported to webp). Also supplied and available if wanted: the LIVE-badge lockup, icon-only mark, app icon, circular badge, mono-white and light-background versions."
+    },
+    {
+      "id": "claims",
+      "x": 2130,
+      "y": 520,
+      "w": 300,
+      "text": "Claims held to verified capability only: NDI + OMT, Windows operator app, local-first, provider-READY architecture. No named data provider, no SDI or fill/key, no certification claims."
+    }
   ],
-  "launch": { "view": "canvas" }
+  "launch": {
+    "view": "canvas"
+  }
 }

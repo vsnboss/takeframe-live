@@ -14,21 +14,44 @@ design/
 assets/media/       Original TAKEFRAME product media (source of truth)
 ```
 
-`design/img/*.webp` are derived from `assets/media/`. `match-ready.webp` is
-cropped to 1780px wide to exclude a transient OS colour picker that was open
-when the original screenshot was taken.
+`design/img/*.webp` are derived from `assets/media/` and `assets/logos/`.
+`match-ready.webp` is cropped to 1780px wide to exclude a transient OS colour
+picker that was open when the original screenshot was taken.
+`takeframe-lockup.webp` is the official horizontal lockup, tight-cropped to its
+alpha bounds and exported at 640px wide.
+
+## Logo assets
+
+`assets/logos/` holds the supplied originals (transparent PNG unless noted):
+
+| File | Use |
+| --- | --- |
+| `lockup.png` | Horizontal lockup — **used in the header and footer** |
+| `lockup-live.png` / `lockup-live-alt.png` / `lockup-live-wide.png` | Lockup with the red LIVE badge |
+| `mark.png` | Icon only — arrow and frame |
+| `app-icon.png` | Rounded-square app icon |
+| `badge-circular.png` | Circular badge |
+| `lockup-mono-white.png` | Mono white, for busy or single-colour backgrounds |
+| `lockup-on-light.png` | Navy wordmark for light backgrounds (opaque) |
+| `lockup-stacked.png`, `lockup-presentation.png` | Presentation renders |
+
+The site uses the plain **TAKEFRAME** lockup rather than the LIVE variant,
+because the product brief names the product TAKEFRAME.
 
 ## Design system
 
 Taken from the shipping TAKEFRAME Control UI rather than invented:
 
+Surfaces come from the shipping Control UI; the accent colours are sampled
+from the official logo files in `assets/logos/`.
+
 | Token | Value | Use |
 | --- | --- | --- |
 | background | `#04070B` / `#06090E` | Page and alternating bands |
 | panel | `#080C12` | Cards, tables, chain steps |
-| mint | `#3EE9A8` | Product accent, canonical/approved state |
-| take | `#2F9BF5` | TAKE and preview actions |
-| on air | `#E8123F` | PROGRAM, OUT, ARMED |
+| brand | `#00B0F0` | Accent, canonical/approved state — logo arrow core |
+| take | `#0080E0` | TAKE — logo arrow deep facet |
+| on air | `#E4001B` | PROGRAM, OUT, ARMED — logo corner tick / LIVE badge |
 | amber | `#F0A81E` | NEEDS REVIEW |
 
 Type: **Saira Condensed** (display), **IBM Plex Sans** (body), **IBM Plex Mono**
@@ -61,5 +84,5 @@ node <skill>/seed-canvas.mjs \
 
 - `[SALES EMAIL]` and `[PHONE NUMBER]` in the contact block
 - `[SHOWREEL VIDEO]` — the match showreel slot under section 01
-- The real TAKEFRAME logo vector (header/footer currently use an SVG drawn in
-  the spirit of the in-app mark)
+- A vector (SVG/EPS) of the lockup would beat the supplied PNGs for crispness
+  at large sizes and for print
