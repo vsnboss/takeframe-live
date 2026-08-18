@@ -303,6 +303,9 @@ async function activateMatchPass({ passKey, matchId, deviceId, deviceName }) {
   }
 
   if (!pass || !pass.id) throw new Error('Atomic Match Pass activation returned no pass');
+  if (pass.status === 'expired') {
+    throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
+  }
   const device = await ensureMatchPassDevice(pass, { deviceId, deviceName });
   const entitlement = await issueMatchPassEntitlement(pass, device);
   await db.insert('audit_events', {
