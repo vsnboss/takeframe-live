@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Continue to checkout — TAKEFRAME</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#04070B">
+<link rel="icon" href="/assets/favicon.png" sizes="256x256">
+<link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="hdr"><div class="wrap"><div class="hdr-in">
+<a class="brand" href="/" aria-label="TAKEFRAME home"><img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME"><span class="brand-sub">FOOTBALL<br>GRAPHICS OS</span></a>
+<div class="hdr-act"><a class="btn btn-s btn-hdr" href="/pricing">BACK TO PRICING</a></div>
+</div></div></header>
+<main>
+<section class="sec" style="border-bottom:none"><div class="wrap" style="max-width:760px">
+<p class="eyebrow"><span class="num">—</span><span class="elabel">SECURE CHECKOUT</span><i class="erule" aria-hidden="true"></i></p>
+<h1 class="disp" style="font-size:clamp(38px,5vw,64px)">One detail before Revolut.</h1>
+<p class="lead" style="margin-top:18px">Enter the email address for your TAKEFRAME account. Revolut will securely collect your payment details on the next screen.</p>
+<form method="post" action="/api/subscribe" style="margin-top:36px;display:flex;flex-direction:column;gap:16px">
+<input type="hidden" name="plan" id="plan" value="">
+<label class="elabel" for="email">ACCOUNT EMAIL</label>
+<input id="email" name="email" type="email" autocomplete="email" required placeholder="name@company.com" style="height:52px;padding:0 16px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit">
+<button class="btn btn-p btn-lg" type="submit" style="align-self:flex-start">CONTINUE TO REVOLUT</button>
+<p class="note" id="plan-note"></p>
+<p class="note" id="error" hidden>Please enter a valid email address.</p>
+</form>
+</div></section>
+</main>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var plan = params.get('plan');
+  if (plan !== 'annual' && plan !== 'monthly') { location.replace('/pricing?checkout=unknown-plan'); return; }
+  document.getElementById('plan').value = plan;
+  document.getElementById('plan-note').textContent = plan === 'annual' ? 'TAKEFRAME Annual — €1,690/year.' : 'TAKEFRAME Monthly — €169/month.';
+  if (params.get('error') === 'email') document.getElementById('error').hidden = false;
+})();
+</script>
+</body>
+</html>
