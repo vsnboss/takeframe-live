@@ -1,90 +1,85 @@
-/**
- * Creates a Lemon Squeezy checkout server-side and redirects the buyer to it.
- *
- * The browser only ever sends a plan slug. Store and variant identifiers, and
- * the API key, stay on the server — nothing commercial is exposed client-side.
- *
- * Environment:
- *   LEMONSQUEEZY_API_KEY            (secret)
- *   LEMONSQUEEZY_STORE_ID
- *   LEMONSQUEEZY_VARIANT_ANNUAL
- *   LEMONSQUEEZY_VARIANT_MONTHLY
- *   LEMONSQUEEZY_VARIANT_MATCH_PASS
- *   LEMONSQUEEZY_VARIANT_EVALUATION
- */
+const crypto = require('crypto');
 
-const PLANS = {
-  'annual':     { env: 'LEMONSQUEEZY_VARIANT_ANNUAL' },
-  'monthly':    { env: 'LEMONSQUEEZY_VARIANT_MONTHLY' },
-  'match-pass': { env: 'LEMONSQUEEZY_VARIANT_MATCH_PASS' },
-  'evaluation': { env: 'LEMONSQUEEZY_VARIANT_EVALUATION' },
-};
+const API_VERSION = '2026-03-12';
+const PLANS = new Set(['annual', 'monthly', 'match-pass', 'evaluation']);
+
+function revolutBaseUrl() {
+  return process.env.REVOLUT_ENV === 'sandbox'
+    ? 'https://sandbox-merchant.revolut.com/api'
+    : 'https://merchant.revolut.com/api';
+}
+
+function originFor(req) {
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  return `${proto}://${host}`;
+}
+
+function redirect(res, location) {
+  res.writeHead(302, { Location: location, 'Cache-Control': 'no-store' });
+  return res.end();
+}
+
+async function createMatchPassOrder(secret, origin) {
+  const idempotencyKey = crypto.randomUUID();
+  const response = await fetch(`${revolutBaseUrl()}/orders`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${secret}`,
+      'Content-Type': 'application/json',
+      'Revolut-Api-Version': API_VERSION,
+      'Idempotency-Key': idempotencyKey,
+    },
+    body: JSON.stringify({
+      amount: 7900,
+      currency: 'EUR',
+      description: 'TAKEFRAME Match Pass',
+      redirect_url: `${origin}/welcome?plan=match-pass`,
+      metadata: {
+        product: 'takeframe',
+        plan: 'match-pass',
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Revolut order creation failed (${response.status}): ${body.slice(0, 500)}`);
+  }
+
+  const order = await response.json();
+  if (!order.checkout_url) throw new Error('Revolut order response did not contain checkout_url');
+  return order.checkout_url;
+}
 
 module.exports = async (req, res) => {
+  if (req.method !== 'GET') {
+    res.statusCode = 405;
+    return res.end('Method Not Allowed');
+  }
+
   const plan = String((req.query && req.query.plan) || '').toLowerCase();
+  if (!PLANS.has(plan)) return redirect(res, '/pricing?checkout=unknown-plan');
 
-  // allowlist only — never pass user input through to the commerce API
-  if (!Object.prototype.hasOwnProperty.call(PLANS, plan)) {
-    res.writeHead(302, { Location: '/pricing?checkout=unknown-plan' });
-    return res.end();
+  // Evaluation is intentionally not a payment flow. WP6 will provision the
+  // TAKEFRAME account and seven-day evaluation licence before redirecting.
+  if (plan === 'evaluation') return redirect(res, '/pricing?checkout=evaluation-pending');
+
+  // Recurring plans require a Revolut customer and subscription. Keep the
+  // public /api/checkout?plan=... contract, then collect account identity on a
+  // dedicated hand-off page without changing the frozen pricing page.
+  if (plan === 'annual' || plan === 'monthly') {
+    return redirect(res, `/subscribe?plan=${encodeURIComponent(plan)}`);
   }
 
-  const apiKey  = process.env.LEMONSQUEEZY_API_KEY;
-  const storeId = process.env.LEMONSQUEEZY_STORE_ID;
-  const variant = process.env[PLANS[plan].env];
-
-  if (!apiKey || !storeId || !variant) {
-    res.writeHead(302, { Location: '/pricing?checkout=unavailable' });
-    return res.end();
-  }
-
-  const origin = `https://${req.headers['x-forwarded-host'] || req.headers.host}`;
+  const secret = process.env.REVOLUT_SECRET_KEY;
+  if (!secret) return redirect(res, '/pricing?checkout=unavailable');
 
   try {
-    const r = await fetch('https://api.lemonsqueezy.com/v1/checkouts', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/vnd.api+json',
-        'Content-Type': 'application/vnd.api+json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        data: {
-          type: 'checkouts',
-          attributes: {
-            checkout_data: { custom: { plan } },
-            product_options: {
-              redirect_url: `${origin}/welcome?plan=${encodeURIComponent(plan)}`,
-              enabled_variants: [Number(variant)],
-            },
-            checkout_options: { embed: false, dark: true },
-          },
-          relationships: {
-            store:   { data: { type: 'stores',   id: String(storeId) } },
-            variant: { data: { type: 'variants', id: String(variant) } },
-          },
-        },
-      }),
-    });
-
-    if (!r.ok) {
-      console.error('lemonsqueezy checkout failed', r.status, await r.text());
-      res.writeHead(302, { Location: '/pricing?checkout=error' });
-      return res.end();
-    }
-
-    const json = await r.json();
-    const url = json && json.data && json.data.attributes && json.data.attributes.url;
-    if (!url) {
-      res.writeHead(302, { Location: '/pricing?checkout=error' });
-      return res.end();
-    }
-
-    res.writeHead(302, { Location: url, 'Cache-Control': 'no-store' });
-    return res.end();
-  } catch (err) {
-    console.error('checkout error', err);
-    res.writeHead(302, { Location: '/pricing?checkout=error' });
-    return res.end();
+    const checkoutUrl = await createMatchPassOrder(secret, originFor(req));
+    return redirect(res, checkoutUrl);
+  } catch (error) {
+    console.error('revolut checkout error', error);
+    return redirect(res, '/pricing?checkout=error');
   }
 };
