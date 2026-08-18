@@ -26,11 +26,16 @@ function minIso(...values) {
   return new Date(Math.min(...valid.map((date) => date.getTime()))).toISOString();
 }
 
-function entitlementPayload({ license, device, matchId = null, now = new Date() }) {
-  const issuedAt = now.toISOString();
+function signedWindow(validUntil, now = new Date()) {
   const requestedOfflineUntil = new Date(now.getTime() + offlineHours() * 60 * 60 * 1000).toISOString();
-  const offlineUntil = minIso(requestedOfflineUntil, license.valid_until) || requestedOfflineUntil;
+  return {
+    issuedAt: now.toISOString(),
+    offlineUntil: minIso(requestedOfflineUntil, validUntil) || requestedOfflineUntil,
+  };
+}
 
+function licenseEntitlementPayload({ license, device, matchId = null, now = new Date() }) {
+  const window = signedWindow(license.valid_until, now);
   return {
     version: 1,
     product: 'takeframe',
@@ -42,9 +47,29 @@ function entitlementPayload({ license, device, matchId = null, now = new Date() 
     cleanOutput: Boolean(license.clean_output),
     watermarkMode: license.watermark_mode,
     matchId,
-    issuedAt,
+    issuedAt: window.issuedAt,
     validUntil: license.valid_until,
-    offlineUntil,
+    offlineUntil: window.offlineUntil,
+    keyId: signingConfig().keyId,
+  };
+}
+
+function matchPassEntitlementPayload({ pass, device, now = new Date() }) {
+  const window = signedWindow(pass.expires_at, now);
+  return {
+    version: 1,
+    product: 'takeframe',
+    licenseId: pass.id,
+    plan: 'match-pass',
+    deviceId: device.device_id,
+    maxDevices: 2,
+    maxConcurrentProductions: 1,
+    cleanOutput: true,
+    watermarkMode: 'none',
+    matchId: pass.match_id,
+    issuedAt: window.issuedAt,
+    validUntil: pass.expires_at,
+    offlineUntil: window.offlineUntil,
     keyId: signingConfig().keyId,
   };
 }
@@ -54,7 +79,7 @@ function signPayload(payload) {
   if (payload.keyId !== keyId) throw new Error('Entitlement key id mismatch');
   const serialized = JSON.stringify(payload);
   const signature = crypto.sign(null, Buffer.from(serialized, 'utf8'), privateKey).toString('base64url');
-  return { payload, signature, serialized };
+  return { payload, signature };
 }
 
 function assertLicenseAuthority(license) {
@@ -77,6 +102,16 @@ async function licenseByKey(licenseKey) {
   return license;
 }
 
+async function matchPassByKey(passKey) {
+  const key = String(passKey || '').trim().toUpperCase();
+  if (!/^TFM-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/.test(key)) {
+    throw httpError(401, 'invalid_match_pass_key', 'Invalid TAKEFRAME Match Pass key');
+  }
+  const pass = await db.selectOne('match_passes', { pass_key: key });
+  if (!pass) throw httpError(404, 'match_pass_not_found', 'TAKEFRAME Match Pass not found');
+  return pass;
+}
+
 function validateDeviceId(value) {
   const deviceId = String(value || '').trim();
   if (deviceId.length < 8 || deviceId.length > 256) {
@@ -85,10 +120,18 @@ function validateDeviceId(value) {
   return deviceId;
 }
 
-async function activeDevices(licenseId) {
+function validateMatchId(value) {
+  const matchId = String(value || '').trim();
+  if (matchId.length < 4 || matchId.length > 256) {
+    throw httpError(400, 'invalid_match_id', 'matchId must be between 4 and 256 characters');
+  }
+  return matchId;
+}
+
+async function activeDevicesFor(field, authorityId) {
   const params = new URLSearchParams({
     select: '*',
-    license_id: `eq.${licenseId}`,
+    [field]: `eq.${authorityId}`,
     deactivated_at: 'is.null',
     limit: '100',
   });
@@ -96,10 +139,10 @@ async function activeDevices(licenseId) {
   return Array.isArray(rows) ? rows : [];
 }
 
-async function ensureDevice(license, { deviceId, deviceName }) {
+async function ensureAuthorityDevice({ field, authorityId, maxDevices, deviceId, deviceName }) {
   const normalizedId = validateDeviceId(deviceId);
   const existing = await db.selectOne('devices', {
-    license_id: license.id,
+    [field]: authorityId,
     device_id: normalizedId,
   });
 
@@ -111,12 +154,11 @@ async function ensureDevice(license, { deviceId, deviceName }) {
     return updated[0] || existing;
   }
 
-  const active = await activeDevices(license.id);
-  if (active.length >= license.max_devices) {
-    throw httpError(409, 'device_limit_reached', `This licence allows ${license.max_devices} registered devices`);
+  const active = await activeDevicesFor(field, authorityId);
+  if (active.length >= maxDevices) {
+    throw httpError(409, 'device_limit_reached', `This entitlement allows ${maxDevices} registered devices`);
   }
 
-  // A previously deactivated identity is reactivated rather than duplicated.
   if (existing) {
     const rows = await db.patch('devices', { id: existing.id }, {
       device_name: deviceName || existing.device_name || null,
@@ -127,7 +169,7 @@ async function ensureDevice(license, { deviceId, deviceName }) {
   }
 
   return db.insert('devices', {
-    license_id: license.id,
+    [field]: authorityId,
     device_id: normalizedId,
     device_name: deviceName || null,
     platform: 'windows',
@@ -135,9 +177,21 @@ async function ensureDevice(license, { deviceId, deviceName }) {
   });
 }
 
-async function issueEntitlement(license, device, matchId = null) {
+async function ensureLicenseDevice(license, input) {
+  return ensureAuthorityDevice({
+    field: 'license_id', authorityId: license.id, maxDevices: license.max_devices, ...input,
+  });
+}
+
+async function ensureMatchPassDevice(pass, input) {
+  return ensureAuthorityDevice({
+    field: 'match_pass_id', authorityId: pass.id, maxDevices: 2, ...input,
+  });
+}
+
+async function issueLicenseEntitlement(license, device, matchId = null) {
   assertLicenseAuthority(license);
-  const signed = signPayload(entitlementPayload({ license, device, matchId }));
+  const signed = signPayload(licenseEntitlementPayload({ license, device, matchId }));
   await db.insert('entitlements', {
     license_id: license.id,
     device_id: device.id,
@@ -149,13 +203,36 @@ async function issueEntitlement(license, device, matchId = null) {
     offline_until: signed.payload.offlineUntil,
   });
   await db.patch('devices', { id: device.id }, { last_seen_at: new Date().toISOString() });
-  return { payload: signed.payload, signature: signed.signature };
+  return signed;
+}
+
+async function issueMatchPassEntitlement(pass, device) {
+  if (pass.status !== 'activated') {
+    throw httpError(403, 'match_pass_inactive', 'Match Pass is not activated');
+  }
+  if (!pass.expires_at || Date.parse(pass.expires_at) <= Date.now()) {
+    await db.patch('match_passes', { id: pass.id }, { status: 'expired' });
+    throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
+  }
+  const signed = signPayload(matchPassEntitlementPayload({ pass, device }));
+  await db.insert('entitlements', {
+    match_pass_id: pass.id,
+    device_id: device.id,
+    key_id: signed.payload.keyId,
+    payload: signed.payload,
+    signature: signed.signature,
+    issued_at: signed.payload.issuedAt,
+    valid_until: signed.payload.validUntil,
+    offline_until: signed.payload.offlineUntil,
+  });
+  await db.patch('devices', { id: device.id }, { last_seen_at: new Date().toISOString() });
+  return signed;
 }
 
 async function activateLicense({ licenseKey, deviceId, deviceName }) {
   const license = await licenseByKey(licenseKey);
-  const device = await ensureDevice(license, { deviceId, deviceName });
-  const entitlement = await issueEntitlement(license, device);
+  const device = await ensureLicenseDevice(license, { deviceId, deviceName });
+  const entitlement = await issueLicenseEntitlement(license, device);
   await db.insert('audit_events', {
     actor_type: 'device', actor_id: device.device_id,
     action: 'license.activated', entity_type: 'license', entity_id: license.id,
@@ -171,7 +248,7 @@ async function refreshLicense({ licenseKey, deviceId }) {
   if (!device || device.deactivated_at) {
     throw httpError(403, 'device_not_registered', 'This device is not registered for the licence');
   }
-  return { license, device, entitlement: await issueEntitlement(license, device) };
+  return { license, device, entitlement: await issueLicenseEntitlement(license, device) };
 }
 
 async function deactivateLicense({ licenseKey, deviceId }) {
@@ -194,7 +271,7 @@ async function licenseStatus({ licenseKey, deviceId }) {
   if (deviceId) {
     device = await db.selectOne('devices', { license_id: license.id, device_id: validateDeviceId(deviceId) });
   }
-  const devices = await activeDevices(license.id);
+  const devices = await activeDevicesFor('license_id', license.id);
   return {
     licenseId: license.id,
     plan: license.plan,
@@ -207,11 +284,76 @@ async function licenseStatus({ licenseKey, deviceId }) {
   };
 }
 
+async function activateMatchPass({ passKey, matchId, deviceId, deviceName }) {
+  let pass = await matchPassByKey(passKey);
+  const canonicalMatchId = validateMatchId(matchId);
+  const now = new Date();
+
+  if (pass.status === 'unused') {
+    const expiresAt = new Date(now.getTime() + 72 * 60 * 60 * 1000).toISOString();
+    const rows = await db.patch('match_passes', { id: pass.id }, {
+      status: 'activated',
+      match_id: canonicalMatchId,
+      activated_at: now.toISOString(),
+      expires_at: expiresAt,
+    });
+    pass = rows[0];
+  } else if (pass.status === 'activated') {
+    if (pass.match_id !== canonicalMatchId) {
+      throw httpError(409, 'match_pass_locked', 'Match Pass is already bound to another match');
+    }
+  } else {
+    throw httpError(403, 'match_pass_inactive', `Match Pass is ${pass.status}`);
+  }
+
+  if (!pass || Date.parse(pass.expires_at) <= Date.now()) {
+    if (pass) await db.patch('match_passes', { id: pass.id }, { status: 'expired' });
+    throw httpError(403, 'match_pass_expired', 'Match Pass has expired');
+  }
+
+  const device = await ensureMatchPassDevice(pass, { deviceId, deviceName });
+  const entitlement = await issueMatchPassEntitlement(pass, device);
+  await db.insert('audit_events', {
+    actor_type: 'device', actor_id: device.device_id,
+    action: 'match_pass.activated', entity_type: 'match_pass', entity_id: pass.id,
+    data: { match_id: canonicalMatchId, expires_at: pass.expires_at, device_record_id: device.id },
+  });
+  return { pass, device, entitlement };
+}
+
+async function authorityFromKey(key, deviceId) {
+  const value = String(key || '').trim().toUpperCase();
+  const normalizedDeviceId = validateDeviceId(deviceId);
+
+  if (value.startsWith('TFM-')) {
+    const pass = await matchPassByKey(value);
+    if (pass.status !== 'activated' || !pass.expires_at || Date.parse(pass.expires_at) <= Date.now()) {
+      throw httpError(403, 'match_pass_inactive', 'Match Pass is not active');
+    }
+    const device = await db.selectOne('devices', { match_pass_id: pass.id, device_id: normalizedDeviceId });
+    if (!device || device.deactivated_at) throw httpError(403, 'device_not_registered', 'Device is not registered');
+    return { type: 'match-pass', pass, device, maxConcurrentProductions: 1, matchId: pass.match_id };
+  }
+
+  const license = await licenseByKey(value);
+  const device = await db.selectOne('devices', { license_id: license.id, device_id: normalizedDeviceId });
+  if (!device || device.deactivated_at) throw httpError(403, 'device_not_registered', 'Device is not registered');
+  return {
+    type: 'license', license, device,
+    maxConcurrentProductions: license.max_concurrent_productions,
+    matchId: null,
+  };
+}
+
 module.exports = {
   activateLicense,
+  activateMatchPass,
+  authorityFromKey,
   deactivateLicense,
-  issueEntitlement,
+  issueLicenseEntitlement,
+  issueMatchPassEntitlement,
   licenseByKey,
   licenseStatus,
+  matchPassByKey,
   refreshLicense,
 };
