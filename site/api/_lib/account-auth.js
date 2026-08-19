@@ -86,23 +86,17 @@ async function customerForEmail(email) {
   return db.selectOne('customers', { email: normalizeEmail(email) });
 }
 
-async function requestOtp(emailValue) {
+async function requestOtpSession(emailValue) {
   const email = normalizeEmail(emailValue);
-  const customer = await customerForEmail(email);
-  // Do not disclose whether an address has a TAKEFRAME account.
-  if (!customer) return { accepted: true };
-
   await authRequest('/otp', {
     method: 'POST',
     body: { email, create_user: true },
   });
-  return { accepted: true };
+  return { accepted: true, email };
 }
 
-async function verifyOtp(emailValue, tokenValue, res) {
+async function verifyOtpSession(emailValue, tokenValue, res) {
   const email = normalizeEmail(emailValue);
-  const customer = await customerForEmail(email);
-  if (!customer) throw httpError(401, 'invalid_login', 'Invalid or expired login code');
   const token = String(tokenValue || '').trim();
   if (!/^\d{6}$/.test(token)) throw httpError(400, 'invalid_code', 'Enter the six-digit login code');
 
@@ -119,6 +113,23 @@ async function verifyOtp(emailValue, tokenValue, res) {
     throw new Error('Supabase Auth returned no session');
   }
   setSessionCookies(res, session);
+  return { email, session };
+}
+
+async function requestOtp(emailValue) {
+  const email = normalizeEmail(emailValue);
+  const customer = await customerForEmail(email);
+  // Do not disclose whether an address has a TAKEFRAME account.
+  if (!customer) return { accepted: true };
+  await requestOtpSession(email);
+  return { accepted: true };
+}
+
+async function verifyOtp(emailValue, tokenValue, res) {
+  const email = normalizeEmail(emailValue);
+  const customer = await customerForEmail(email);
+  if (!customer) throw httpError(401, 'invalid_login', 'Invalid or expired login code');
+  await verifyOtpSession(email, tokenValue, res);
   return { email, customerId: customer.id };
 }
 
@@ -131,7 +142,7 @@ async function userForAccessToken(accessToken) {
   }
 }
 
-async function currentAccount(req, res) {
+async function currentUser(req, res) {
   const cookies = parseCookies(req);
   let accessToken = cookies[ACCESS_COOKIE];
   let user = await userForAccessToken(accessToken);
@@ -152,7 +163,13 @@ async function currentAccount(req, res) {
     }
   }
 
-  const email = user && String(user.email || '').trim().toLowerCase();
+  if (!user) throw httpError(401, 'not_authenticated', 'Sign in to TAKEFRAME');
+  return user;
+}
+
+async function currentAccount(req, res) {
+  const user = await currentUser(req, res);
+  const email = String(user.email || '').trim().toLowerCase();
   if (!email) throw httpError(401, 'not_authenticated', 'Sign in to My TAKEFRAME');
   const customer = await customerForEmail(email);
   if (!customer) throw httpError(403, 'account_not_found', 'No TAKEFRAME commercial account is linked to this email');
@@ -162,8 +179,11 @@ async function currentAccount(req, res) {
 module.exports = {
   clearSessionCookies,
   currentAccount,
+  currentUser,
   normalizeEmail,
   requestOtp,
+  requestOtpSession,
   setSessionCookies,
   verifyOtp,
+  verifyOtpSession,
 };
