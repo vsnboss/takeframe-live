@@ -33,4 +33,15 @@ async function currentAdmin(req, res) {
   return { user, admin };
 }
 
-module.exports = { adminForEmail, currentAdmin, requestOtp, verifyOtp };
+function requireSameOrigin(req) {
+  const origin = String(req.headers.origin || '').trim();
+  if (!origin) throw httpError(403, 'origin_required', 'Same-origin request required');
+  let parsed;
+  try { parsed = new URL(origin); } catch { throw httpError(403, 'invalid_origin', 'Invalid request origin'); }
+  const host = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase();
+  if (!host || parsed.host.toLowerCase() !== host) {
+    throw httpError(403, 'invalid_origin', 'Cross-origin request rejected');
+  }
+}
+
+module.exports = { adminForEmail, currentAdmin, requestOtp, requireSameOrigin, verifyOtp };
