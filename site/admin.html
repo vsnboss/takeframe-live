@@ -14,7 +14,7 @@
 </style>
 </head>
 <body>
-<div id="login" class="login hidden">
+<div id="login" class="login">
   <img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME" style="width:190px;height:auto;margin-bottom:24px">
   <h1>Commerce Admin</h1>
   <p>Restricted TAKEFRAME commercial operations.</p>
@@ -76,7 +76,7 @@
     $('view-promotions').innerHTML=form+table('Promotions','All promotion definitions and redemption usage.',['CODE','STATE','FINAL','EMAIL','USED / MAX','EXPIRES','ACTION'],rows)+table('Redemptions','Reserved, completed and released promotion uses.',['DATE','CODE','BUYER','STATE','LIST','DISCOUNT','FINAL','ORDER'],(d.redemptions||[]).map(function(r){return '<tr><td>'+date(r.created_at)+'</td><td class="mono">'+esc(r.code)+'</td><td>'+esc(r.email)+'</td><td>'+pill(r.status)+'</td><td>'+money(r.original_amount_cents)+'</td><td>'+money(r.discount_cents)+'</td><td>'+money(r.final_amount_cents)+'</td><td class="mono">'+esc(r.provider_order_id||'—')+'</td></tr>'));
     $('promo-form').addEventListener('submit',createPromotion);Array.prototype.forEach.call(document.querySelectorAll('.promo-toggle'),function(b){b.addEventListener('click',togglePromotion)});
   }
-  async function load(){try{state.data=await api('/api/admin/snapshot');$('login').classList.add('hidden');$('app').classList.remove('hidden');render()}catch(e){if(e.status===401||e.status===403){$('app').classList.add('hidden');$('login').classList.remove('hidden')}else{alert(e.message)}}}
+  async function load(){try{state.data=await api('/api/admin/snapshot');$('login').classList.add('hidden');$('app').classList.remove('hidden');$('login-error').textContent='';render()}catch(e){$('app').classList.add('hidden');$('login').classList.remove('hidden');if(e.status!==401&&e.status!==403){$('login-error').textContent='Admin service unavailable: '+e.message}}}
   async function createPromotion(e){e.preventDefault();var f=new FormData(e.target),price=Math.round(Number(f.get('price'))*100);var msg=$('promo-message');msg.textContent='Creating…';try{await api('/api/admin/create-promotion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:f.get('code'),final_price_cents:price,max_redemptions:Number(f.get('max')),max_redemptions_per_email:Number(f.get('per')),allowed_email:f.get('email'),expires_at:f.get('expires')?new Date(f.get('expires')).toISOString():null,description:f.get('description')})});msg.textContent='Created.';await load()}catch(x){msg.textContent=x.message}}
   async function togglePromotion(e){var b=e.currentTarget;b.disabled=true;try{await api('/api/admin/set-promotion-active',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:b.dataset.id,active:b.dataset.active==='true'})});await load()}catch(x){alert(x.message);b.disabled=false}}
   $('email-form').addEventListener('submit',async function(e){e.preventDefault();state.email=$('email').value.trim();$('login-error').textContent='';try{await api('/api/admin/request-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:state.email})});$('email-form').classList.add('hidden');$('code-form').classList.remove('hidden');$('code').focus()}catch(x){$('login-error').textContent=x.message}});
