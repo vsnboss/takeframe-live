@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#04070B">
+<title>Commerce Admin — TAKEFRAME</title>
+<link rel="icon" href="/assets/favicon.png" sizes="256x256">
+<link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.admin-shell{max-width:1440px;margin:0 auto;padding:36px 24px 80px}.admin-top{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:34px}.admin-brand{display:flex;align-items:center;gap:18px}.admin-brand img{width:190px;height:auto}.admin-tag{font:600 11px/1.1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--muted);border-left:1px solid var(--line);padding-left:18px}.admin-actions{display:flex;gap:10px;align-items:center}.admin-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}.stat,.panel{background:var(--panel);border:1px solid var(--line)}.stat{padding:18px}.stat-k{font:600 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--muted)}.stat-v{font:700 clamp(26px,3vw,42px)/1 'Saira Condensed',sans-serif;margin-top:8px}.panel{padding:20px;margin-top:14px}.panel-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}.panel-title{font:700 24px/1 'Saira Condensed',sans-serif}.panel-note{font-size:12px;color:var(--muted);margin-top:5px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:9px 12px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.08em;cursor:pointer}.tab.active{color:var(--ink);border-color:var(--brand)}.view{display:none}.view.active{display:block}.table-wrap{overflow:auto}.data{width:100%;border-collapse:collapse;min-width:760px}.data th,.data td{text-align:left;border-bottom:1px solid var(--line);padding:11px 9px;font-size:12px;vertical-align:top}.data th{font:600 10px/1.2 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--muted)}.mono{font-family:'IBM Plex Mono',monospace;font-size:11px}.pill{display:inline-block;padding:4px 7px;border:1px solid var(--line);font:600 10px/1 'IBM Plex Mono',monospace;text-transform:uppercase}.pill.active,.pill.completed,.pill.unused{border-color:var(--brand);color:var(--brand)}.pill.failed,.pill.cancelled,.pill.expired,.pill.suspended{border-color:#7d2d35;color:#ef7b86}.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field label{font:600 10px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;color:var(--muted)}.field input{height:46px;padding:0 12px;background:#05090f;border:1px solid var(--line);color:var(--ink);font:inherit}.field-wide{grid-column:span 3}.empty{padding:18px 0;color:var(--muted);font-size:13px}.login{max-width:520px;margin:10vh auto 0;background:var(--panel);border:1px solid var(--line);padding:28px}.login h1{font:700 42px/1 'Saira Condensed',sans-serif}.login p{color:var(--muted);margin:10px 0 22px}.login input{width:100%;height:50px;padding:0 14px;background:#05090f;border:1px solid var(--line);color:var(--ink);font:inherit;margin:7px 0 12px}.login .btn{width:100%;justify-content:center}.error{color:#ef7b86;font-size:12px;margin-top:10px}.hidden{display:none!important}@media(max-width:900px){.admin-grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.field-wide{grid-column:auto}.admin-top{align-items:flex-start;flex-direction:column}}@media(max-width:520px){.admin-grid{grid-template-columns:1fr}.admin-shell{padding:24px 14px 60px}.admin-brand img{width:160px}}
+</style>
+</head>
+<body>
+<div id="login" class="login hidden">
+  <img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME" style="width:190px;height:auto;margin-bottom:24px">
+  <h1>Commerce Admin</h1>
+  <p>Restricted TAKEFRAME commercial operations.</p>
+  <form id="email-form">
+    <label class="elabel" for="email">ADMIN EMAIL</label>
+    <input id="email" type="email" autocomplete="email" required>
+    <button class="btn btn-p" type="submit">SEND LOGIN CODE</button>
+  </form>
+  <form id="code-form" class="hidden">
+    <label class="elabel" for="code">SIX-DIGIT CODE</label>
+    <input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+    <button class="btn btn-p" type="submit">SIGN IN</button>
+  </form>
+  <div id="login-error" class="error"></div>
+</div>
+
+<main id="app" class="admin-shell hidden">
+  <div class="admin-top">
+    <div class="admin-brand"><img src="/assets/lockup-400.webp" width="400" height="73" alt="TAKEFRAME"><div class="admin-tag">COMMERCE<br>CONTROL</div></div>
+    <div class="admin-actions"><span id="admin-email" class="mono"></span><button id="refresh" class="btn btn-s">REFRESH</button><button id="logout" class="btn btn-s">LOG OUT</button></div>
+  </div>
+  <p class="eyebrow"><span class="num">—</span><span class="elabel">COMMERCIAL SOURCE OF TRUTH</span><i class="erule"></i></p>
+  <h1 class="disp" style="font-size:clamp(42px,6vw,76px)">Commerce Control</h1>
+  <p class="lead">Read-only payment and entitlement visibility, with controlled promotion management. Payment authority remains with verified Revolut state.</p>
+
+  <div id="stats" class="admin-grid"></div>
+  <div class="tabs">
+    <button class="tab active" data-view="orders">ORDERS</button><button class="tab" data-view="customers">BUYERS</button><button class="tab" data-view="subscriptions">SUBSCRIPTIONS</button><button class="tab" data-view="licenses">LICENCES</button><button class="tab" data-view="passes">MATCH PASSES</button><button class="tab" data-view="promotions">PROMOTIONS</button>
+  </div>
+
+  <section id="view-orders" class="view active"></section>
+  <section id="view-customers" class="view"></section>
+  <section id="view-subscriptions" class="view"></section>
+  <section id="view-licenses" class="view"></section>
+  <section id="view-passes" class="view"></section>
+  <section id="view-promotions" class="view"></section>
+</main>
+
+<script>
+(function(){
+  var state={email:'',data:null};
+  var $=function(id){return document.getElementById(id)};
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function money(c){return '€'+((Number(c)||0)/100).toLocaleString('en-IE',{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function date(v){if(!v)return '—';var d=new Date(v);return isNaN(d)?'—':d.toLocaleString()}
+  function pill(v){return '<span class="pill '+esc(String(v||''))+'">'+esc(v||'—')+'</span>'}
+  async function api(path,opts){var r=await fetch(path,Object.assign({credentials:'same-origin'},opts||{}));var j={};try{j=await r.json()}catch(e){}if(!r.ok){var x=new Error(j.message||j.error||('HTTP '+r.status));x.status=r.status;throw x}return j}
+  function table(title,note,headers,rows){return '<div class="panel"><div class="panel-head"><div><div class="panel-title">'+esc(title)+'</div><div class="panel-note">'+esc(note||'')+'</div></div></div>'+(rows.length?'<div class="table-wrap"><table class="data"><thead><tr>'+headers.map(function(h){return '<th>'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>':'<div class="empty">No records yet.</div>')+'</div>'}
+  function render(){var d=state.data,c=d.counts||{};$('admin-email').textContent=d.admin.email;$('stats').innerHTML=[['BUYERS',c.customers],['COMPLETED REVENUE',money(c.revenue_cents)],['ORDERS',c.orders],['ACTIVE DATA','LIVE']].map(function(x){return '<div class="stat"><div class="stat-k">'+x[0]+'</div><div class="stat-v">'+esc(x[1])+'</div></div>'}).join('');
+    $('view-orders').innerHTML=table('Orders','Latest 100 authoritative local order records.',['DATE','BUYER','PLAN','STATE','LIST','DISCOUNT','PAID','PROMO','PROVIDER ID'],(d.orders||[]).map(function(o){return '<tr><td>'+date(o.created_at)+'</td><td>'+esc(o.email||'—')+'</td><td>'+esc(o.plan||'—')+'</td><td>'+pill(o.status)+'</td><td>'+money(o.list_amount_cents==null?o.amount_cents:o.list_amount_cents)+'</td><td>'+money(o.discount_cents)+'</td><td>'+money(o.amount_cents)+'</td><td class="mono">'+esc(o.promotion_code||'—')+'</td><td class="mono">'+esc(o.provider_order_id)+'</td></tr>'}));
+    $('view-customers').innerHTML=table('Buyers','Commercial customer identities.',['JOINED','EMAIL','STATE','PAID ORDERS','UNUSED PASSES'],(d.customers||[]).map(function(cu){return '<tr><td>'+date(cu.created_at)+'</td><td>'+esc(cu.email)+'</td><td>'+pill(cu.status)+'</td><td>'+esc(cu.completed_orders)+'</td><td>'+esc(cu.unused_match_passes)+'</td></tr>'}));
+    $('view-subscriptions').innerHTML=table('Subscriptions','Revolut-backed subscription state.',['DATE','BUYER','PLAN','STATE','PAID THROUGH','PROVIDER ID'],(d.subscriptions||[]).map(function(s){return '<tr><td>'+date(s.created_at)+'</td><td>'+esc(s.email)+'</td><td>'+esc(s.plan)+'</td><td>'+pill(s.status)+'</td><td>'+date(s.paid_through)+'</td><td class="mono">'+esc(s.provider_subscription_id)+'</td></tr>'}));
+    $('view-licenses').innerHTML=table('Licences','Signed entitlement authority. No manual mint controls exist here.',['BUYER','KEY','TYPE','PLAN','STATE','VALID UNTIL','DEVICES'],(d.licenses||[]).map(function(l){return '<tr><td>'+esc(l.email)+'</td><td class="mono">'+esc(l.license_key)+'</td><td>'+esc(l.kind)+'</td><td>'+esc(l.plan)+'</td><td>'+pill(l.status)+'</td><td>'+date(l.valid_until)+'</td><td>'+esc(l.max_devices)+'</td></tr>'}));
+    $('view-passes').innerHTML=table('Match Passes','Credits created only from completed authoritative orders.',['BUYER','PASS KEY','STATE','MATCH','ACTIVATED','EXPIRES'],(d.match_passes||[]).map(function(p){return '<tr><td>'+esc(p.email)+'</td><td class="mono">'+esc(p.pass_key)+'</td><td>'+pill(p.status)+'</td><td>'+esc(p.match_id||'—')+'</td><td>'+date(p.activated_at)+'</td><td>'+date(p.expires_at)+'</td></tr>'}));
+    renderPromotions();
+  }
+  function renderPromotions(){var d=state.data||{};var form='<div class="panel"><div class="panel-head"><div><div class="panel-title">Create Match Pass promotion</div><div class="panel-note">Server-enforced final price. Minimum €1. Optional email restriction and expiry.</div></div></div><form id="promo-form" class="form-grid"><div class="field"><label>CODE</label><input name="code" maxlength="32" required placeholder="CLUB2026"></div><div class="field"><label>FINAL PRICE EUR</label><input name="price" type="number" min="1" max="79" step="0.01" required value="1.00"></div><div class="field"><label>MAX REDEMPTIONS</label><input name="max" type="number" min="1" max="10000" value="1" required></div><div class="field"><label>PER EMAIL</label><input name="per" type="number" min="1" value="1" required></div><div class="field"><label>ALLOWED EMAIL — OPTIONAL</label><input name="email" type="email" placeholder="buyer@club.com"></div><div class="field"><label>EXPIRES — OPTIONAL</label><input name="expires" type="datetime-local"></div><div class="field field-wide"><label>DESCRIPTION</label><input name="description" maxlength="240" placeholder="Pilot club / launch test"></div><div class="field field-wide"><button class="btn btn-p" type="submit" style="align-self:flex-start">CREATE PROMOTION</button><span id="promo-message" class="panel-note"></span></div></form></div>';
+    var rows=(d.promotions||[]).map(function(p){return '<tr><td class="mono">'+esc(p.code)+'</td><td>'+pill(p.active?'active':'inactive')+'</td><td>'+money(p.final_price_cents)+'</td><td>'+esc(p.allowed_email||'ANY')+'</td><td>'+esc(p.completed_redemptions)+' / '+esc(p.max_redemptions)+'</td><td>'+date(p.expires_at)+'</td><td><button class="btn btn-s promo-toggle" data-id="'+esc(p.id)+'" data-active="'+(!p.active)+'">'+(p.active?'DEACTIVATE':'ACTIVATE')+'</button></td></tr>'});
+    $('view-promotions').innerHTML=form+table('Promotions','All promotion definitions and redemption usage.',['CODE','STATE','FINAL','EMAIL','USED / MAX','EXPIRES','ACTION'],rows)+table('Redemptions','Reserved, completed and released promotion uses.',['DATE','CODE','BUYER','STATE','LIST','DISCOUNT','FINAL','ORDER'],(d.redemptions||[]).map(function(r){return '<tr><td>'+date(r.created_at)+'</td><td class="mono">'+esc(r.code)+'</td><td>'+esc(r.email)+'</td><td>'+pill(r.status)+'</td><td>'+money(r.original_amount_cents)+'</td><td>'+money(r.discount_cents)+'</td><td>'+money(r.final_amount_cents)+'</td><td class="mono">'+esc(r.provider_order_id||'—')+'</td></tr>'));
+    $('promo-form').addEventListener('submit',createPromotion);Array.prototype.forEach.call(document.querySelectorAll('.promo-toggle'),function(b){b.addEventListener('click',togglePromotion)});
+  }
+  async function load(){try{state.data=await api('/api/admin/snapshot');$('login').classList.add('hidden');$('app').classList.remove('hidden');render()}catch(e){if(e.status===401||e.status===403){$('app').classList.add('hidden');$('login').classList.remove('hidden')}else{alert(e.message)}}}
+  async function createPromotion(e){e.preventDefault();var f=new FormData(e.target),price=Math.round(Number(f.get('price'))*100);var msg=$('promo-message');msg.textContent='Creating…';try{await api('/api/admin/create-promotion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:f.get('code'),final_price_cents:price,max_redemptions:Number(f.get('max')),max_redemptions_per_email:Number(f.get('per')),allowed_email:f.get('email'),expires_at:f.get('expires')?new Date(f.get('expires')).toISOString():null,description:f.get('description')})});msg.textContent='Created.';await load()}catch(x){msg.textContent=x.message}}
+  async function togglePromotion(e){var b=e.currentTarget;b.disabled=true;try{await api('/api/admin/set-promotion-active',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:b.dataset.id,active:b.dataset.active==='true'})});await load()}catch(x){alert(x.message);b.disabled=false}}
+  $('email-form').addEventListener('submit',async function(e){e.preventDefault();state.email=$('email').value.trim();$('login-error').textContent='';try{await api('/api/admin/request-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:state.email})});$('email-form').classList.add('hidden');$('code-form').classList.remove('hidden');$('code').focus()}catch(x){$('login-error').textContent=x.message}});
+  $('code-form').addEventListener('submit',async function(e){e.preventDefault();$('login-error').textContent='';try{await api('/api/admin/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:state.email,token:$('code').value})});await load()}catch(x){$('login-error').textContent=x.message}});
+  $('logout').addEventListener('click',async function(){try{await api('/api/admin/logout',{method:'POST'})}finally{location.reload()}});$('refresh').addEventListener('click',load);
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){t.addEventListener('click',function(){document.querySelector('.tab.active').classList.remove('active');t.classList.add('active');document.querySelector('.view.active').classList.remove('active');$('view-'+t.dataset.view).classList.add('active')})});
+  load();
+})();
+</script>
+</body>
+</html>
