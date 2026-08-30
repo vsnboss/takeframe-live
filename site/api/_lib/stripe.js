@@ -52,6 +52,10 @@ async function retrieveInvoice(id) {
   return request(`/invoices/${encodeURIComponent(id)}${query({ 'expand[]': 'lines.data' })}`);
 }
 
+async function retrieveProduct(id) {
+  return request(`/products/${encodeURIComponent(id)}`);
+}
+
 async function retrieveSubscription(id) {
   return request(`/subscriptions/${encodeURIComponent(id)}${query({ 'expand[]': 'items.data.price.product' })}`);
 }
@@ -62,5 +66,6 @@ module.exports = {
   retrieveCheckoutSessionLineItems,
   retrieveCustomer,
   retrieveInvoice,
+  retrieveProduct,
   retrieveSubscription,
 };
